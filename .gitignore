@@ -1,0 +1,37 @@
+# osx noise
+.DS_Store
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+profile
+
+# xcode noise
+*/build*
+*.app/
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+*.xcworkspace
+xcuserdata
+
+
+# Eclipse noise
+.buildpath
+.project
+.metadata*
+
+# Kohana Sigi Noise
+*/application/cache/*
+*/application/logs/*
+
+# svn & cvs
+.svn*
+CVS
