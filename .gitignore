@@ -29,8 +29,11 @@ xcuserdata
 .metadata*
 
 # Kohana Sigi Noise
-*/application/cache/*
-*/application/logs/*
+/application/cache/*
+/application/logs/*
+
+# Dreamweaver noise
+dwsync.xml
 
 # svn & cvs
 .svn*
