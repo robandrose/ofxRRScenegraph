@@ -26,6 +26,7 @@ xcuserdata
 # Eclipse noise
 .buildpath
 .project
+.settings
 .metadata*
 
 # Kohana Sigi Noise
