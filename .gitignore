@@ -32,6 +32,8 @@ xcuserdata
 # Kohana Sigi Noise
 /application/cache/*
 /application/logs/*
+/media/cache/*
+/media/upload/_thumbs/*
 
 # Dreamweaver noise
 dwsync.xml
