@@ -17,19 +17,16 @@ public:
 	TextField();
 	virtual ~TextField();
 	void setup();
-	void firstUpdate();
 	void update();
 	void _draw();
 	
 	void setText(string _text);
 	string getText();
-
 	
+	void setFontName(string _fontname);
+	void setFontSize(float _fontsize);	
 	void setFontDescription(string _fontdescription);
 	
-	void setFontName(string _fongName);
-	void setFontSize(float _fontsize);
-
 	void setSize(float _width, float _height);
 	void setTextAlign(int _textalign);
 	void setLineSpacing(int _linespacing);
@@ -38,9 +35,9 @@ public:
 	void setIndent(float _indent);
 	void setTabs(vector<int> _tabs);
 	
-	
 	virtual void setColor(float _r, float _g, float _b);
 	virtual void setColor(ofColor _c){BasicScreenObject::setColor(_c);};
+	
 	
 	ofPoint getTextBounds();
 	
@@ -57,19 +54,22 @@ private:
 	ofxPCPangoLayout* layout;
 	ofxPCPangoFontDescription* fd;
 	
-	ofImage text_image;
+	ofImage text_image;	
 	
 	string mytext;	
-	string fontdescription;
+	string fontname;
 	float fontsize;
+	string fontdescription;
 	int align;
 	bool justify;
 	
 	int linespacing;
 	float indent;
 	vector<int> tabs;
-	
 	ofPoint bounds;
 	
+	bool changed;
+	
+	void updateFontDescription();
 	void renderText();	
 };

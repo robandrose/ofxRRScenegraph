@@ -8,9 +8,9 @@
 
 #include "TextField.h"
 
-const int TextField::ALIGN_LEFT=0;
-const int TextField::ALIGN_RIGHT=1;
-const int TextField::ALIGN_CENTER=2;
+const int TextField::ALIGN_LEFT=PANGO_ALIGN_LEFT;
+const int TextField::ALIGN_RIGHT=PANGO_ALIGN_RIGHT;
+const int TextField::ALIGN_CENTER=PANGO_ALIGN_CENTER;
 
 
 TextField::TextField(){
@@ -20,15 +20,14 @@ TextField::TextField(){
 	layout=NULL;
 	fd=NULL;
 	
-	
-	setFontDescription("Graphik 12");
-	setSize(100, 50);
-	
+	changed=false;
+		
+	setFontSize(15);
+	setFontName("Graphik");
+	setSize(200, 50);
 	setLineSpacing(3);
 	setTextAlign(ALIGN_LEFT);
 	setIndent(0.0);
-	
-
 	
 }
 
@@ -40,43 +39,48 @@ void TextField::setup(){
 	
 }
 
-void TextField::firstUpdate(){
-	
-}
-
 void TextField::update(){	
-
+	if(changed){
+		renderText();
+	}
 }
 
 void TextField::setText(string _text){
 	if(_text==mytext)return;
 	mytext=_text;
-	renderText();
+
+	changed=true;
 }
 
 string TextField::getText(){
 	return mytext;	
 }
 
-void TextField::setFontDescription(string _fontdescription){
-	if(fd!=NULL){
-		delete fd;
-	}
-	
-	fontdescription=_fontdescription;	
-	fd = new ofxPCPangoFontDescription();
-	fd->createFromString(fontdescription);
-	
-}
-
 void TextField::setFontName(string _fontname) {
-	setFontDescription(_fontname);
-	renderText();
+	fontname=_fontname;
+	updateFontDescription();
 }
 
 void TextField::setFontSize(float _fontsize){
-	
+	fontsize=_fontsize;
+	updateFontDescription();
 }
+
+void TextField::updateFontDescription(){
+	setFontDescription(fontname+" "+ofToString(fontsize));	
+}
+
+void TextField::setFontDescription(string _fontdescription){
+	if(fd!=NULL){
+		delete fd;
+	}	
+	fontdescription=_fontdescription;	
+	fd = new ofxPCPangoFontDescription();
+	fd->createFromString(fontdescription);
+	changed=true;
+}
+
+
 
 void TextField::setSize(float _width, float _height){
 	BasicScreenObject::setSize(_width, _height);
@@ -85,32 +89,33 @@ void TextField::setSize(float _width, float _height){
 	layout->fill(0, 0, 0, 0);
 	text_image.clear();
 	text_image.allocate(layout->getWidth(), layout->getHeight(), OF_IMAGE_COLOR_ALPHA);	
-	renderText();
+	changed=true;
 }
 
 void TextField::setTextAlign(int _textalign){
 	align=_textalign;
-	renderText();
+	changed=true;
 }
 
 void TextField::setLineSpacing(int _linespacing){
 	linespacing=_linespacing;
-	renderText();
+	changed=true;
 }
 
 void TextField::setIndent(float _indent){
 	indent=_indent;
-	renderText();	
+	changed=true;
 }
 
 void TextField::setTabs(vector<int> _tabs){
 	tabs=_tabs;
-	renderText();	
+	changed=true;
 }
 
 void TextField::setColor(float _r, float _g, float _b){
 	BasicScreenObject::setColor(_r,_g,_b);
-	renderText();
+	changed=true;
+
 }
 
 ofPoint TextField::getTextBounds(){
@@ -118,37 +123,23 @@ ofPoint TextField::getTextBounds(){
 }
 
 void TextField::renderText(){
-	
 	layout->context->clear();
-	layout->setWidth(width); 	
+	layout->setWidth(width);
 	layout->setFontDescription(*fd);
 	layout->setTextColor(color.r/255.0f,color.g/255.0f,color.b/255.0f,1);
 	layout->setSpacing(linespacing);	
 	layout->setIndent(indent);
 	layout->setMarkup(mytext);
 	layout->setTabs(tabs);
-	
-	switch(align){
-			case ALIGN_LEFT:
-			layout->setAlignLeft();
-			break;
-		case ALIGN_RIGHT:
-			layout->setAlignRight();
-			break;
-		case ALIGN_CENTER:
-			layout->setAlignCenter();
-			break;			
-	}
-	
-	layout->show();	
+	layout->setPangoAlign(align);
+	layout->show();
 	
 	text_image.setFromPixels(layout->context->getSurface()->getPixels(), text_image.width, text_image.height, OF_IMAGE_COLOR_ALPHA, true);
-	
-	bounds=layout->getPixelSize();
+	bounds=layout->getPixelSize();	
 	
 	if(bounds.y!=height){
 		setSize(width, bounds.y);
-	}
+	}	
 }
 
 void TextField::_draw(){
