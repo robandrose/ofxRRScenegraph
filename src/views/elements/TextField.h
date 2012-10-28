@@ -38,9 +38,7 @@ public:
 	virtual void setColor(float _r, float _g, float _b);
 	virtual void setColor(ofColor _c){BasicScreenObject::setColor(_c);};
 	
-	
-	ofPoint getTextBounds();
-	
+	ofPoint getTextBounds();	
 	ofxPCPangoLayout* getLayout();
 	
 	static const int ALIGN_CENTER;
