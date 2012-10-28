@@ -62,6 +62,10 @@ public:
 	
 protected:
 	
+	bool bTuioSetup;
+	bool bColorPickerSetup;
+	
+	
 	void setup();
 	void _draw();
 	void update();

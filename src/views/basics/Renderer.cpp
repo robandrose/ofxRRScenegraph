@@ -23,6 +23,8 @@ Renderer::Renderer(){
 	
 	currentviewport=ofRectangle(0,0,0,0);
 	
+	bTuioSetup=false;
+	bColorPickerSetup=false;
 }
 
 Renderer::~Renderer(){
@@ -57,43 +59,42 @@ void Renderer::setupColorPicker(float _width, float _height, float _sampling, fl
 	maxbounds = ofRectangle ( 0 , 0 , pickingmap.getWidth()-1 , pickingmap.getHeight()-1 ) ;
 	camera.setupPerspective();
 	
+	bColorPickerSetup=true;
+	
 }
 
 
 void Renderer::update(){
-
-	bool waslighting=glIsEnabled(GL_LIGHTING);
-	if(waslighting){
-		glDisable(GL_LIGHTING);
-	}
-	if(pickingmap.isAllocated()){
-	
-	if(ofGetFrameNum() % captureincrement==0){
-		pickingmap.begin();
+	if(bColorPickerSetup){
 		
-		ofClear(0);
-		ofPushMatrix() ;
+		bool waslighting=glIsEnabled(GL_LIGHTING);
+		if(waslighting){
+			glDisable(GL_LIGHTING);
+		}
+		
+		if(ofGetFrameNum() % captureincrement==0){
+			pickingmap.begin();
+			
+			ofClear(0);
+			ofPushMatrix() ;
 			ofScale( mapscale , mapscale , mapscale) ;		
 			BasicScreenObject::drawForPicking();	
-		ofPopMatrix();
-		
-		pickingmap.end();		
-		pickingmap.readToPixels(mapPixels);
+			ofPopMatrix();
+			
+			pickingmap.end();		
+			pickingmap.readToPixels(mapPixels);
+		}
+		if(waslighting){
+			glEnable(GL_LIGHTING);
+		}
 	}
-	}
-	if(waslighting){
-		glEnable(GL_LIGHTING);
-	}
-	
 }
-
 
 void Renderer::draw(){
 	currentviewport=ofGetCurrentViewport();
 	camera.begin();
 	BasicScreenObject::draw();
 	camera.end();
-	//if (Settings::getInstance()->debug) drawMap();
 	drawCursors();
 }
 
@@ -105,6 +106,7 @@ void Renderer::_draw(){
 void Renderer::startTuio(int _port) {
 	port = _port;
 	tuio.connect(_port);
+	bTuioSetup=true;
 }
 
 
@@ -247,37 +249,18 @@ void Renderer::drawCursors(){
 	ofEnableAlphaBlending();
 	glBlendFunc(GL_ONE, GL_ONE);
 	
-	if(tuio.bIsConnected){
-
-	std::list<TuioCursor*> cursorList =  tuio.client->getTuioCursors();
-	std::list<TuioCursor*>::iterator tit;
-	tuio.client->lockCursorList();
-	for (tit=cursorList.begin(); tit != cursorList.end(); tit++) {
-		TuioCursor * cur = (*tit);
-		glColor3f(0.1,0.1, 0.1);
-		for(int i=0;i<5;i++){
-			ofEllipse(cur->getX()*ofGetWidth(), cur->getY()*ofGetHeight(), 20.0+i*i, 20.0+i*i);
-		}
-		
-		/*
-		if (Settings::getInstance()->debug) {
-			glColor3f(0.5,0.5, 0.5);
-			string str = "SessionId: "+ofToString((int)(cur->getSessionID()));
-			ofDrawBitmapString(str, cur->getX()*ofGetWidth()-10.0, cur->getY()*ofGetHeight()+25.0);
-			str = "CursorId: "+ofToString((int)(cur->getCursorID()));
-			ofDrawBitmapString(str, cur->getX()*ofGetWidth()-10.0, cur->getY()*ofGetHeight()+40.0);
-			
-			
-			if (touchtomouse) {
-				if (cur->getSessionID()==mousetouchid) {
-					glColor3f(0.5,0.5, 0.5);
-					ofDrawBitmapString("mouse emulation", cur->getX()*ofGetWidth()+40, cur->getY()*ofGetHeight());
-				}
+	if(bTuioSetup){
+		std::list<TuioCursor*> cursorList =  tuio.client->getTuioCursors();
+		std::list<TuioCursor*>::iterator tit;
+		tuio.client->lockCursorList();
+		for (tit=cursorList.begin(); tit != cursorList.end(); tit++) {
+			TuioCursor * cur = (*tit);
+			glColor3f(0.1,0.1, 0.1);
+			for(int i=0;i<5;i++){
+				ofEllipse(cur->getX()*ofGetWidth(), cur->getY()*ofGetHeight(), 20.0+i*i, 20.0+i*i);
 			}
-		}*/
-	}
-	
-	tuio.client->unlockCursorList();
+		}
+		tuio.client->unlockCursorList();
 	}
 	
 	if (mousetotouch) {
@@ -286,11 +269,6 @@ void Renderer::drawCursors(){
 			for(int i=0;i<5;i++){
 				ofEllipse(ofGetMouseX(), ofGetMouseY(), 20.0+i*i, 20.0+i*i);
 			}
-			/*
-			if (Settings::getInstance()->debug) {
-				glColor3f(0.5,0.5, 0.5);
-				ofDrawBitmapString("touch emulation", ofGetMouseX()+40, ofGetMouseY());
-			}*/
 		}
 	}
 	
