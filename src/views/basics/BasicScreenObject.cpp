@@ -13,12 +13,12 @@
 
 BasicScreenObject::BasicScreenObject(){
 	
-	ofAddListener(ofEvents().setup, this, &BasicScreenObject::_setup);
-	ofAddListener(ofEvents().update, this, &BasicScreenObject::_update);
-	ofAddListener(ofEvents().exit, this, &BasicScreenObject::_exit);
-	ofAddListener(killEvent,this , &BasicScreenObject::onKill);
-	ofAddListener(hideEvent, this, &BasicScreenObject::onHide);
-	ofAddListener(showEvent, this, &BasicScreenObject::onShow);
+	ofAddListener(ofEvents().setup,		this, &BasicScreenObject::_setup);
+	ofAddListener(ofEvents().update,	this, &BasicScreenObject::_update);
+	ofAddListener(ofEvents().exit,		this, &BasicScreenObject::_exit);
+	ofAddListener(killEvent,	this, &BasicScreenObject::onKill);
+	ofAddListener(hideEvent,	this, &BasicScreenObject::onHide);
+	ofAddListener(showEvent,	this, &BasicScreenObject::onShow);
 	ofAddListener(Tweener.onTweenCompleteEvent, this, &BasicScreenObject::onTweenComplete);
 	
 	

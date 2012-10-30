@@ -14,96 +14,92 @@
 
 BasicInteractiveObject::BasicInteractiveObject(){
 	
-	ofAddListener(firstTouchDownEvent, this, &BasicInteractiveObject::onFirstTouchDown);	
-	ofAddListener(lastTouchUpEvent, this, &BasicInteractiveObject::onLastTouchUp);	
+	ofAddListener(firstTouchDownEvent,	this, &BasicInteractiveObject::onFirstTouchDown);	
+	ofAddListener(lastTouchUpEvent,		this, &BasicInteractiveObject::onLastTouchUp);	
 	
-	ofAddListener(tapEvent, this, &BasicInteractiveObject::onTap);	
-	ofAddListener(doubleTapEvent, this, &BasicInteractiveObject::onDoubleTap);
+	ofAddListener(tapEvent,				this, &BasicInteractiveObject::onTap);	
+	ofAddListener(doubleTapEvent,		this, &BasicInteractiveObject::onDoubleTap);
 	
-	ofAddListener(swipeUpEvent, this, &BasicInteractiveObject::onSwipeUp);
-	ofAddListener(swipeDownEvent, this, &BasicInteractiveObject::onSwipeDown);
-	ofAddListener(swipeLeftEvent, this, &BasicInteractiveObject::onSwipeLeft);
-	ofAddListener(swipeRightEvent, this, &BasicInteractiveObject::onSwipeRight);
-	ofAddListener(scaleStartEvent, this, &BasicInteractiveObject::onScaleStart);
-	ofAddListener(scaleStopEvent, this, &BasicInteractiveObject::onScaleStop);
-	ofAddListener(dragStartEvent, this, &BasicInteractiveObject::onDragStart);
-	ofAddListener(dragStopEvent, this, &BasicInteractiveObject::onDragStop);
-	ofAddListener(rotateStartEvent, this, &BasicInteractiveObject::onRotateStart);
-	ofAddListener(rotateStopEvent, this, &BasicInteractiveObject::onRotateStop);
+	ofAddListener(swipeUpEvent,			this, &BasicInteractiveObject::onSwipeUp);
+	ofAddListener(swipeDownEvent,		this, &BasicInteractiveObject::onSwipeDown);
+	ofAddListener(swipeLeftEvent,		this, &BasicInteractiveObject::onSwipeLeft);
+	ofAddListener(swipeRightEvent,		this, &BasicInteractiveObject::onSwipeRight);
+	ofAddListener(scaleStartEvent,		this, &BasicInteractiveObject::onScaleStart);
+	ofAddListener(scaleStopEvent,		this, &BasicInteractiveObject::onScaleStop);
+	ofAddListener(dragStartEvent,		this, &BasicInteractiveObject::onDragStart);
+	ofAddListener(dragStopEvent,		this, &BasicInteractiveObject::onDragStop);
+	ofAddListener(rotateStartEvent,		this, &BasicInteractiveObject::onRotateStart);
+	ofAddListener(rotateStopEvent,		this, &BasicInteractiveObject::onRotateStop);
 	
-	ofAddListener(startMultiTouchScopeEvent, this, &BasicInteractiveObject::onStartMultiTouchScope);
-	ofAddListener(updateMultiTouchScopeEvent, this, &BasicInteractiveObject::onUpdateMultiTouchScope);
-	ofAddListener(endMultiTouchScopeEvent, this, &BasicInteractiveObject::onEndMultiTouchScope);
+	ofAddListener(startMultiTouchScopeEvent,	this, &BasicInteractiveObject::onStartMultiTouchScope);
+	ofAddListener(updateMultiTouchScopeEvent,	this, &BasicInteractiveObject::onUpdateMultiTouchScope);
+	ofAddListener(endMultiTouchScopeEvent,		this, &BasicInteractiveObject::onEndMultiTouchScope);
 	
 	
-	dragtarget=this;
-	isinteractive = true;
+	dragtarget		= this;
+	isinteractive	= true;
 	
-	mtscale=1.0;
+	mtscale = 1.0;
 	mtrotate.set(0, 0, 0, 1);
 	
-	isstdraggable=true;
-	isdraggable=true;
-	isscaleable=true;
-	isrotateable=true;
-	isrotating = false;
-	isscaling = false;
-	isdragging = false;
+	isstdraggable	= true;
+	isdraggable		= true;
+	isscaleable		= true;
+	isrotateable	= true;
+	isrotating		= false;
+	isscaling		= false;
+	isdragging		= false;
 	
-	isdragauto=true;
-	isscaleauto=true;
-	isrotateauto=true;
+	isdragauto		= true;
+	isscaleauto		= true;
+	isrotateauto	= true;
 	
-	dragdamp=.3;
-	rotatedamp=.3;
-	scaledamp=.3;
+	dragdamp		= .3;
+	rotatedamp		= .3;
+	scaledamp		= .3;
 	
 	setDragThreshold(20);
 	setRotationThreshold(4);
 	setScaleThreshold(.1);
 	
-	mttoucha=NULL;
-	mttouchb=NULL;
-	mtcounter = 0;
+	mttoucha		= NULL;
+	mttouchb		= NULL;
+	mtcounter		= 0;
 	mtscopeduration = 0;
 	mttranslatedist = 0;
-	mtrotatedist = 0;
+	mtrotatedist	= 0;
 	
-	mtscale = 0;
-	mtscalestart = 0;
-	mtscalespeed = 0;
-	mtscaledist = 0;
+	mtscale			= 0;
+	mtscalestart	= 0;
+	mtscalespeed	= 0;
+	mtscaledist		= 0;
 	
-	mtscoperunning=false;
-	
-	
+	mtscoperunning	= false;
 }
 
 
 BasicInteractiveObject::~BasicInteractiveObject(){
 	
-	ofRemoveListener(firstTouchDownEvent, this, &BasicInteractiveObject::onFirstTouchDown);	
-	ofRemoveListener(lastTouchUpEvent, this, &BasicInteractiveObject::onLastTouchUp);	
+	ofRemoveListener(firstTouchDownEvent,	this, &BasicInteractiveObject::onFirstTouchDown);	
+	ofRemoveListener(lastTouchUpEvent,		this, &BasicInteractiveObject::onLastTouchUp);	
 	
-	ofRemoveListener(tapEvent, this, &BasicInteractiveObject::onTap);	
-	ofRemoveListener(doubleTapEvent, this, &BasicInteractiveObject::onDoubleTap);
-	ofRemoveListener(swipeUpEvent, this, &BasicInteractiveObject::onSwipeUp);
-	ofRemoveListener(swipeDownEvent, this, &BasicInteractiveObject::onSwipeDown);
-	ofRemoveListener(swipeLeftEvent, this, &BasicInteractiveObject::onSwipeLeft);
-	ofRemoveListener(swipeRightEvent, this, &BasicInteractiveObject::onSwipeRight);
-	ofRemoveListener(scaleStartEvent, this, &BasicInteractiveObject::onScaleStart);
-	ofRemoveListener(scaleStopEvent, this, &BasicInteractiveObject::onScaleStop);
-	ofRemoveListener(dragStartEvent, this, &BasicInteractiveObject::onDragStart);
-	ofRemoveListener(dragStopEvent, this, &BasicInteractiveObject::onDragStop);
-	ofRemoveListener(rotateStartEvent, this, &BasicInteractiveObject::onRotateStart);
-	ofRemoveListener(rotateStopEvent, this, &BasicInteractiveObject::onRotateStop);
+	ofRemoveListener(tapEvent,				this, &BasicInteractiveObject::onTap);	
+	ofRemoveListener(doubleTapEvent,		this, &BasicInteractiveObject::onDoubleTap);
+	ofRemoveListener(swipeUpEvent,			this, &BasicInteractiveObject::onSwipeUp);
+	ofRemoveListener(swipeDownEvent,		this, &BasicInteractiveObject::onSwipeDown);
+	ofRemoveListener(swipeLeftEvent,		this, &BasicInteractiveObject::onSwipeLeft);
+	ofRemoveListener(swipeRightEvent,		this, &BasicInteractiveObject::onSwipeRight);
+	ofRemoveListener(scaleStartEvent,		this, &BasicInteractiveObject::onScaleStart);
+	ofRemoveListener(scaleStopEvent,		this, &BasicInteractiveObject::onScaleStop);
+	ofRemoveListener(dragStartEvent,		this, &BasicInteractiveObject::onDragStart);
+	ofRemoveListener(dragStopEvent,			this, &BasicInteractiveObject::onDragStop);
+	ofRemoveListener(rotateStartEvent,		this, &BasicInteractiveObject::onRotateStart);
+	ofRemoveListener(rotateStopEvent,		this, &BasicInteractiveObject::onRotateStop);
 	
-	ofRemoveListener(startMultiTouchScopeEvent, this, &BasicInteractiveObject::onStartMultiTouchScope);
-	ofRemoveListener(updateMultiTouchScopeEvent, this, &BasicInteractiveObject::onUpdateMultiTouchScope);
-	ofRemoveListener(endMultiTouchScopeEvent, this, &BasicInteractiveObject::onEndMultiTouchScope);
-	
+	ofRemoveListener(startMultiTouchScopeEvent,	this, &BasicInteractiveObject::onStartMultiTouchScope);
+	ofRemoveListener(updateMultiTouchScopeEvent,this, &BasicInteractiveObject::onUpdateMultiTouchScope);
+	ofRemoveListener(endMultiTouchScopeEvent,	this, &BasicInteractiveObject::onEndMultiTouchScope);	
 }
-
 
 
 void BasicInteractiveObject::update(){
@@ -111,13 +107,13 @@ void BasicInteractiveObject::update(){
 }
 
 
-void BasicInteractiveObject::setDragThreshold(float _dragthreshold)			{ dragthreshold=_dragthreshold; }
-void BasicInteractiveObject::setScaleThreshold(float _scalethreshold)		{ scalethreshold=_scalethreshold;}
-void BasicInteractiveObject::setRotationThreshold(float _rotatethreshold)	{ rotatethreshold=_rotatethreshold;}
+void BasicInteractiveObject::setDragThreshold(		float _dragthreshold)		{ dragthreshold=_dragthreshold; }
+void BasicInteractiveObject::setScaleThreshold(		float _scalethreshold)		{ scalethreshold=_scalethreshold; }
+void BasicInteractiveObject::setRotationThreshold(	float _rotatethreshold)		{ rotatethreshold=_rotatethreshold; }
 
-void BasicInteractiveObject::setDragDamping(float _dragDamping)				{ dragdamp = _dragDamping;};
-void BasicInteractiveObject::setScaleDamping(float _scaleDamping)			{ scaledamp = _scaleDamping;};
-void BasicInteractiveObject::setRotationDamping(float _rotationDamping)		{ rotatedamp = _rotationDamping;};
+void BasicInteractiveObject::setDragDamping(		float _dragDamping)			{ dragdamp = _dragDamping; };
+void BasicInteractiveObject::setScaleDamping(		float _scaleDamping)		{ scaledamp = _scaleDamping; };
+void BasicInteractiveObject::setRotationDamping(	float _rotationDamping)		{ rotatedamp = _rotationDamping; };
 
 
 //Aktionen, werden direkt vom Renderer aufgerufen.
@@ -146,39 +142,35 @@ void BasicInteractiveObject::touchUpOutside(mtRay ray, int touchId){
 	removeMultiTouch(ray, touchId);
 }
 
+
 // Multitouch internal handling:
 // TODO: if internal, these should be private or protected!
-
 void BasicInteractiveObject::addMultiTouch(mtRay ray, int touchId){
-	MultiTouchPoint* mtp=new MultiTouchPoint();
+	MultiTouchPoint* mtp = new MultiTouchPoint();
 	
-	plane.pos=getGlobalPosition();
-	plane.norm=ofVec3f(0,0,1)*getGlobalOrientation();
+	plane.pos	= getGlobalPosition();
+	plane.norm	= ofVec3f(0,0,1)*getGlobalOrientation();
 	
-	float u=plane.norm.dot(plane.pos-ray.pos)/plane.norm.dot(ray.dir);
-	ofVec3f gintersection=ray.pos+ray.dir*u;
+	float u		= plane.norm.dot(plane.pos-ray.pos)/plane.norm.dot(ray.dir);
+	ofVec3f gintersection = ray.pos+ray.dir*u;
 	
 	mtp->screenpos.set(ray.screenpos);
 	mtp->globalstartpos.set(gintersection);	
-	mtp->localstartpos=globalToLocal(mtp->globalstartpos);
-	mtp->localpos=mtp->localstartpos;
-	mtp->localoffset=mtp->localstartpos-getPosition();
-	mtp->globalpos=mtp->globalstartpos;
-	mtp->globalmovedist=0;
-	mtp->starttime=ofGetElapsedTimeMillis();	
+	mtp->localstartpos	= globalToLocal(mtp->globalstartpos);
+	mtp->localpos		= mtp->localstartpos;
+	mtp->localoffset	= mtp->localstartpos-getPosition();
+	mtp->globalpos		= mtp->globalstartpos;
+	mtp->globalmovedist	= 0;
+	mtp->starttime		= ofGetElapsedTimeMillis();	
 	
-	activeMultiTouches[touchId]=mtp;
+	activeMultiTouches[touchId] = mtp;
 	mtcounter++;
 	
-	if(activeMultiTouches.size()==1){
+	if(activeMultiTouches.size() == 1){
 		// Start of Scope
-		mtstarttime=ofGetElapsedTimeMillis();
-		mtscoperunning=true;
-		/*
-		isdragging=false;
-		isscaling=false;
-		isrotating=false;
-		*/
+		mtstarttime		= ofGetElapsedTimeMillis();
+		mtscoperunning	= true;
+
 		MultiTouchEvent params(this);
 		ofNotifyEvent(firstTouchDownEvent,params,this);
 	}
@@ -188,9 +180,9 @@ void BasicInteractiveObject::addMultiTouch(mtRay ray, int touchId){
 		ofNotifyEvent(startMultiTouchScopeEvent,params,this);
 	}
 	
-	mttranslatedist=0;
-	mtrotatedist=0;
-	mtscaledist=0;
+	mttranslatedist	= 0;
+	mtrotatedist	= 0;
+	mtscaledist		= 0;
 	
 	mttranslatespeed.set(0,0,0);
 	mtrotatespeed.set(0,0,0,1);
@@ -202,13 +194,13 @@ void BasicInteractiveObject::addMultiTouch(mtRay ray, int touchId){
 void BasicInteractiveObject::updateMultiTouch(mtRay ray, int touchId){
 	if(isMultiTouchActive(touchId)){
 	
-		plane.pos=getGlobalPosition();
-		plane.norm=ofVec3f(0,0,1)*getGlobalOrientation();
+		plane.pos	= getGlobalPosition();
+		plane.norm	= ofVec3f(0,0,1)*getGlobalOrientation();
 		
-		float u=plane.norm.dot(plane.pos-ray.pos)/plane.norm.dot(ray.dir);
-		ofVec3f gintersection=ray.pos+ray.dir*u;
+		float u		= plane.norm.dot(plane.pos-ray.pos)/plane.norm.dot(ray.dir);
+		ofVec3f gintersection = ray.pos+ray.dir*u;
 		
-		MultiTouchPoint* mtp=activeMultiTouches[touchId];
+		MultiTouchPoint* mtp = activeMultiTouches[touchId];
 
 		mtp->screenpos.set(ray.screenpos);
 		mtp->globalposbef.set(mtp->globalpos);
@@ -218,48 +210,36 @@ void BasicInteractiveObject::updateMultiTouch(mtRay ray, int touchId){
 		mtp->localpos.set(globalToLocal(mtp->globalpos));
 		mtp->localspeeddamped.set((mtp->localspeed + (mtp->localpos-mtp->localposbef))/2);
 		mtp->localspeed.set(mtp->localpos-mtp->localposbef);		
-		mtp->globalmovedist+=mtp->globalspeed.length();
-		
+		mtp->globalmovedist += mtp->globalspeed.length();
 	}
 }
 
 void BasicInteractiveObject::removeMultiTouch(mtRay ray, int touchId){
-	
-	
-	
+
 	if(isMultiTouchActive(touchId)){
-		
-		//ofLog(OF_LOG_NOTICE, "speed: " + ofToString(mttranslatespeed));
-		//ofLog(OF_LOG_NOTICE, "duration: " + ofToString(mtscopeduration));
 		
 		activeMultiTouches.erase(activeMultiTouches.find(touchId));
 		
-		//ofLog(OF_LOG_NOTICE, "num touches: " + ofToString(getNumActiveTouches()));
-		//ofLog(OF_LOG_NOTICE, "mtcounter: " + ofToString(mtcounter));
-		//ofLog(OF_LOG_NOTICE, "duration: " + ofToString(mtscopeduration));
-		
-		if(getNumActiveTouches()==0 && mtcounter>0){
+		if(getNumActiveTouches() == 0 && mtcounter > 0){
 			// End of Scope
-			mtscoperunning=false;
-			mtscopeduration=ofGetElapsedTimeMillis()-mtstarttime;
+			mtscoperunning	= false;
+			mtscopeduration	= ofGetElapsedTimeMillis()-mtstarttime;
 			
 			if(!isrotating && !isscaling){
 				// check for taps
 				if (!isdragging && mtscopeduration<500) {
-					if(mtcounter==1){
+					if(mtcounter == 1){
 						MultiTouchEvent params(this);
 						ofNotifyEvent(tapEvent,params,this);
 						
 					}
-					if(mtcounter==2){
+					if(mtcounter == 2){
 						MultiTouchEvent params(this);
 						ofNotifyEvent(doubleTapEvent,params,this);
 					}
 					
 					// check for swipe
-				} else if (mtscopeduration<1000 && mttranslatespeed.length()>0.0){
-					
-					//ofLog(OF_LOG_NOTICE, ofToString(mttranslatespeed));
+				} else if (mtscopeduration < 1000 && mttranslatespeed.length() > 0.0){
 					
 					MultiTouchEvent params(this);
 					
@@ -316,138 +296,133 @@ void BasicInteractiveObject::removeMultiTouch(mtRay ray, int touchId){
 
 void BasicInteractiveObject::resetMTStartValues(){
 	
-	if(getNumActiveTouches()==0)return;
+	if(getNumActiveTouches() == 0)return;
 
-	if(getNumActiveTouches()==1){
-		mttoucha=activeMultiTouches.begin()->second;
-		mttouchb=mttoucha;
+	if(getNumActiveTouches() == 1){
+		mttoucha	= activeMultiTouches.begin()->second;
+		mttouchb	= mttoucha;
 	}else{		
 		
 		// Find relevant touchpoints:
 		ofVec3f dist;
-		float biggestdist=0;	
+		float biggestdist = 0;	
 		
 		for(amt = activeMultiTouches.begin(); amt != activeMultiTouches.end(); amt++) {
-			MultiTouchPoint* p=amt->second;
+			MultiTouchPoint* p = amt->second;
 			for(amtinner=activeMultiTouches.begin(); amtinner != activeMultiTouches.end(); amtinner++){
 				
-				MultiTouchPoint* p2=amtinner->second;
+				MultiTouchPoint* p2 = amtinner->second;
 				dist.set(p->globalpos);
-				dist-=p2->globalpos;			
+				dist -= p2->globalpos;			
 				
-				if(dist.length()>biggestdist){
-					mttoucha=p;
-					mttouchb=p2;
+				if(dist.length() > biggestdist){
+					mttoucha = p;
+					mttouchb = p2;
 					biggestdist=dist.length();
 				}
 			}
 		}
 	}
 	
-	mttransformstart=getCurrentMtTransform();
-	mttransformmatrixstart=getLocalTransformMatrix();
-	mtscalestart=getScale().x;
-	mtrotatestart=getOrientationQuat();
+	mttransformstart		= getCurrentMtTransform();
+	mttransformmatrixstart	= getLocalTransformMatrix();
+	mtscalestart			= getScale().x;
+	mtrotatestart			= getOrientationQuat();
 	
 	mtpivot.set(getCurrentMtTranslate()-getPosition());
-	mtpivot=mtpivot*mtrotatestart.inverse();
-	mtpivot/=mtscalestart;
+	mtpivot	= mtpivot*mtrotatestart.inverse();
+	mtpivot/= mtscalestart;
 	
-	mttranslatestart=getCurrentMtTranslate()-mtpivot;
+	mttranslatestart = getCurrentMtTranslate()-mtpivot;
 	
 	mttranslate.set(0,0,0);
 	mtrotate.set(0,0,0,1);
-	mtscale=1;
+	mtscale = 1;
 	
 }
 
 void BasicInteractiveObject::updateMtTransform(){
-	if(!mtscoperunning)return;
-	mttransform=getCurrentMtTransform();
+	if(!mtscoperunning) return;
+	mttransform = getCurrentMtTransform();
 	
 	mttransformmatrix.makeIdentityMatrix();
 	
-	if(getNumActiveTouches()>1){
-		
+	if(getNumActiveTouches() > 1){
 		
 		mttransformmatrix.translate(-(mttranslatestart+mtpivot));
 		
 		if(isScaleable()){
 			
-			mtscalespeed=mtscale;
+			mtscalespeed	= mtscale;
 			
-			float endscale=(float)mttransform.length()/mttransformstart.length();
-			mtscale+=(endscale-mtscale)*scaledamp;
+			float endscale	= (float)mttransform.length() / mttransformstart.length();
+			mtscale			+= (endscale-mtscale)*scaledamp;
 			
-			mtscalespeed=mtscale-mtscalespeed;
-			mtscaledist+=fabs(mtscalespeed);
+			mtscalespeed	= mtscale-mtscalespeed;
+			mtscaledist		+= fabs(mtscalespeed);
 			
-			if (isscaling==false) {
-				if(mtscaledist>scalethreshold){
-					isscaling=true;
+			if (isscaling == false) {
+				if(mtscaledist > scalethreshold){
+					isscaling = true;
 					MultiTouchEvent params(this);
 					ofNotifyEvent(scaleStartEvent,params,this);
 				}
 			}
 			
 			if(isScaleAuto() && isscaling){
-				mttransformmatrix.scale(mtscale,mtscale,mtscale);
+				mttransformmatrix.scale(mtscale, mtscale, mtscale);
 			}
 		}
 		
-		
 		if(isRotateable()){
-			mtrotatespeed=mtrotate;
+			mtrotatespeed = mtrotate;
 			
 			ofQuaternion newrotate;
 			newrotate.makeRotate(mttransformstart, mttransform);
 			mtrotate.slerp(rotatedamp, mtrotate, newrotate);
-			mtrotatespeed=mtrotate*mtrotatespeed.inverse();
-			mtrotatedist+=fabs(mtrotatespeed.getEuler().x);
+			mtrotatespeed	=  mtrotate*mtrotatespeed.inverse();
+			mtrotatedist	+= fabs(mtrotatespeed.getEuler().x);
 			
 			if (isrotating == false) {
-				if(mtrotatedist>rotatethreshold){
-					isrotating=true;
+				if(mtrotatedist > rotatethreshold){
+					isrotating = true;
 					MultiTouchEvent params(this);
-					ofNotifyEvent(rotateStartEvent,params,this);
+					ofNotifyEvent(rotateStartEvent, params, this);
 				}
 			}
-			
 			
 			if(isRotateAuto() && isrotating){
 				mttransformmatrix.rotate(mtrotate);
 			}
 		}
 		
-		mttransformmatrix.translate(mttranslatestart+mtpivot);
+		mttransformmatrix.translate(mttranslatestart + mtpivot);
 	}
-	
-	 
 	
 	bool stAlsoOk=true;
 	
-	if(getNumActiveTouches()==1 ){
+	if(getNumActiveTouches() == 1 ){
 		if(!isStDraggable()){
-			stAlsoOk=false;
+			stAlsoOk = false;
 		}
 	}
 	
 	if(isDraggable() && stAlsoOk){
 		
 		mttranslatespeed.set(mttranslate);
-		mttranslate.interpolate(getCurrentMtTranslate()-mtpivot-mttranslatestart, dragdamp);
-		mttranslatespeed=mttranslate-mttranslatespeed;
-		mttranslatedist+=mttranslatespeed.length();
+		mttranslate.interpolate(getCurrentMtTranslate() - mtpivot - mttranslatestart, dragdamp);
+		mttranslatespeed	=	mttranslate-mttranslatespeed;
+		mttranslatedist		+=	mttranslatespeed.length();
 		
-		if (isdragging==false) {
-			if(mttranslatedist>dragthreshold){
-				isdragging=true;
+		if (isdragging == false) {
+			if(mttranslatedist > dragthreshold){
+				isdragging = true;
 				MultiTouchEvent params(this);
 				ofNotifyEvent(dragStartEvent,params,this);
 			}
 		}
 		
-		if(isDragAuto()&& isdragging){
+		if(isDragAuto() && isdragging){
 			mttransformmatrix.translate(mttranslate);
 		}
 	}
@@ -460,22 +435,22 @@ void BasicInteractiveObject::updateMtTransform(){
 	setTransformMatrix(currentmatrix);
 	
 	MultiTouchEvent params(this);
-	ofNotifyEvent(updateMultiTouchScopeEvent,params,this);
+	ofNotifyEvent(updateMultiTouchScopeEvent, params, this);
 	
 }
 
 ofVec3f BasicInteractiveObject::getCurrentMtTransform(){
 	ofVec3f mtvec;
 	mtvec.set(mttouchb->localpos);
-	mtvec-=mttoucha->localpos;
+	mtvec -= mttoucha->localpos;
 	return mtvec;
 }
 
 ofVec3f BasicInteractiveObject::getCurrentMtTranslate(){
 	ofVec3f mtvec;
 	mtvec.set(mttoucha->localpos);
-	mtvec+=mttouchb->localpos;
-	mtvec/=2;	
+	mtvec += mttouchb->localpos;
+	mtvec /= 2;	
 	return mtvec;
 }
 

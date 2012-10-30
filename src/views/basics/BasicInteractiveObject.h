@@ -30,10 +30,10 @@ public:
 
 class MultiTouchPoint{
 public:
-	long starttime;
-	float globalmovedist;
+	long	starttime;
+	float	globalmovedist;
 	
-	ofPoint screenpos;
+	ofPoint	screenpos;
 	
 	ofPoint localoffset;
 	ofPoint localstartpos;
@@ -53,10 +53,7 @@ public:
 class BasicInteractiveObject: public BasicScreenObject {
 public:
 	
-	
 	BasicInteractiveObject();
-	// Copy constructor
-    
 	virtual ~BasicInteractiveObject();
 	
 	// Functions to be overloaded:
@@ -84,7 +81,6 @@ public:
 	virtual void onStartMultiTouchScope(MultiTouchEvent& _event){};
 	virtual void onUpdateMultiTouchScope(MultiTouchEvent& _event){};
 	virtual void onEndMultiTouchScope(MultiTouchEvent& _event){};
-	
 	
 	// Settings:
 	void setDragTarget(BasicInteractiveObject* _dragtarget);
@@ -124,8 +120,6 @@ public:
 	
 	ofVec3f getDragSpeed(){return mttranslatespeed;};
 						 
-	
-	
 	//events
 	
 	ofEvent<MultiTouchEvent> firstTouchDownEvent;
@@ -144,11 +138,9 @@ public:
 	ofEvent<MultiTouchEvent> rotateStartEvent;
 	ofEvent<MultiTouchEvent> rotateStopEvent;
 	
-	
 	ofEvent<MultiTouchEvent> startMultiTouchScopeEvent;
 	ofEvent<MultiTouchEvent> updateMultiTouchScopeEvent;
 	ofEvent<MultiTouchEvent> endMultiTouchScopeEvent;
-	
 	
 	// Functions called by Renderer:
 	void touchDownOnMe(mtRay ray, int touchId);
@@ -164,16 +156,15 @@ public:
 	void updateMultiTouch(mtRay ray, int touchId);
 	void removeMultiTouch(mtRay ray, int touchId);
 	
-	
-	ofVec3f mttranslate;
+	ofVec3f	mttranslate;
 	ofVec3f mttranslatestart;
 	ofVec3f mttranslatespeed;
-	float mttranslatedist;
+	float	mttranslatedist;
 	
-	ofQuaternion mtrotate;
-	ofQuaternion mtrotatestart;	
-	ofQuaternion mtrotatespeed;
-	float mtrotatedist;
+	ofQuaternion	mtrotate;
+	ofQuaternion	mtrotatestart;	
+	ofQuaternion	mtrotatespeed;
+	float			mtrotatedist;
 	
 	float mtscale;
 	float mtscalestart;
@@ -211,16 +202,14 @@ protected:
 	float rotatedamp;
 	
 	// Scope
-	int mtcounter;
-	long mtstarttime;;
-	bool mtscoperunning;
-	int mtscopeduration;
+	int		mtcounter;
+	long	mtstarttime;;
+	bool	mtscoperunning;
+	int		mtscopeduration;
 	
 	bool isdragging;
 	bool isscaling;
 	bool isrotating;
-	
-	
 	
 	// The relevant touchpoints for the interaction, the furthest apart
 	MultiTouchPoint* mttoucha;
@@ -234,20 +223,15 @@ protected:
 	ofVec3f mttransformstart;
 	
 	
-	
-	void resetMTStartValues();
+	void	resetMTStartValues();
 	ofVec3f getCurrentMtTransform();
 	ofVec3f getCurrentMtTranslate();
-	void updateMtTransform();
+	void	updateMtTransform();
 	
 	BasicInteractiveObject* dragtarget;
 	
-	int getNumActiveTouches();
-	bool isMultiTouchActive(int touchId);
+	int		getNumActiveTouches();
+	bool	isMultiTouchActive(int touchId);
 
-	mtPlane plane;
-	
-private:
-	//BasicInteractiveObject(const BasicInteractiveObject &cSource);
-	//BasicInteractiveObject& operator=(const BasicInteractiveObject& cSource);
+	mtPlane	plane;
 };
