@@ -16,6 +16,8 @@ class BasicController {
 public:
 	BasicController();
 	virtual ~BasicController();
+	
+	BasicControllerEvent myEventArgs;
 
 	
 protected:
@@ -34,8 +36,4 @@ protected:
 	virtual void exit(){};
 	virtual void keyPressed(ofKeyEventArgs &e){};
 	virtual void keyReleased(ofKeyEventArgs &e){};
-	
-	BasicControllerEvent myEventArgs;
-	
-	
 };

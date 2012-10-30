@@ -65,6 +65,8 @@ void Renderer::setupColorPicker(float _width, float _height, float _sampling, fl
 
 
 void Renderer::update(){
+	Tweener.update();
+
 	if(bColorPickerSetup){
 		
 		bool waslighting=glIsEnabled(GL_LIGHTING);

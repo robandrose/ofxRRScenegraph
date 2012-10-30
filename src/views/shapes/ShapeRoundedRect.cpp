@@ -10,13 +10,7 @@
 #include "ShapeRoundedRect.h"
 
 void ShapeRoundedRect::_draw(){
-	/*if(mesh!=NULL){
-		mesh->draw();
-		
-	}*/
-
 	path.draw();
-	
 }
 
 //----------------------------------------------------------
@@ -48,13 +42,6 @@ void ShapeRoundedRect::setupShape(float r){
 	path.bezierTo(x2,y, x2-r,y, x2-r,y);
 	path.lineTo(x+r, y);
 	path.close();
-	
-		
-	//mesh=new ofVboMesh(path.getTessellation());
-	
-	//mesh->setUsage(GL_STATIC_DRAW);
-	//mesh->setMode(OF_PRIMITIVE_LINE_STRIP);
-	
 }
 
 

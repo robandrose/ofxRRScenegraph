@@ -34,6 +34,7 @@ void Image::update(){
 void Image::load(string _filename){
 	filename=_filename;
 	img->loadImage(filename);
+	setSize(img->getWidth(), img->getHeight());
 	changed=true;
 	loaded = true;
 }
@@ -58,7 +59,7 @@ void Image::setMaxSize(float _maxwidth, float _maxheight){
 	maxwidth=_maxwidth;
 	maxheight=_maxheight;
 	
-	changed=true;
+	updateSize();
 }
 
 void Image::updateSize(){
@@ -77,7 +78,9 @@ void Image::updateSize(){
 }
 
 void Image::_draw(){
-	if(img && img->getWidth()>0){
+	if (img==NULL)return;
+	
+	if(img->getWidth()>0){
         img->draw(0,0,width,height);
 	}
 }
@@ -87,7 +90,7 @@ bool Image::isLoaded() {
 }
 
 void Image::clear() {
-    if (isLoaded() && img != NULL) {
+    if (loaded && img != NULL) {
         img->clear();
     }
 }

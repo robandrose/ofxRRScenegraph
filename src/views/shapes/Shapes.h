@@ -12,3 +12,4 @@
 
 #include "ShapeRect.h"
 #include "ShapeRoundedRect.h"
+#include "ShapeEllipse.h"

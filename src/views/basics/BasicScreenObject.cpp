@@ -10,6 +10,7 @@
 #include "BasicScreenObject.h"
 #include "Renderer.h"
 
+
 BasicScreenObject::BasicScreenObject(){
 	
 	ofAddListener(ofEvents().setup, this, &BasicScreenObject::_setup);
@@ -18,78 +19,83 @@ BasicScreenObject::BasicScreenObject(){
 	ofAddListener(killEvent,this , &BasicScreenObject::onKill);
 	ofAddListener(hideEvent, this, &BasicScreenObject::onHide);
 	ofAddListener(showEvent, this, &BasicScreenObject::onShow);
+	ofAddListener(Tweener.onTweenCompleteEvent, this, &BasicScreenObject::onTweenComplete);
 	
 	
 	masktype=MASK_TYPE_CLIPPLANES;
-	ismask = false;
-	hasmask = false;
+	ismask	= false;
+	hasmask	= false;
 	
 	
 	setPosition(0,0,0);
 	speed.set(0,0,0);
 	accel.set(0,0,0);
-	moveattractionforce=0;
-	movedrag=1;
+	moveattractionforce	= 0;
+	movedrag			= 1;
 	
 	
 	setScale(1, 1, 1);
 	width = height = 10;
-	setAnchorPoint(0, 0, 0);
+	//setAnchorPoint(0, 0, 0);
 	
 	
-	alpha = 255;
+	alpha		= 255;
 	setColor(255,255,255);
-	tweenr=255;
-	tweeng=255;
-	tweenb=255;
+	tweenr		= 255;
+	tweeng		= 255;
+	tweenb		= 255;
+	isColorTweening	= false;
+	isFadeTweening	= false;
 	
 	
 	// Rotation
-	rotationdrag=0.99;
+	rotationdrag = 0.99;
 	rotationspeed.set(0,0,0);
 	
 	
 	setRotationSpeed(0, 0, 0);
 	setRotationDrag(0.99);
-	rotationattractionforce=0;
+	rotationattractionforce = 0;
 	rotationattractionquat.set(0,0,0,1);
 	rotationattractionangles.set(0,0,0);
 	
-	
-	lightingbefore=false;
-	lightingenabled=false;
-	depthtestbefore=false;
-	depthtestenabled=false;
+	isRotationTweening = false;
 	
 	
-	age=0;
-	isadded=false;
-	issetup=false;
-	bool issetup; // TODO: issetup needed??
+	lightingbefore		= false;
+	lightingenabled		= false;
+	depthtestbefore		= false;
+	depthtestenabled	= false;
+	
+	
+	age			= 0;
+	isadded		= false;
+	issetup		= false; // TODO: issetup needed??
 
 	
-	parent_so=NULL;
-	root = NULL;
+	parent_so	= NULL;
+	root		= NULL;
+
+	myEventArgs.target = this;
 	
-	tweener.addListener(this);
-	myEventArgs.target=this;
-	
-	sfactor=GL_SRC_ALPHA;
-	dfactor=GL_ONE_MINUS_SRC_ALPHA;
+	sfactor		= GL_SRC_ALPHA;
+	dfactor		= GL_ONE_MINUS_SRC_ALPHA;
 		
-	tweenx=0;
-	tweeny=0;
-	tweenz=0;
-	tweenscalex=0;
-	tweenscaley=0;
-	tweenscalez=0;
-	tweenrotslerp = 0.0;
+	tweenx			= 0;
+	tweeny			= 0;
+	tweenz			= 0;
+	isMoveTweening	= false;
 	
+	tweenscalex		= 0;
+	tweenscaley		= 0;
+	tweenscalez		= 0;
+	tweenrotslerp	= 0.0;
+	isScaleTweening = false;
 	
-	isvisible = true;
-	isinteractive = false;
-	isorderbyz=false;
-	isupdating=true;
+	isvisible		= true;
+	isinteractive	= false;
+	isorderbyz		= false;
+	isupdating		= true;
 }
 
 
@@ -101,6 +107,7 @@ BasicScreenObject::~BasicScreenObject() {
 	ofRemoveListener(killEvent,this , &BasicScreenObject::onKill);
 	ofRemoveListener(showEvent, this, &BasicScreenObject::onShow);
 	ofRemoveListener(hideEvent, this, &BasicScreenObject::onHide);
+	ofRemoveListener(Tweener.onTweenCompleteEvent, this, &BasicScreenObject::onTweenComplete);
 }
 
 
@@ -121,8 +128,8 @@ void BasicScreenObject::disableLighting(){ lightingenabled=false; }
 
 
 void BasicScreenObject::setBlendFactors(float _sfactor, float _dfactor){
-	sfactor=_sfactor;
-	dfactor=_dfactor;	
+	sfactor	= _sfactor;
+	dfactor	= _dfactor;	
 }
 
 
@@ -157,23 +164,27 @@ void BasicScreenObject::_onKill(){ }
 
 
 void BasicScreenObject::_setup(ofEventArgs &e){
-	issetup=true;
+	issetup = true;
 	setup();
 }
 
 
 void BasicScreenObject::_update(ofEventArgs &e){
-	if(!isupdating)return;
-	if(age==1){
+	if(!isupdating) return;
+	if(age == 1){
 		firstUpdate();
 	}
 	
 	// Update Animations based on Tweening
-    tweener.step(ofGetElapsedTimeMillis());
-	
-	if (moveParam.started) {
-		
+	if (isMoveTweening)		setPosition(tweenx, tweeny, tweenz);
+	if (isScaleTweening)	setScale(tweenscalex, tweenscaley, tweenscalez);
+	if (isColorTweening)	setColor(tweenr,tweeng,tweenb);
+	if (isRotationTweening) {
+		ofQuaternion nowquat=getOrientationQuat();
+		nowquat.slerp(tweenrotslerp, startquat, endquat);
+		setOrientation(nowquat);
 	}
+
 	
 	// Animations based on Forces and Attractionpoints
 	doRotate();
@@ -187,7 +198,6 @@ void BasicScreenObject::_update(ofEventArgs &e){
 	update();
 	
 	if(positioners.size()>0){
-		
 		for(positioner = positioners.begin(); positioner != positioners.end(); positioner++) {
 			IPositioner* p = positioner->second;
 			p->restrict(this);
@@ -219,15 +229,15 @@ BasicScreenObject* BasicScreenObject::getParent() {
 
 
 void BasicScreenObject::setParent(BasicScreenObject* _parent){
-	isadded=true;
-	parent_so=_parent;
+	isadded		= true;
+	parent_so	=_parent;
 	setParent(* dynamic_cast<ofNode*> (_parent));
 }
 
 
 BasicScreenObject* BasicScreenObject::getRoot(){
-	if(parent_so==NULL){
-		root=this;
+	if(parent_so == NULL){
+		root = this;
 		return root;
 	}
 	return parent_so->getRoot();
@@ -235,7 +245,7 @@ BasicScreenObject* BasicScreenObject::getRoot(){
 
 
 void BasicScreenObject::setRoot(BasicScreenObject* _root){
-	root=_root;
+	root = _root;
 	
 	if (root->getName() == "Renderer") {
 		Renderer* renderer = (Renderer*)root;
@@ -261,8 +271,8 @@ void BasicScreenObject::addChildAt(BasicScreenObject* _child, int _index){ }
 
 
 void BasicScreenObject::removeChild(BasicScreenObject* _child){
-	for(int i=0;i<childlist.size();i++){
-		if(childlist[i]==_child){
+	for(int i=0; i < childlist.size(); i++){
+		if(childlist[i] == _child){
 			_child->clearParent();
 			childlist.erase(childlist.begin()+i);
 			break;
@@ -279,7 +289,7 @@ void BasicScreenObject::removeChildAt(BasicScreenObject* _child, int _index){ }
 
 
 void BasicScreenObject::moveMeToTop(){
-	if(parent_so!=NULL){
+	if(parent_so != NULL){
 		parent_so->moveChildToTop(this);
 	}
 }
@@ -297,7 +307,7 @@ vector<BasicScreenObject*>* BasicScreenObject::getChildren(){ return &childlist;
 bool BasicScreenObject::isAdded(){ return isadded; }
 
 
-void BasicScreenObject::isOrderChildrenByZ(bool _isorderbyz){ isorderbyz=_isorderbyz; }
+void BasicScreenObject::isOrderChildrenByZ(bool _isorderbyz){ isorderbyz = _isorderbyz; }
 bool BasicScreenObject::isOrderChildrenByZ(){ return isorderbyz; }
 
 
@@ -327,8 +337,8 @@ void BasicScreenObject::draw(){
         
 		glBlendFunc(sfactor, dfactor);
 				
-		lightingbefore=glIsEnabled(GL_LIGHTING);
-		depthtestbefore=glIsEnabled(GL_DEPTH_TEST);
+		lightingbefore	= glIsEnabled(GL_LIGHTING);
+		depthtestbefore	= glIsEnabled(GL_DEPTH_TEST);
 		
 		if(depthtestenabled && !depthtestbefore)glEnable(GL_DEPTH_TEST);
 		if(!depthtestenabled && depthtestbefore)glDisable(GL_DEPTH_TEST);
@@ -386,9 +396,9 @@ void BasicScreenObject::drawForPicking(){
 		
 		setupMask();
 		
-		depthtestbefore=glIsEnabled(GL_DEPTH_TEST);
-		if(depthtestenabled && !depthtestbefore)glEnable(GL_DEPTH_TEST);
-		if(!depthtestenabled && depthtestbefore)glDisable(GL_DEPTH_TEST);
+		depthtestbefore = glIsEnabled(GL_DEPTH_TEST);
+		if (depthtestenabled && !depthtestbefore)glEnable(GL_DEPTH_TEST);
+		if (!depthtestenabled && depthtestbefore)glDisable(GL_DEPTH_TEST);
 		
 		if(isinteractive){
 			ofPushStyle();
@@ -429,9 +439,9 @@ void BasicScreenObject::drawChildrenForPicking(){
 
 
 ofVec3f BasicScreenObject::localToGlobal(ofVec3f _local){
-	ofVec3f origpoint(_local);
-	ofMatrix4x4 global=getGlobalTransformMatrix();	
-	origpoint=origpoint*global;	
+	ofVec3f				origpoint(_local);
+	ofMatrix4x4 global	= getGlobalTransformMatrix();	
+	origpoint			= origpoint*global;	
 	return origpoint;
 }
 
@@ -441,9 +451,9 @@ ofVec3f BasicScreenObject::localToGlobal(float _x, float _y, float _z){
 }
 
 ofVec3f BasicScreenObject::globalToLocal(ofVec3f _global){
-	ofVec3f origpoint(_global);
-	ofMatrix4x4 local=getParent()->getGlobalTransformMatrix().getInverse();
-	origpoint=origpoint*local;
+	ofVec3f				origpoint(_global);
+	ofMatrix4x4 local	= getParent()->getGlobalTransformMatrix().getInverse();
+	origpoint			= origpoint*local;
 	return origpoint;
 }
 
@@ -453,14 +463,14 @@ ofVec3f BasicScreenObject::globalToLocal(float _x, float _y, float _z){
 }
 
 ofVec3f BasicScreenObject::globalToLocalDir(ofVec3f _globaldir){
-	ofMatrix4x4 local=getParent()->getGlobalTransformMatrix().getInverse();
+	ofMatrix4x4	local = getParent()->getGlobalTransformMatrix().getInverse();
 	local.setTranslation(0, 0, 0);
 	return _globaldir*local;	
 }
 
 ofVec3f BasicScreenObject::foreignToLocal(BasicScreenObject* _foreign, ofVec3f _foreignpos){
-	ofMatrix4x4 inv=getGlobalTransformMatrix().getInverse();
-	ofMatrix4x4 trans=_foreign->getGlobalTransformMatrix();
+	ofMatrix4x4 inv		= getGlobalTransformMatrix().getInverse();
+	ofMatrix4x4 trans	= _foreign->getGlobalTransformMatrix();
 	trans.postMult(inv);
 	return _foreignpos*trans;
 }
@@ -470,8 +480,8 @@ ofVec3f BasicScreenObject::foreignToLocal(BasicScreenObject* _foreign, float _x,
 }
 
 ofVec3f BasicScreenObject::localToForeign(BasicScreenObject* _foreign, ofVec3f _local){
-	ofMatrix4x4 inv=_foreign->getGlobalTransformMatrix().getInverse();
-	ofMatrix4x4 trans=getGlobalTransformMatrix();
+	ofMatrix4x4 inv		= _foreign->getGlobalTransformMatrix().getInverse();
+	ofMatrix4x4 trans	= getGlobalTransformMatrix();
 	trans.postMult(inv);
 	return _local*trans;
 }
@@ -486,87 +496,87 @@ ofRectangle BasicScreenObject::getBoundingBox(BasicScreenObject* ref){
 	
 	ofVec2f screenpos[4];
  	
-	screenpos[0]=localToForeign(ref, 0, 0, 0);
-	screenpos[1]=localToForeign(ref,width, 0, 0);
-	screenpos[2]=localToForeign(ref,width, height, 0);
-	screenpos[3]=localToForeign(ref,0, height, 0);
+	screenpos[0] = localToForeign(ref, 0, 0, 0);
+	screenpos[1] = localToForeign(ref,width, 0, 0);
+	screenpos[2] = localToForeign(ref,width, height, 0);
+	screenpos[3] = localToForeign(ref,0, height, 0);
 	
-	float smallestx=100000;
-	float smallesty=100000;
-	float biggestx=-100000;
-	float biggesty=-100000;
+	float smallestx	= 100000;
+	float smallesty	= 100000;
+	float biggestx	= -100000;
+	float biggesty	= -100000;
 	
-	for(int i=0;i<4;i++){
-		ofVec2f spos=screenpos[i];
+	for(int i=0; i < 4; i++){
+		ofVec2f spos	= screenpos[i];
 		
 		if(spos.x>biggestx){
-			biggestx=spos.x;
+			biggestx	= spos.x;
 		}
 		if(spos.x<smallestx){
-			smallestx=spos.x;
+			smallestx	= spos.x;
 		}
 		if(spos.y>biggesty){
-			biggesty=spos.y;
+			biggesty	= spos.y;
 		}
 		if(spos.y<smallesty){
-			smallesty=spos.y;
+			smallesty	= spos.y;
 		}
 	}
 	
-	ofRectangle boundingbox;
-	boundingbox.x=smallestx;
-	boundingbox.y=smallesty;
+	ofRectangle		boundingbox;
+	boundingbox.x	= smallestx;
+	boundingbox.y	= smallesty;
 	
-	boundingbox.width=biggestx-smallestx;
-	boundingbox.height=biggesty-smallesty;
+	boundingbox.width = biggestx-smallestx;
+	boundingbox.height= biggesty-smallesty;
 	
 	return boundingbox;
 	
 }
 
 ofVec3f BasicScreenObject::getScreenPosition(){
-	Renderer* r=(Renderer*)getRoot();	
-	ofVec3f screenpos=r->getCamera()->worldToScreen(getGlobalPosition());
+	Renderer* r			= (Renderer*)getRoot();	
+	ofVec3f screenpos	= r->getCamera()->worldToScreen(getGlobalPosition());
 	return screenpos;
 }
 
 ofRectangle BasicScreenObject::getScreenBoundingBox(){
-	Renderer* r=(Renderer*)getRoot();
+	Renderer* r = (Renderer*)getRoot();
 	ofVec2f screenpos[4];
  	
-	screenpos[0]=r->getCamera()->worldToScreen(localToGlobal(0, 0, 0));
-	screenpos[1]=r->getCamera()->worldToScreen(localToGlobal(width, 0, 0));
-	screenpos[2]=r->getCamera()->worldToScreen(localToGlobal(width, height, 0));
-	screenpos[3]=r->getCamera()->worldToScreen(localToGlobal(0, height, 0));
+	screenpos[0] = r->getCamera()->worldToScreen(localToGlobal(0, 0, 0));
+	screenpos[1] = r->getCamera()->worldToScreen(localToGlobal(width, 0, 0));
+	screenpos[2] = r->getCamera()->worldToScreen(localToGlobal(width, height, 0));
+	screenpos[3] = r->getCamera()->worldToScreen(localToGlobal(0, height, 0));
 	
-	float smallestx=100000;
-	float smallesty=100000;
-	float biggestx=-100000;
-	float biggesty=-100000;
+	float smallestx	= 100000;
+	float smallesty	= 100000;
+	float biggestx	= -100000;
+	float biggesty	= -100000;
 	
-	for(int i=0;i<4;i++){
-		ofVec2f spos=screenpos[i];
+	for(int i=0; i < 4; i++){
+		ofVec2f spos	= screenpos[i];
 		
 		if(spos.x>biggestx){
-			biggestx=spos.x;
+			biggestx	= spos.x;
 		}
 		if(spos.x<smallestx){
-			smallestx=spos.x;
+			smallestx	= spos.x;
 		}
 		if(spos.y>biggesty){
-			biggesty=spos.y;
+			biggesty	= spos.y;
 		}
 		if(spos.y<smallesty){
-			smallesty=spos.y;
+			smallesty	= spos.y;
 		}
 	}
 	
-	ofRectangle boundingbox;
-	boundingbox.x=smallestx;
-	boundingbox.y=smallesty;
+	ofRectangle		boundingbox;
+	boundingbox.x	= smallestx;
+	boundingbox.y	= smallesty;
 	
-	boundingbox.width=biggestx-smallestx;
-	boundingbox.height=biggesty-smallesty;
+	boundingbox.width = biggestx-smallestx;
+	boundingbox.height= biggesty-smallesty;
 	
 	return boundingbox;
 	
@@ -580,7 +590,7 @@ ofRectangle BasicScreenObject::getScreenBoundingBox(){
 
 
 bool BasicScreenObject::isVisible() { return isvisible; }
-void BasicScreenObject::isVisible(bool _visible) { isvisible = _visible; }
+void BasicScreenObject::isVisible( bool _visible ) { isvisible = _visible; }
 
 
 void BasicScreenObject::hide(){
@@ -617,9 +627,9 @@ void BasicScreenObject::show(float _time){
 }
 
 bool BasicScreenObject::getCombinedVisible(){
-	bool parentvisible=true;
-	if(parent_so!=NULL){
-		parentvisible=parent_so->getCombinedVisible();
+	bool parentvisible = true;
+	if(parent_so != NULL){
+		parentvisible = parent_so->getCombinedVisible();
 	}
 	if(isvisible){
 		return parentvisible;
@@ -648,10 +658,10 @@ float BasicScreenObject::getAlpha() { return alpha; }
 
 float BasicScreenObject::getCombinedAlpha(){
 	float combinedbalpha;
-	if(parent!=NULL){
-		combinedbalpha=(alpha/255.0)*parent_so->getCombinedAlpha();
+	if(parent != NULL){
+		combinedbalpha = (alpha/255.0)*parent_so->getCombinedAlpha();
 	}else{
-		combinedbalpha=alpha;
+		combinedbalpha = alpha;
 	}
 	return combinedbalpha;
 }
@@ -675,7 +685,7 @@ bool BasicScreenObject::hasMask() { return hasmask; }
 
 
 void BasicScreenObject::setMaskObject(BasicScreenObject* _maskobject){
-	maskobject=_maskobject;
+	maskobject = _maskobject;
 	maskobject->isMask(true);
 	maskobject->disableDepthTest();
 	hasMask(true);
@@ -687,7 +697,7 @@ BasicScreenObject* BasicScreenObject::getMaskObject() { return maskobject; }
 
 void BasicScreenObject::setupMask(){
 	if(hasMask()){
-		if(masktype==MASK_TYPE_STENCIL){
+		if(masktype == MASK_TYPE_STENCIL){
 			glClear(GL_STENCIL_BUFFER_BIT );
 			glEnable(GL_STENCIL_TEST);
 			glStencilFunc(GL_ALWAYS, 0x1, 0x1);
@@ -699,17 +709,18 @@ void BasicScreenObject::setupMask(){
 			glColorMask(1,1,1,1);
 			glStencilFunc(GL_EQUAL, 0x1, 0x1);
 			glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-		}else if(masktype==MASK_TYPE_SCISSOR){
+			
+		}else if(masktype == MASK_TYPE_SCISSOR){
 			glEnable(GL_SCISSOR_TEST);
 			ofVec3f maskpos=maskobject->localToGlobal(0,0,0);
 			maskpos.y=ofGetHeight()-maskpos.y-maskobject->getHeight();
-			
 			glScissor(maskpos.x, maskpos.y,maskobject->getWidth(), maskobject->getHeight());
+			
 		}else if(masktype==MASK_TYPE_CLIPPLANES){
-			GLdouble eq0[]={1,0,0,-maskobject->getPosition().x};
-			GLdouble eq1[]={0,1,0,-maskobject->getPosition().y};
-			GLdouble eq2[]={-1,0,0,maskobject->getWidth()-maskobject->getPosition().x};
-			GLdouble eq3[]={0,-1,0,maskobject->getHeight()-maskobject->getPosition().y};				
+			GLdouble eq0[] = {1,0,0,-maskobject->getPosition().x};
+			GLdouble eq1[] = {0,1,0,-maskobject->getPosition().y};
+			GLdouble eq2[] = {-1,0,0,maskobject->getWidth()-maskobject->getPosition().x};
+			GLdouble eq3[] = {0,-1,0,maskobject->getHeight()-maskobject->getPosition().y};				
 			glClipPlane(GL_CLIP_PLANE0,eq0);
 			glClipPlane(GL_CLIP_PLANE1,eq1);
 			glClipPlane(GL_CLIP_PLANE2,eq2);
@@ -725,11 +736,11 @@ void BasicScreenObject::setupMask(){
 
 void BasicScreenObject::restoreMask(){
 	if(hasMask()){
-		if(masktype==MASK_TYPE_STENCIL){
+		if(masktype == MASK_TYPE_STENCIL){
 			glDisable(GL_STENCIL_TEST);
-		}else if(masktype==MASK_TYPE_SCISSOR){
+		}else if(masktype == MASK_TYPE_SCISSOR){
 			glDisable(GL_SCISSOR_TEST);
-		}else if(masktype==MASK_TYPE_CLIPPLANES){
+		}else if(masktype == MASK_TYPE_CLIPPLANES){
 			glDisable(GL_CLIP_PLANE0);
 			glDisable(GL_CLIP_PLANE1);
 			glDisable(GL_CLIP_PLANE2);
@@ -737,34 +748,6 @@ void BasicScreenObject::restoreMask(){
 		}
 	}	
 }
-
-
-
-/********************************************************
- *
- *	OFFSET
- * 
- *  TODO: Offsets, what is this used for, how to use it?
- *
- ********************************************************/
-
-
-void BasicScreenObject::setOffset(float _x, float _y, float _z){ offset.set(_x, _y, _z); }
-void BasicScreenObject::setOffset(ofVec3f _offset){ setOffset(_offset.x, _offset.y, _offset.z); }
-
-
-
-/********************************************************
- *
- *	ANCHOR POINT
- * 
- *  TODO: Think and wait.
- *
- ********************************************************/
-
-
-void BasicScreenObject::setAnchorPoint(float _x, float _y, float _z){ anchorpoint.set(_x, _y, _z); }
-void BasicScreenObject::setAnchorPoint(ofVec3f _anchor){ setAnchorPoint(_anchor.x, _anchor.y, _anchor.z); }
 
 
 
@@ -778,9 +761,6 @@ void BasicScreenObject::setPosition(float _x, float _y){ setPosition(_x,_y,getZ(
 void BasicScreenObject::setX(float _x){ setPosition(_x,getY(),getZ()); }
 void BasicScreenObject::setY(float _y){ setPosition(getX(),_y,getZ()); }
 void BasicScreenObject::setZ(float _z){ setPosition(getX(),getY(),_z); }
-
-ofVec3f BasicScreenObject::getOffset() { return offset; }
-ofVec3f BasicScreenObject::getAnchorPoint() { return anchorpoint; }
 
 
 
@@ -796,18 +776,9 @@ float BasicScreenObject::getHeight() { return height; }
 
 
 void BasicScreenObject::setSize(float _width, float _height){
-	width=_width;
-	height=_height;
+	width	= _width;
+	height	= _height;
 }
-
-
-
-/********************************************************
- *
- *	SCALE
- *
- ********************************************************/
-
 
 
 /********************************************************
@@ -823,33 +794,30 @@ ofVec3f BasicScreenObject :: getOrientationAxisAngles()
 	ofVec3f result;
 	ofQuaternion q = getOrientationQuat();
 	
-	double x=q.x();
-	double y=q.y();
-	double z=q.z();
-	double w=q.w();
+	double x	= q.x();
+	double y	= q.y();
+	double z	= q.z();
+	double w	= q.w();
 	
-	double sqw = w * w;
-    double sqx = x * x;
-    double sqy = y * y;
-    double sqz = z * z;
-	double unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
-	double test = x * y + z * w;
-	if( test > 0.499 * unit )    // singularity at north pole
-	{
-		
+	double sqw	= w * w;
+    double sqx	= x * x;
+    double sqy	= y * y;
+    double sqz	= z * z;
+	double unit	= sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
+	double test	= x * y + z * w;
+	
+	if( test > 0.499 * unit ) {   // singularity at north pole
 		result.y = 2 * atan2( x, w );
 		result.z = PI / 2;
 		result.x = 0;
 
 	}
-	else if( test < -0.499 * unit )    // singularity at south pole
-	{
+	else if( test < -0.499 * unit ) {   // singularity at south pole
 		result.y = -2 * atan2( x, w );
 		result.z = -PI  /2;
 		result.x = 0;
 
 	} else {
-	
 		result.y = atan2( 2 * y * w - 2 * x * z, sqx - sqy - sqz + sqw );
 		result.z = asin( 2 * test / unit );
 		result.x = atan2( 2 * x * w - 2 * y * z , -sqx + sqy - sqz + sqw );
@@ -868,14 +836,14 @@ void BasicScreenObject::setOrientation(float _xangle, float _yangle, float _zang
 	qz.makeRotate(_zangle, ofVec3f(0,0,1));
 	
 	ofQuaternion nowquat;
-	nowquat=qx*qy*qz;
+	nowquat = qx*qy*qz;
 	nowquat.normalize();
 	setOrientation(nowquat);
 }
 
 
 ofVec3f BasicScreenObject::getOrientationAngles() const{
-	ofVec3f euler=getOrientationEuler();
+	ofVec3f euler = getOrientationEuler();
 	return euler;	
 }
 
@@ -886,15 +854,15 @@ void BasicScreenObject::addRotation(float _xangle, float _yangle, float _zangle)
 	qy.makeRotate(_yangle, ofVec3f(0,1,0));
 	qz.makeRotate(_zangle, ofVec3f(0,0,1));
 	
-	ofQuaternion nowquat=getOrientationQuat();
-	nowquat*=qx*qy*qz;
+	ofQuaternion nowquat = getOrientationQuat();
+	nowquat *= qx*qy*qz;
 	nowquat.normalize();
 	setOrientation(nowquat);
 }
 
 
 void BasicScreenObject::setRotationSpeed(float _xrot, float _yrot, float _zrot, float _drag){
-	if(_drag>=0){
+	if(_drag >= 0){
 		setRotationDrag(_drag);
 	}
 	rotationspeed.set(_xrot, _yrot, _zrot);
@@ -902,7 +870,7 @@ void BasicScreenObject::setRotationSpeed(float _xrot, float _yrot, float _zrot, 
 
 
 void BasicScreenObject::addRotationSpeed(float _xrot, float _yrot, float _zrot, float _drag){
-	if(_drag>=0){
+	if(_drag >= 0){
 		setRotationDrag(_drag);
 	}
 	rotationaccel.set(_xrot, _yrot, _zrot);
@@ -935,8 +903,8 @@ void BasicScreenObject::setRotationDrag(float _drag){ rotationdrag=_drag; }
 
 void BasicScreenObject::setSpeed(float _x, float _y, float _z, float _drag){
 	speed.set(_x, _y, _z);
-	if(_drag>=0){
-		movedrag=_drag;
+	if(_drag >= 0){
+		movedrag = _drag;
 	}
 }
 
@@ -955,65 +923,36 @@ void BasicScreenObject::addSpeed(float _x, float _y, float _z, float _drag){
 
 
 void BasicScreenObject::moveTo(float  _endx, float _endy, float _endz, float _movetime){
-	//ofLog(OF_LOG_NOTICE, "move");
     setSpeed(0,0,0);
-	endposition.set(_endx, _endy, _endz);
-	tweener.removeTween(&moveParam);
-	moveParam=tween::TweenerParam(_movetime,tween::CUBIC, tween::EASE_IN_OUT);
-	moveParam.useMilliSeconds = true;
-	tweenx=getX();
-	tweeny=getY();
-	tweenz=getZ();
-	
-	moveParam.addProperty(&tweenx, _endx);
-	moveParam.addProperty(&tweeny, _endy);
-	moveParam.addProperty(&tweenz, _endz);
-	
-	tweener.addTween(moveParam);
-}
-
-
-void BasicScreenObject::setMoveAttractionPoint(float _endx, float _endy, float _endz, float _force, float _drag){
-	endposition.set(_endx, _endy, _endz);
-	moveattractionforce=_force;
-	movedrag=_drag;
-}
-
-
-void BasicScreenObject::stopMoveAttraction(){
-	moveattractionforce=0;
+	tweenx = getX();
+	tweeny = getY();
+	tweenz = getZ();
+	Tweener.addTween(tweenx, _endx, _movetime/1000.0, &ofxTransitions::easeInOutCubic);
+	Tweener.addTween(tweeny, _endy, _movetime/1000.0, &ofxTransitions::easeInOutCubic);
+	Tweener.addTween(tweenz, _endz, _movetime/1000.0, &ofxTransitions::easeInOutCubic);
+	isMoveTweening = true;
 }
 
 
 void BasicScreenObject::fadeTo(float _endalpha , float _fadetime){
-	tweener.removeTween(&fadeParam);
 	visibletimer.stopTimer();
-	fadeParam=tween::TweenerParam(_fadetime,tween::LINEAR, tween::EASE_IN_OUT);
-	fadeParam.addProperty(&alpha, _endalpha);
-	tweener.addTween(fadeParam);
-}
-
-
-void BasicScreenObject::growTo(float _endwidth, float _endheight, float _growtime){
-	tweener.removeTween(&growParam);
-	growParam=tween::TweenerParam(_growtime,tween::CUBIC, tween::EASE_IN_OUT);
-	growParam.addProperty(&width, _endwidth);
-	growParam.addProperty(&height, _endheight);
-	tweener.addTween(growParam);
+	
+	Tweener.addTween(alpha, _endalpha, _fadetime/1000.0, &ofxTransitions::linear);
+	
+	isFadeTweening = true;
 }
 
 
 void BasicScreenObject::scaleTo(float _endxscale, float _endyscale, float _endzscale, float _scaletime){
-	tweener.removeTween(&scaleParam);
-	scaleParam=tween::TweenerParam(_scaletime,tween::CUBIC, tween::EASE_IN_OUT);
-	tweenscalex=getScale().x;
-	tweenscaley=getScale().y;
-	tweenscalez=getScale().z;
+	tweenscalex	= getScale().x;
+	tweenscaley	= getScale().y;
+	tweenscalez	= getScale().z;
 	
-	scaleParam.addProperty(&tweenscalex, _endxscale);
-	scaleParam.addProperty(&tweenscaley, _endyscale);
-	scaleParam.addProperty(&tweenscalez, _endzscale);
-	tweener.addTween(scaleParam);
+	Tweener.addTween(tweenscalex, _endxscale, _scaletime/1000.0, &ofxTransitions::easeInOutCubic);
+	Tweener.addTween(tweenscaley, _endyscale, _scaletime/1000.0, &ofxTransitions::easeInOutCubic);
+	Tweener.addTween(tweenscalez, _endzscale, _scaletime/1000.0, &ofxTransitions::easeInOutCubic);
+	
+	isScaleTweening = true;
 }
 
 
@@ -1023,17 +962,15 @@ void BasicScreenObject::uniformScaleTo(float _endscale, float _scaletime){
 
 
 void BasicScreenObject::colorTo(float _endr, float _endg, float _endb, float _colortime){
-	tweener.removeTween(&colorParam);
-	colorParam=tween::TweenerParam(_colortime,tween::CUBIC, tween::EASE_IN_OUT);
-	tweenr=color.r;
-	tweeng=color.g;
-	tweenb=color.b;
+	tweenr		= color.r;
+	tweeng		= color.g;
+	tweenb		= color.b;
 	
-	colorParam.addProperty(&tweenr, _endr);
-	colorParam.addProperty(&tweeng, _endg);
-	colorParam.addProperty(&tweenb, _endb);
+	Tweener.addTween(tweenr, _endr, _colortime/1000.0, &ofxTransitions::easeInOutCubic);
+	Tweener.addTween(tweeng, _endg, _colortime/1000.0, &ofxTransitions::easeInOutCubic);
+	Tweener.addTween(tweenb, _endb, _colortime/1000.0, &ofxTransitions::easeInOutCubic);
 	
-	tweener.addTween(colorParam);
+	isColorTweening = true;
 }
 
 
@@ -1048,7 +985,7 @@ void BasicScreenObject::rotateTo(float _x, float _y, float _z,float _rotatetime 
 	qy.makeRotate(_y, ofVec3f(0,1,0));
 	qz.makeRotate(_z, ofVec3f(0,0,1));
 	
-	endquat=qx*qy*qz;
+	endquat = qx*qy*qz;
 	endquat.normalize();
 	
 	rotateTo(endquat,_rotatetime );
@@ -1059,30 +996,40 @@ void BasicScreenObject::rotateTo(ofQuaternion _quat,float _rotatetime ){
 	
 	rotationspeed.set(0,0,0);
 	stopRotationAttraction();
+
+	tweenrotslerp = 0.0;
 	
-	tweener.removeTween(&rotateParam);
-	tweenrotslerp=0.0;
+	endquat		= _quat;
+	startquat	= getOrientationQuat();
 	
-	endquat=_quat;
-	startquat=getOrientationQuat();
-	
-	rotateParam=tween::TweenerParam(_rotatetime,tween::SINE, tween::EASE_IN_OUT);
-	rotateParam.addProperty(&tweenrotslerp, 1.0);
-	tweener.addTween(rotateParam);
+	Tweener.addTween(tweenrotslerp, 1.0, _rotatetime/1000.0, &ofxTransitions::easeInOutSine);
+}
+
+
+
+void BasicScreenObject::setMoveAttractionPoint(float _endx, float _endy, float _endz, float _force, float _drag){
+	endposition.set(_endx, _endy, _endz);
+	moveattractionforce = _force;
+	movedrag = _drag;
+}
+
+
+void BasicScreenObject::stopMoveAttraction(){
+	moveattractionforce = 0;
 }
 
 
 void BasicScreenObject::doRotate(){
 	
-	rotationspeed*=rotationdrag;
+	rotationspeed *= rotationdrag;
 	addRotation(rotationspeed.x, rotationspeed.y, rotationspeed.z);
 	
 	if(rotationattractionforce>0){
-		ofQuaternion betweenquat=rotationattractionquat-getOrientationQuat();
-		float betweenangle;
-		ofVec3f dirvec(1,0,0);
+		ofQuaternion	betweenquat = rotationattractionquat-getOrientationQuat();
+		float			betweenangle;
+		ofVec3f			dirvec(1,0,0);
 		betweenquat.getRotate(betweenangle, dirvec);
-		ofQuaternion nowquat=getOrientationQuat();
+		ofQuaternion	nowquat = getOrientationQuat();
 		nowquat.slerp(rotationattractionforce, nowquat, rotationattractionquat);
 		setOrientation(nowquat);
 	}
@@ -1090,14 +1037,14 @@ void BasicScreenObject::doRotate(){
 
 
 void BasicScreenObject::doMove(){
-	speed*=movedrag;
+	speed *= movedrag;
 	move(speed.x, speed.y, speed.z);
 	
-	if(moveattractionforce>0){
-		ofVec3f dist;
+	if(moveattractionforce > 0){
+		ofVec3f	dist;
 		dist.set(endposition);
-		dist-=getPosition();
-		dist*=moveattractionforce;
+		dist	-= getPosition();
+		dist	*= moveattractionforce;
 		addSpeed(dist.x, dist.y, dist.z,movedrag);
 	}
 	
@@ -1152,73 +1099,27 @@ bool BasicScreenObject::hasPositioner(string _name) {
  *
  ********************************************************/
 
-
-void BasicScreenObject::onStart(tween::TweenerParam& param){
-	if(param==moveParam){
-		ofNotifyEvent(moveToStartEvent, myEventArgs, this);
-	}
-	if(param==scaleParam){
-		ofNotifyEvent(scaleToStartEvent, myEventArgs, this);
-	}
-	if(param==rotateParam){
-		ofNotifyEvent(rotateToStartEvent, myEventArgs, this);
-	}
-	if(param==fadeParam){
-		ofNotifyEvent(fadeToStartEvent, myEventArgs, this);
-	}
-	if(param==colorParam){
-		setColor(tweenr,tweeng,tweenb);
-	}
+void BasicScreenObject::onTweenComplete(float&  param) {
+	//ofLog(OF_LOG_NOTICE, "TWEEN COMPLETE");
+	
+	if (&param == &tweenx || &param == &tweeny || &param == &tweenz) {
+		//ofLog(OF_LOG_NOTICE, "move tween complete");
+		isMoveTweening = false;
+	} else if (&param == &tweenscalex || &param == &tweenscaley || &param == &tweenscalez) {
+		//ofLog(OF_LOG_NOTICE, "scale tween complete");
+		isScaleTweening = false;
+	} else if (&param == &tweenrotslerp) {
+		//ofLog(OF_LOG_NOTICE, "rotation tween complete");
+		isRotationTweening = false;
+	} else if (&param == &tweenr || &param == &tweeng || &param == &tweenb) {
+		//ofLog(OF_LOG_NOTICE, "color tween complete");
+		isColorTweening = false;
+	}  else if (&param == &alpha) {
+		//ofLog(OF_LOG_NOTICE, "fade tween complete");
+		isFadeTweening = false;
+	} 
+	
 }
-
-
-void BasicScreenObject::onStep(tween::TweenerParam& param){
-	if(param==moveParam){
-		//moveParam.
-		setPosition(tweenx, tweeny, tweenz);
-		//ofLog(OF_LOG_NOTICE, ofToString(tweenx));
-		ofNotifyEvent(moveToStepEvent, myEventArgs, this);
-	}
-	if(param==scaleParam){
-		setScale(tweenscalex, tweenscaley, tweenscalez);
-		ofNotifyEvent(scaleToStepEvent, myEventArgs, this);
-	}
-	if(param==rotateParam){
-		ofQuaternion nowquat=getOrientationQuat();
-		nowquat.slerp(tweenrotslerp, startquat, endquat);
-		setOrientation(nowquat);
-		ofNotifyEvent(rotateToStepEvent, myEventArgs, this);
-	}
-	if(param==fadeParam){
-		ofNotifyEvent(fadeToStepEvent, myEventArgs, this);
-	}
-	if(param==colorParam){
-		setColor(tweenr,tweeng,tweenb);
-	}
-}
-
-
-void BasicScreenObject::onComplete(tween::TweenerParam& param){
-	if(param==moveParam){
-		setPosition(tweenx, tweeny, tweenz);
-		ofNotifyEvent(moveToCompleteEvent, myEventArgs, this);
-	}
-	if(param==scaleParam){
-		setScale(tweenscalex, tweenscaley, tweenscalez);
-		ofNotifyEvent(scaleToCompleteEvent, myEventArgs, this);
-	}
-	if(param==rotateParam){
-		ofNotifyEvent(rotateToCompleteEvent, myEventArgs, this);
-	}
-	if(param==fadeParam){
-		ofNotifyEvent(fadeToCompleteEvent, myEventArgs, this);
-	}
-	if(param==colorParam){
-		setColor(tweenr,tweeng,tweenb);
-	}
-}
-
-
 
 /********************************************************
  *
