@@ -934,6 +934,11 @@ void BasicScreenObject::moveTo(float  _endx, float _endy, float _endz, float _mo
 }
 
 
+void BasicScreenObject::moveTo(float _endx, float _endy, float _movetime) {
+	moveTo(_endx, _endy, getZ(), _movetime);
+}
+
+
 void BasicScreenObject::fadeTo(float _endalpha , float _fadetime){
 	visibletimer.stopTimer();
 	

@@ -224,6 +224,7 @@ public:
     
 	//tweened
 	void moveTo(float _endx, float _endy, float _endz, float _movetime);
+	void moveTo(float _endx, float _endy, float _movetime);
 	void fadeTo(float _endalpha, float _fadetime);
 	void scaleTo(float _endxscale, float _endyscale,float _endzscale, float _scaletime);
 	void uniformScaleTo(float _endscale, float _scaletime);
