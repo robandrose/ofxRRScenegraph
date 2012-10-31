@@ -248,6 +248,8 @@ public:
 	ofEvent<BasicScreenObjectEvent> killEvent;
 	ofEvent<BasicScreenObjectEvent> hideEvent;
 	ofEvent<BasicScreenObjectEvent> showEvent;
+	
+	ofEvent<BasicScreenObjectEvent> positionChangedEvent;
 
 	
 	ofColor	pickingNameToColor(GLint _pickingName);
