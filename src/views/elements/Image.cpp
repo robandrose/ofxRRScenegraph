@@ -54,6 +54,12 @@ void Image::updateRealImageSize(){
     if(img) img->resize(width, height);
 }
 
+void Image::crop(int x, int y, int w, int h) {
+	if (img==NULL) return;
+	img->crop(x, y, w, h);
+	BasicScreenObject::setSize(w,h);
+}
+
 void Image::setMaxSize(float _maxwidth, float _maxheight){
 	hasmaxsize=true;
 	maxwidth=_maxwidth;

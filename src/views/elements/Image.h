@@ -30,6 +30,7 @@ public:
 	
 	void setMaxSize(float _width, float _height);
 	void updateSize();
+	void crop(int x, int y, int w, int h);
 	
     bool isLoaded();
     void clear();
