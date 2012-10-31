@@ -42,6 +42,7 @@ void TextField::setup(){
 void TextField::update(){	
 	if(changed){
 		renderText();
+		changed=false;
 	}
 }
 
