@@ -329,7 +329,8 @@ void BasicScreenObject::doOrderChildrenByZ(){
 
 void BasicScreenObject::draw(){
 	if (getCombinedVisible()) {
-		
+	
+	//if (isvisible && parent_so!=NULL) {	
 		glPushMatrix();
 		glMultMatrixf(getLocalTransformMatrix().getPtr());		
 		
@@ -374,6 +375,7 @@ void BasicScreenObject::draw(){
 		
 		glPopMatrix();
 	}
+	 
 }
 
 void BasicScreenObject::_draw(ofEventArgs &e){ _draw(); }
@@ -390,6 +392,7 @@ void BasicScreenObject::drawChildren(){
 
 void BasicScreenObject::drawForPicking(){
 	if (getCombinedVisible()) {
+	//if (isvisible && parent_so!=NULL) {
 		
 		glPushMatrix();
 		glMultMatrixf(getLocalTransformMatrix().getPtr());
@@ -626,6 +629,23 @@ void BasicScreenObject::show(float _time){
 	fadeTo(255, _time);
 }
 
+
+/*
+bool BasicScreenObject::getCombinedVisible(){
+	//return true;
+	if (isvisible ) {
+		bool parentvisible = true;
+		if (parent_so != NULL) {
+			parentvisible = parent_so->getCombinedVisible();
+			return parentvisible;
+		} else if (myname=="Renderer") {
+			return true;
+		}
+	}
+	return false;
+}
+*/
+
 bool BasicScreenObject::getCombinedVisible(){
 	bool parentvisible = true;
 	if(parent_so != NULL){
@@ -637,7 +657,6 @@ bool BasicScreenObject::getCombinedVisible(){
 		return isvisible;
 	}
 }
-
 
 /********************************************************
  *
