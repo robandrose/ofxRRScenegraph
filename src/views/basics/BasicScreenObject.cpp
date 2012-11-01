@@ -941,93 +941,128 @@ void BasicScreenObject::addSpeed(float _x, float _y, float _z, float _drag){
  ********************************************************/
 
 
-void BasicScreenObject::moveTo(float  _endx, float _endy, float _endz, float _movetime){
-    setSpeed(0,0,0);
+void BasicScreenObject::moveTo(float _endx, float _endy, float _movetime) {
+	moveTo(_endx, _endy, getZ(), _movetime, &ofxTransitions::easeInOutCubic, 0);
+}
+void BasicScreenObject::moveTo(float _endx, float _endy, float _movetime, float (ofxTransitions::*ease) (float,float,float,float)) {
+	moveTo(_endx, _endy, getZ(), _movetime, ease, 0);
+}
+void BasicScreenObject::moveTo(float _endx, float _endy, float _movetime, float (ofxTransitions::*ease) (float,float,float,float), float delay) {
+	moveTo(_endx, _endy, getZ(), _movetime, ease, delay);
+}
+void BasicScreenObject::moveTo(float _endx, float _endy, float _endz, float _movetime){
+    moveTo(_endx, _endy, _endz, _movetime, &ofxTransitions::easeInOutCubic, 0);
+}
+void BasicScreenObject::moveTo(float _endx, float _endy, float _endz, float _movetime, float (ofxTransitions::*ease) (float,float,float,float)) {
+	moveTo(_endx, _endy, _endz, _movetime, ease, 0);
+}
+void BasicScreenObject::moveTo(float _endx, float _endy, float _endz, float _movetime, float (ofxTransitions::*ease) (float,float,float,float), float delay) {
+	setSpeed(0,0,0);
 	tweenx = getX();
 	tweeny = getY();
 	tweenz = getZ();
-	Tweener.addTween(tweenx, _endx, _movetime/1000.0, &ofxTransitions::easeInOutCubic);
-	Tweener.addTween(tweeny, _endy, _movetime/1000.0, &ofxTransitions::easeInOutCubic);
-	Tweener.addTween(tweenz, _endz, _movetime/1000.0, &ofxTransitions::easeInOutCubic);
+	Tweener.addTween(tweenx, _endx, _movetime/1000.0, ease, delay/1000.0);
+	Tweener.addTween(tweeny, _endy, _movetime/1000.0, ease, delay/1000.0);
+	Tweener.addTween(tweenz, _endz, _movetime/1000.0, ease, delay/1000.0);
 	isMoveTweening = true;
 }
 
 
-void BasicScreenObject::moveTo(float _endx, float _endy, float _movetime) {
-	moveTo(_endx, _endy, getZ(), _movetime);
+void BasicScreenObject::fadeTo(float _endalpha, float _fadetime) {
+	fadeTo(_endalpha, _fadetime, &ofxTransitions::linear, 0);
 }
-
-
-void BasicScreenObject::fadeTo(float _endalpha , float _fadetime){
+void BasicScreenObject::fadeTo(float _endalpha, float _fadetime, float (ofxTransitions::*ease) (float,float,float,float)) {
+	fadeTo(_endalpha, _fadetime, ease, 0);
+}
+void BasicScreenObject::fadeTo(float _endalpha, float _fadetime, float (ofxTransitions::*ease) (float,float,float,float), float delay) {
 	visibletimer.stopTimer();
-	
-	Tweener.addTween(alpha, _endalpha, _fadetime/1000.0, &ofxTransitions::linear);
-	
+	Tweener.addTween(alpha, _endalpha, _fadetime/1000.0, ease, delay/1000.0);
 	isFadeTweening = true;
 }
 
 
+void BasicScreenObject::scaleTo(float _endscale, float _scaletime) {
+	scaleTo(_endscale, _endscale, _endscale, _scaletime, &ofxTransitions::easeInOutCubic, 0);
+}
+void BasicScreenObject::scaleTo(float _endscale, float _scaletime, float (ofxTransitions::*ease) (float,float,float,float)) {
+	scaleTo(_endscale, _endscale, _endscale, _scaletime, ease, 0);
+}
+void BasicScreenObject::scaleTo(float _endscale, float _scaletime, float (ofxTransitions::*ease) (float,float,float,float), float delay) {
+	scaleTo(_endscale, _endscale, _endscale, _scaletime, ease, delay);
+}
 void BasicScreenObject::scaleTo(float _endxscale, float _endyscale, float _endzscale, float _scaletime){
+	scaleTo(_endxscale, _endyscale, _endzscale, _scaletime, &ofxTransitions::easeInOutCubic, 0);
+}
+void BasicScreenObject::scaleTo(float _endxscale, float _endyscale,float _endzscale, float _scaletime, float (ofxTransitions::*ease) (float,float,float,float)) {
+	scaleTo(_endxscale, _endyscale, _endzscale, _scaletime, ease, 0);
+}
+void BasicScreenObject::scaleTo(float _endxscale, float _endyscale,float _endzscale, float _scaletime, float (ofxTransitions::*ease) (float,float,float,float), float delay) {
 	tweenscalex	= getScale().x;
 	tweenscaley	= getScale().y;
 	tweenscalez	= getScale().z;
-	
-	Tweener.addTween(tweenscalex, _endxscale, _scaletime/1000.0, &ofxTransitions::easeInOutCubic);
-	Tweener.addTween(tweenscaley, _endyscale, _scaletime/1000.0, &ofxTransitions::easeInOutCubic);
-	Tweener.addTween(tweenscalez, _endzscale, _scaletime/1000.0, &ofxTransitions::easeInOutCubic);
-	
+	Tweener.addTween(tweenscalex, _endxscale, _scaletime/1000.0, ease, delay/1000.0);
+	Tweener.addTween(tweenscaley, _endyscale, _scaletime/1000.0, ease, delay/1000.0);
+	Tweener.addTween(tweenscalez, _endzscale, _scaletime/1000.0, ease, delay/1000.0);
 	isScaleTweening = true;
 }
 
 
-void BasicScreenObject::uniformScaleTo(float _endscale, float _scaletime){
-    scaleTo(_endscale, _endscale, _endscale, _scaletime);
+void BasicScreenObject::colorTo(ofColor _color, float _colortime) {
+	colorTo(_color.r, _color.g, _color.b, _colortime, &ofxTransitions::easeInOutCubic, 0);
 }
-
-
-void BasicScreenObject::colorTo(float _endr, float _endg, float _endb, float _colortime){
+void BasicScreenObject::colorTo(ofColor _color, float _colortime, float (ofxTransitions::*ease) (float,float,float,float)) {
+	colorTo(_color.r, _color.g, _color.b, _colortime, ease, 0);
+}
+void BasicScreenObject::colorTo(ofColor _color, float _colortime, float (ofxTransitions::*ease) (float,float,float,float), float delay) {
+	colorTo(_color.r, _color.g, _color.b, _colortime, ease, delay);
+}
+void BasicScreenObject::colorTo(float _endr, float _endg, float _endb, float _colortime) {
+	colorTo(_endr, _endg, _endb, _colortime, &ofxTransitions::easeInOutCubic, 0);
+}
+void BasicScreenObject::colorTo(float _endr, float _endg, float _endb, float _colortime, float (ofxTransitions::*ease) (float,float,float,float)) {
+	colorTo(_endr, _endg, _endb, _colortime, ease, 0);
+}
+void BasicScreenObject::colorTo(float _endr, float _endg, float _endb, float _colortime, float (ofxTransitions::*ease) (float,float,float,float), float delay) {
 	tweenr		= color.r;
 	tweeng		= color.g;
 	tweenb		= color.b;
-	
-	Tweener.addTween(tweenr, _endr, _colortime/1000.0, &ofxTransitions::easeInOutCubic);
-	Tweener.addTween(tweeng, _endg, _colortime/1000.0, &ofxTransitions::easeInOutCubic);
-	Tweener.addTween(tweenb, _endb, _colortime/1000.0, &ofxTransitions::easeInOutCubic);
-	
+	Tweener.addTween(tweenr, _endr, _colortime/1000.0, ease, delay/1000.0);
+	Tweener.addTween(tweeng, _endg, _colortime/1000.0, ease, delay/1000.0);
+	Tweener.addTween(tweenb, _endb, _colortime/1000.0, ease, delay/1000.0);
 	isColorTweening = true;
 }
 
 
-void BasicScreenObject::colorTo(ofColor _endc, float _colortime){
-	colorTo(_endc.r,_endc.g,_endc.b,_colortime);
+void BasicScreenObject::rotateTo(float _x, float _y, float _z, float _slerptime) {
+	rotateTo(_x, _y, _z, _slerptime, &ofxTransitions::easeInOutSine, 0);
 }
-
-
-void BasicScreenObject::rotateTo(float _x, float _y, float _z,float _rotatetime ){
-	
+void BasicScreenObject::rotateTo(float _x, float _y, float _z, float _slerptime, float (ofxTransitions::*ease) (float,float,float,float)) {
+	rotateTo(_x, _y, _z, _slerptime, ease, 0);
+}
+void BasicScreenObject::rotateTo(float _x, float _y, float _z, float _slerptime, float (ofxTransitions::*ease) (float,float,float,float), float delay) {
 	qx.makeRotate(_x, ofVec3f(1,0,0));
 	qy.makeRotate(_y, ofVec3f(0,1,0));
 	qz.makeRotate(_z, ofVec3f(0,0,1));
-	
 	endquat = qx*qy*qz;
 	endquat.normalize();
-	
-	rotateTo(endquat,_rotatetime );
+	rotateTo(endquat, _slerptime, ease, delay/1000.0);
 }
-
-
-void BasicScreenObject::rotateTo(ofQuaternion _quat,float _rotatetime ){
-	
+void BasicScreenObject::rotateTo(ofQuaternion _quat, float _slerptime) {
+	rotateTo(_quat, _slerptime, &ofxTransitions::easeInOutSine, 0);
+}
+void BasicScreenObject::rotateTo(ofQuaternion _quat, float _slerptime, float (ofxTransitions::*ease) (float,float,float,float)) {
+	rotateTo(_quat, _slerptime, ease, 0);
+}
+void BasicScreenObject::rotateTo(ofQuaternion _quat, float _slerptime, float (ofxTransitions::*ease) (float,float,float,float), float delay) {
 	rotationspeed.set(0,0,0);
 	stopRotationAttraction();
-
-	tweenrotslerp = 0.0;
-	
-	endquat		= _quat;
-	startquat	= getOrientationQuat();
-	
-	Tweener.addTween(tweenrotslerp, 1.0, _rotatetime/1000.0, &ofxTransitions::easeInOutSine);
+	tweenrotslerp	= 0.0;
+	endquat			= _quat;
+	startquat		= getOrientationQuat();
+	Tweener.addTween(tweenrotslerp, 1.0, _slerptime/1000.0, ease, delay/1000.0);
+	isRotationTweening = true;
 }
+
 
 
 
