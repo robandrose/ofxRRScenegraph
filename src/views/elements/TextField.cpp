@@ -41,6 +41,8 @@ void TextField::setup(){
 
 void TextField::update(){	
 	if(changed){
+		// TODO: fix this bug. if rendered only once, text is scrambled sometimes.
+		renderText();
 		renderText();
 		changed=false;
 	}
