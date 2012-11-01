@@ -40,8 +40,7 @@ protected:
 	
 private:
 	ofImage* img;
-	
-	string filename;
+
 	float maxwidth;
 	float maxheight;
 	bool hasmaxsize;

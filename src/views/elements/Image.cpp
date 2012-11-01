@@ -32,8 +32,7 @@ void Image::update(){
 }
 
 void Image::load(string _filename){
-	filename=_filename;
-	img->loadImage(filename);
+	img->loadImage(_filename);
 	setSize(img->getWidth(), img->getHeight());
 	changed=true;
 	loaded = true;
