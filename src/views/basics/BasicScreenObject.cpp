@@ -176,7 +176,7 @@ void BasicScreenObject::_update(ofEventArgs &e){
 	}
 	
 	// Update Animations based on Tweening
-	if (isMoveTweening)		setPosition(tweenx, tweeny, tweenz);
+	if (isMoveTweening) setPosition(tweenx, tweeny, tweenz);
 	if (isScaleTweening)	setScale(tweenscalex, tweenscaley, tweenscalez);
 	if (isColorTweening)	setColor(tweenr,tweeng,tweenb);
 	if (isRotationTweening) {
@@ -1045,7 +1045,7 @@ void BasicScreenObject::rotateTo(float _x, float _y, float _z, float _slerptime,
 	qz.makeRotate(_z, ofVec3f(0,0,1));
 	endquat = qx*qy*qz;
 	endquat.normalize();
-	rotateTo(endquat, _slerptime, ease, delay/1000.0);
+	rotateTo(endquat, _slerptime, ease, delay);
 }
 void BasicScreenObject::rotateTo(ofQuaternion _quat, float _slerptime) {
 	rotateTo(_quat, _slerptime, &ofxTransitions::easeInOutSine, 0);
@@ -1097,15 +1097,17 @@ void BasicScreenObject::doRotate(){
 
 void BasicScreenObject::doMove(){
 	speed *= movedrag;
-	move(speed.x, speed.y, speed.z);
-	
-	if(moveattractionforce > 0){
-		ofVec3f	dist;
-		dist.set(endposition);
-		dist	-= getPosition();
-		dist	*= moveattractionforce;
-		addSpeed(dist.x, dist.y, dist.z,movedrag);
-	}
+	//ofLog(OF_LOG_NOTICE, ofToString(speed.length()));
+	//if (speed.x+speed.y+speed.z > 0.000000000001) {
+		move(speed.x, speed.y, speed.z);	// TODO: don't call this if speed is 0... this will dispatch massive amounts of positionChangedEvents but why does it not work then??
+	//}
+		if(moveattractionforce > 0){
+			ofVec3f	dist;
+			dist.set(endposition);
+			dist	-= getPosition();
+			dist	*= moveattractionforce;
+			addSpeed(dist.x, dist.y, dist.z,movedrag);
+		}
 	
 }
 
@@ -1162,19 +1164,20 @@ void BasicScreenObject::onTweenComplete(float&  param) {
 	//ofLog(OF_LOG_NOTICE, "TWEEN COMPLETE");
 	
 	if (&param == &tweenx || &param == &tweeny || &param == &tweenz) {
-		//ofLog(OF_LOG_NOTICE, "move tween complete");
+		ofLog(OF_LOG_NOTICE, "move tween complete");
 		isMoveTweening = false;
 	} else if (&param == &tweenscalex || &param == &tweenscaley || &param == &tweenscalez) {
-		//ofLog(OF_LOG_NOTICE, "scale tween complete");
+		ofLog(OF_LOG_NOTICE, "scale tween complete");
 		isScaleTweening = false;
 	} else if (&param == &tweenrotslerp) {
-		//ofLog(OF_LOG_NOTICE, "rotation tween complete");
+		ofLog(OF_LOG_NOTICE, "rotation tween complete");
 		isRotationTweening = false;
+		setOrientation(endquat);
 	} else if (&param == &tweenr || &param == &tweeng || &param == &tweenb) {
-		//ofLog(OF_LOG_NOTICE, "color tween complete");
+		ofLog(OF_LOG_NOTICE, "color tween complete");
 		isColorTweening = false;
 	}  else if (&param == &alpha) {
-		//ofLog(OF_LOG_NOTICE, "fade tween complete");
+		ofLog(OF_LOG_NOTICE, "fade tween complete");
 		isFadeTweening = false;
 	} 
 	
