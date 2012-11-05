@@ -22,13 +22,12 @@ void FpsMeter::update() {
 
 void FpsMeter::_draw() {
 	ofPushStyle();
+	
 	if (currentFps < warningThreshold) {
 		ofSetColor(255, 0, 0);
 	} else {
 		ofSetColor(color);
 	}
-
-	
 	ofNoFill();
 	ofSetLineWidth(1);
 	ofRect(1, 1, width-1, height-1);
