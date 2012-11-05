@@ -259,6 +259,10 @@ public:
 	void rotateTo(ofQuaternion _quat, float _slerptime, float (ofxTransitions::*ease) (float,float,float,float));
 	void rotateTo(ofQuaternion _quat, float _slerptime, float (ofxTransitions::*ease) (float,float,float,float), float delay);
 	
+    void sizeTo(float _width, float _height, float _time);
+	void sizeTo(float _width, float _height, float _time, float (ofxTransitions::*ease) (float,float,float,float));
+	void sizeTo(float _width, float _height, float _time, float (ofxTransitions::*ease) (float,float,float,float), float delay);
+	
 	
 	virtual void onTweenComplete(float& param);
 
@@ -320,9 +324,16 @@ protected:
 	
 	
 	float		tweenx, tweeny, tweenz;
-	float		tweenscalex, tweenscaley, tweenscalez;
+	float		tweenEndX, tweenEndY, tweenEndZ;
 	bool		isMoveTweening;
+	
+	float		tweenscalex, tweenscaley, tweenscalez;
+	float		tweenEndScaleX, tweenEndScaleY, tweenEndScaleZ;
 	bool		isScaleTweening;
+	
+	float		tweenHeight, tweenWidth;
+	float		tweenEndHeight, tweenEndWidth;
+	bool		isSizeTweening;
 	
 	
 	float		width, height;
@@ -362,7 +373,9 @@ protected:
 	// Color
 	ofColor		color;
 	float		tweenr, tweeng, tweenb;
+	float		tweenEndR, tweenEndG, tweenEndB;
 	float		alpha;
+	float		tweenEndAlpha;
 	bool		isColorTweening;
 	bool		isFadeTweening;
 	

@@ -85,6 +85,7 @@ BasicScreenObject::BasicScreenObject(){
 	tweeny			= 0;
 	tweenz			= 0;
 	isMoveTweening	= false;
+	isSizeTweening	= false;
 	
 	tweenscalex		= 0;
 	tweenscaley		= 0;
@@ -184,6 +185,7 @@ void BasicScreenObject::_update(ofEventArgs &e){
 		nowquat.slerp(tweenrotslerp, startquat, endquat);
 		setOrientation(nowquat);
 	}
+	if (isSizeTweening) setSize(tweenWidth, tweenHeight);
 
 	
 	// Animations based on Forces and Attractionpoints
@@ -961,6 +963,9 @@ void BasicScreenObject::moveTo(float _endx, float _endy, float _endz, float _mov
 	tweenx = getX();
 	tweeny = getY();
 	tweenz = getZ();
+	tweenEndX = _endx;
+	tweenEndY = _endy;
+	tweenEndZ = _endz;
 	Tweener.addTween(tweenx, _endx, _movetime/1000.0, ease, delay/1000.0);
 	Tweener.addTween(tweeny, _endy, _movetime/1000.0, ease, delay/1000.0);
 	Tweener.addTween(tweenz, _endz, _movetime/1000.0, ease, delay/1000.0);
@@ -976,6 +981,7 @@ void BasicScreenObject::fadeTo(float _endalpha, float _fadetime, float (ofxTrans
 }
 void BasicScreenObject::fadeTo(float _endalpha, float _fadetime, float (ofxTransitions::*ease) (float,float,float,float), float delay) {
 	visibletimer.stopTimer();
+	tweenEndAlpha = _endalpha;
 	Tweener.addTween(alpha, _endalpha, _fadetime/1000.0, ease, delay/1000.0);
 	isFadeTweening = true;
 }
@@ -1000,6 +1006,9 @@ void BasicScreenObject::scaleTo(float _endxscale, float _endyscale,float _endzsc
 	tweenscalex	= getScale().x;
 	tweenscaley	= getScale().y;
 	tweenscalez	= getScale().z;
+	tweenEndScaleX = _endxscale;
+	tweenEndScaleY = _endyscale;
+	tweenEndScaleZ = _endzscale;
 	Tweener.addTween(tweenscalex, _endxscale, _scaletime/1000.0, ease, delay/1000.0);
 	Tweener.addTween(tweenscaley, _endyscale, _scaletime/1000.0, ease, delay/1000.0);
 	Tweener.addTween(tweenscalez, _endzscale, _scaletime/1000.0, ease, delay/1000.0);
@@ -1026,6 +1035,9 @@ void BasicScreenObject::colorTo(float _endr, float _endg, float _endb, float _co
 	tweenr		= color.r;
 	tweeng		= color.g;
 	tweenb		= color.b;
+	tweenEndR	= _endr;
+	tweenEndG	= _endg;
+	tweenEndB	= _endb;
 	Tweener.addTween(tweenr, _endr, _colortime/1000.0, ease, delay/1000.0);
 	Tweener.addTween(tweeng, _endg, _colortime/1000.0, ease, delay/1000.0);
 	Tweener.addTween(tweenb, _endb, _colortime/1000.0, ease, delay/1000.0);
@@ -1062,6 +1074,24 @@ void BasicScreenObject::rotateTo(ofQuaternion _quat, float _slerptime, float (of
 	Tweener.addTween(tweenrotslerp, 1.0, _slerptime/1000.0, ease, delay/1000.0);
 	isRotationTweening = true;
 }
+
+
+void BasicScreenObject::sizeTo(float _width, float _height, float _time){
+	sizeTo(_width, _height, _time, &ofxTransitions::easeInOutCubic, 0);
+}
+void BasicScreenObject::sizeTo(float _width, float _height, float _time, float (ofxTransitions::*ease) (float,float,float,float)) {
+	sizeTo(_width, _height, _time, ease, 0);
+}
+void BasicScreenObject::sizeTo(float _width, float _height, float _time, float (ofxTransitions::*ease) (float,float,float,float), float delay) {
+	tweenWidth	= getWidth();
+	tweenHeight	= getHeight();
+	tweenEndWidth = _width;
+	tweenEndHeight = _height;
+	Tweener.addTween(tweenWidth, _width, _time/1000.0, ease, delay/1000.0);
+	Tweener.addTween(tweenHeight, _height, _time/1000.0, ease, delay/1000.0);
+	isSizeTweening = true;
+}
+
 
 
 
@@ -1165,9 +1195,11 @@ void BasicScreenObject::onTweenComplete(float&  param) {
 	
 	if (&param == &tweenx || &param == &tweeny || &param == &tweenz) {
 		ofLog(OF_LOG_NOTICE, "move tween complete");
+		setPosition(tweenEndX, tweenEndY, tweenEndZ);
 		isMoveTweening = false;
 	} else if (&param == &tweenscalex || &param == &tweenscaley || &param == &tweenscalez) {
 		ofLog(OF_LOG_NOTICE, "scale tween complete");
+		setScale(tweenEndScaleX, tweenEndScaleY, tweenEndScaleZ);
 		isScaleTweening = false;
 	} else if (&param == &tweenrotslerp) {
 		ofLog(OF_LOG_NOTICE, "rotation tween complete");
@@ -1175,11 +1207,17 @@ void BasicScreenObject::onTweenComplete(float&  param) {
 		setOrientation(endquat);
 	} else if (&param == &tweenr || &param == &tweeng || &param == &tweenb) {
 		ofLog(OF_LOG_NOTICE, "color tween complete");
+		setColor(tweenEndR, tweenEndG, tweenEndB);
 		isColorTweening = false;
 	}  else if (&param == &alpha) {
 		ofLog(OF_LOG_NOTICE, "fade tween complete");
+		setAlpha(tweenEndAlpha);
 		isFadeTweening = false;
-	} 
+	} else if (&param == &tweenWidth || &param == &tweenHeight) {
+		ofLog(OF_LOG_NOTICE, "size tween complete");
+		setSize(tweenEndWidth, tweenEndHeight);
+		isSizeTweening = false;
+	}
 	
 }
 
