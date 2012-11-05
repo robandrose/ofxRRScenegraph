@@ -8,6 +8,7 @@ public:
 	void update();
 	void _draw();
 	void setSize(float _width, float _height);
+	void setWarningThreshold(float _warnThreshold);
 	
 	static const int MAX_SIZE = 1920;
 	
@@ -17,4 +18,5 @@ private:
 	int currentSize;
 	float currentFps;
 	float largest;
+	float warningThreshold;
 };
