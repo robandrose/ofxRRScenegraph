@@ -10,6 +10,7 @@
 #include "ShapeRoundedRect.h"
 
 void ShapeRoundedRect::_draw(){
+	path.setFillColor(ofColor(color.r,color.g,color.b,getCombinedAlpha()));
 	path.draw();
 }
 
