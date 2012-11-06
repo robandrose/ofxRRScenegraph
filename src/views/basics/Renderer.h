@@ -13,7 +13,7 @@
 #include "BasicScreenObject.h"
 #include "BasicInteractiveObject.h"
 #include "ofxTuioClient.h"
-#include "GuiSettingsController.h"
+//#include "GuiSettingsController.h"
 #include "ofxTweener.h"
 
 
