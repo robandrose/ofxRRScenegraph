@@ -222,7 +222,7 @@ public:
 	
 	ofColor	getColor();
     
-	//tweening functions. lots of convinience stuff, and transparent for most ofxTweener properties (see Tweener.addTween())
+	//tweening functions. lots of convenience stuff, and transparent for most ofxTweener properties (see Tweener.addTween())
 	void moveTo(float _endx, float _endy, float _endz, float _movetime);
 	void moveTo(float _endx, float _endy, float _endz, float _movetime, float (ofxTransitions::*ease) (float,float,float,float));
 	void moveTo(float _endx, float _endy, float _endz, float _movetime, float (ofxTransitions::*ease) (float,float,float,float), float delay);
