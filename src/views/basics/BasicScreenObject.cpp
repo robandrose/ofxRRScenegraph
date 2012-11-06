@@ -1195,27 +1195,27 @@ void BasicScreenObject::onTweenComplete(float&  param) {
 	//ofLog(OF_LOG_NOTICE, "TWEEN COMPLETE");
 	
 	if (&param == &tweenx || &param == &tweeny || &param == &tweenz) {
-		ofLog(OF_LOG_NOTICE, "move tween complete");
+		//ofLog(OF_LOG_NOTICE, "move tween complete");
 		setPosition(tweenEndX, tweenEndY, tweenEndZ);
 		isMoveTweening = false;
 	} else if (&param == &tweenscalex || &param == &tweenscaley || &param == &tweenscalez) {
-		ofLog(OF_LOG_NOTICE, "scale tween complete");
+		//ofLog(OF_LOG_NOTICE, "scale tween complete");
 		setScale(tweenEndScaleX, tweenEndScaleY, tweenEndScaleZ);
 		isScaleTweening = false;
 	} else if (&param == &tweenrotslerp) {
-		ofLog(OF_LOG_NOTICE, "rotation tween complete");
+		//ofLog(OF_LOG_NOTICE, "rotation tween complete");
 		isRotationTweening = false;
 		setOrientation(endquat);
 	} else if (&param == &tweenr || &param == &tweeng || &param == &tweenb) {
-		ofLog(OF_LOG_NOTICE, "color tween complete");
+		//ofLog(OF_LOG_NOTICE, "color tween complete");
 		setColor(tweenEndR, tweenEndG, tweenEndB);
 		isColorTweening = false;
 	}  else if (&param == &alpha) {
-		ofLog(OF_LOG_NOTICE, "fade tween complete");
+		//ofLog(OF_LOG_NOTICE, "fade tween complete");
 		setAlpha(tweenEndAlpha);
 		isFadeTweening = false;
 	} else if (&param == &tweenWidth || &param == &tweenHeight) {
-		ofLog(OF_LOG_NOTICE, "size tween complete");
+		//ofLog(OF_LOG_NOTICE, "size tween complete");
 		setSize(tweenEndWidth, tweenEndHeight);
 		isSizeTweening = false;
 	}
