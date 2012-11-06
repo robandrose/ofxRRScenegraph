@@ -740,8 +740,9 @@ void BasicScreenObject::setupMask(){
 		}else if(masktype==MASK_TYPE_CLIPPLANES){
 			GLdouble eq0[] = {1,0,0,-maskobject->getPosition().x};
 			GLdouble eq1[] = {0,1,0,-maskobject->getPosition().y};
-			GLdouble eq2[] = {-1,0,0,maskobject->getWidth()-maskobject->getPosition().x};
-			GLdouble eq3[] = {0,-1,0,maskobject->getHeight()-maskobject->getPosition().y};				
+			GLdouble eq2[] = {-1,0,0,maskobject->getWidth() + maskobject->getPosition().x};
+			GLdouble eq3[] = {0,-1,0,maskobject->getHeight()+ maskobject->getPosition().y};	
+			
 			glClipPlane(GL_CLIP_PLANE0,eq0);
 			glClipPlane(GL_CLIP_PLANE1,eq1);
 			glClipPlane(GL_CLIP_PLANE2,eq2);
