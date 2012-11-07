@@ -22,12 +22,8 @@ void FpsMeter::update() {
 
 void FpsMeter::_draw() {
 	ofPushStyle();
+	ofSetColor(color);
 	
-	if (currentFps < warningThreshold) {
-		ofSetColor(255, 0, 0);
-	} else {
-		ofSetColor(color);
-	}
 	ofNoFill();
 	ofSetLineWidth(1);
 	ofRect(1, 1, width-1, height-1);
@@ -36,6 +32,11 @@ void FpsMeter::_draw() {
 	int currentPos = 0;
 	for (int i=0; i < currentSize; i++) {
 		currentPos = (oldestIndex + i) % currentSize;
+		if (fpsList[currentPos] < warningThreshold) {
+			ofSetColor(255, 0, 0);
+		} else {
+			ofSetColor(color);
+		}
 		ofLine(i, height, i, height-ofMap(fpsList[currentPos], 0.0, largest, 0.0, height, false) );
 	}
 	ofSetColor(0, 0, 0);
