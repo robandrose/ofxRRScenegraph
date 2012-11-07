@@ -43,7 +43,7 @@ void ShapeRoundedRect::setRadius(float r){
 		ofRect(x, y, z, w, h);
 		return;
 	}
-	path.setCurveResolution(10);
+	path.setCurveResolution(5);
 	path.clear();
 	path.lineTo(x+r, y);
 	path.bezierTo(x,y, x,y+r, x,y+r);
