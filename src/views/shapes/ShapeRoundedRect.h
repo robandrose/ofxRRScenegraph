@@ -13,10 +13,11 @@
 
 class ShapeRoundedRect:public BasicShape{
 public:	
+	ShapeRoundedRect();
 	void _draw();
-	void setupShape(float r=10);
-	
-	ofVboMesh* mesh;
-	
+	void setRadius(float r);
+
+protected:
+	float cornerRadius;
 	
 };

@@ -9,14 +9,26 @@
 
 #include "ShapeRoundedRect.h"
 
+ShapeRoundedRect::ShapeRoundedRect() {
+	cornerRadius = 10.0;
+}
+
 void ShapeRoundedRect::_draw(){
+	
+	path.setStrokeWidth(_strokeWidth);
 	path.setFillColor(ofColor(color.r,color.g,color.b,getCombinedAlpha()));
+	path.setStrokeColor(ofColor(color.r,color.g,color.b,getCombinedAlpha()));
+	path.setFilled(_isFilled);
 	path.draw();
+	
 }
 
 //----------------------------------------------------------
-void ShapeRoundedRect::setupShape(float r){
+void ShapeRoundedRect::setRadius(float r){
 	
+	// way faster than ofRectRounded()!!!
+	
+	cornerRadius = r;
 	
 	float x=0;
 	float y=0;
@@ -31,7 +43,7 @@ void ShapeRoundedRect::setupShape(float r){
 		ofRect(x, y, z, w, h);
 		return;
 	}
-	path.setCurveResolution(5);
+	path.setCurveResolution(10);
 	path.clear();
 	path.lineTo(x+r, y);
 	path.bezierTo(x,y, x,y+r, x,y+r);

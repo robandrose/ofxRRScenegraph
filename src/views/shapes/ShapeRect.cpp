@@ -10,5 +10,13 @@
 #include "ShapeRect.h"
 
 void ShapeRect::_draw(){
+	ofPushStyle();
+	if (_isFilled) {
+		ofFill();
+	} else {
+		ofNoFill();
+	}
+	ofSetLineWidth(_strokeWidth);
 	ofRect(0, 0, width, height);
+	ofPopStyle();
 }
