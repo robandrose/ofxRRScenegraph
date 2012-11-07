@@ -28,13 +28,6 @@ BasicButton::BasicButton() {
 BasicButton::~BasicButton(){
 }
 
-void BasicButton::onTap(MultiTouchEvent& _event){
-
-}
-
-void BasicButton::onDoubleTap(MultiTouchEvent& _event){
-
-}
 
 void BasicButton::onFirstTouchDown(MultiTouchEvent& _event){
 	if(hasactiveimage){
@@ -46,10 +39,6 @@ void BasicButton::onLastTouchUp(MultiTouchEvent& _event){
 	currentImage = temp;
 }
 
-void BasicButton::onStartMultiTouchScope(MultiTouchEvent& _event){
-
-}
-
 
 void BasicButton::_draw(){
 	if(normal==NULL){
@@ -58,15 +47,6 @@ void BasicButton::_draw(){
 	if (currentImage != NULL) currentImage->draw(0,0,width, height);
 }
 
-
-void BasicButton::_drawForPicking(){
-	ofRect(0,0,width,height);
-}
-/*
-void BasicButton::setSize(float _width, float _height){
-	BasicInteractiveObject::setSize(_width, _height);
-}
- */
 
 void BasicButton::setImage(ofImage* _normal, ofImage* _selected, ofImage* _active, ofImage* _disabled){
 	

@@ -11,30 +11,18 @@
 #include "BasicInteractiveObject.h"
 #include "Image.h"
 
-#define BUTTON_STATE_NORMAL 0
-#define BUTTON_STATE_ACTIVE 1
-#define BUTTON_STATE_SELECTED 2
-#define BUTTON_STATE_DISABLED 3
-#define BUTTON_STATE_SELECTED_ACTIVE 4
-
-
-
-	
-
 
 class BasicButton : public BasicInteractiveObject {
+	
 public:
 	BasicButton();
 	virtual ~BasicButton();	// destructor
 
-	void onTap(MultiTouchEvent& _event);
-	void onDoubleTap(MultiTouchEvent& _event);
-	void onFirstTouchDown(MultiTouchEvent& _event);
-	void onLastTouchUp(MultiTouchEvent& _event);	
-	void onStartMultiTouchScope(MultiTouchEvent& _event);
-	
-	
-	//virtual void setSize(float _width, float _height);
+	virtual void onTap(MultiTouchEvent& _event){};
+	virtual void onDoubleTap(MultiTouchEvent& _event){};
+	virtual void onFirstTouchDown(MultiTouchEvent& _event);
+	virtual void onLastTouchUp(MultiTouchEvent& _event);	
+	virtual void onStartMultiTouchScope(MultiTouchEvent& _event) {};
 	
 	virtual void setImage(ofImage* _normal, ofImage* _selected=NULL, ofImage* _active=NULL, ofImage* _disabled=NULL);
 	virtual void toggle();
@@ -46,10 +34,8 @@ public:
 	bool isSelected();
 	
 	
-	
 protected:
-	void _draw();
-	void _drawForPicking();
+	virtual void _draw();
 	
 	string mytxt;
 	ofImage* currentImage;
@@ -61,8 +47,5 @@ protected:
 
 	bool isenabled;
 	bool isselected;
-	
 	bool hasactiveimage;
-	
-
 };
