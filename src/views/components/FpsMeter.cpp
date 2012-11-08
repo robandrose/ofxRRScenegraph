@@ -33,7 +33,7 @@ void FpsMeter::_draw() {
 	for (int i=0; i < currentSize; i++) {
 		currentPos = (oldestIndex + i) % currentSize;
 		if (fpsList[currentPos] < warningThreshold) {
-			ofSetColor(255, 0, 0);
+			ofSetColor(255.0, 0, 0);
 		} else {
 			ofSetColor(color);
 		}
