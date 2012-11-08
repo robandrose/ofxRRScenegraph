@@ -1,6 +1,5 @@
 /*
  *  BasicScreenObject.cpp
- *  BasicScreenObject_Test
  *
  *  Created by Matthias Rohrbach 2 on 10.06.12.
  *  Copyright 2012 rob & rose grafik. All rights reserved.
@@ -21,11 +20,9 @@ BasicScreenObject::BasicScreenObject(){
 	ofAddListener(showEvent,	this, &BasicScreenObject::onShow);
 	ofAddListener(Tweener.onTweenCompleteEvent, this, &BasicScreenObject::onTweenComplete);
 	
-	
-	masktype=MASK_TYPE_CLIPPLANES;
+	masktype= MASK_TYPE_CLIPPLANES;
 	ismask	= false;
 	hasmask	= false;
-	
 	
 	setPosition(0,0,0);
 	speed.set(0,0,0);
@@ -33,11 +30,8 @@ BasicScreenObject::BasicScreenObject(){
 	moveattractionforce	= 0;
 	movedrag			= 1;
 	
-	
 	setScale(1, 1, 1);
 	width = height = 10;
-	//setAnchorPoint(0, 0, 0);
-	
 	
 	alpha		= 255;
 	setColor(255,255,255);
@@ -47,11 +41,9 @@ BasicScreenObject::BasicScreenObject(){
 	isColorTweening	= false;
 	isFadeTweening	= false;
 	
-	
 	// Rotation
 	rotationdrag = 0.99;
 	rotationspeed.set(0,0,0);
-	
 	
 	setRotationSpeed(0, 0, 0);
 	setRotationDrag(0.99);
@@ -60,7 +52,6 @@ BasicScreenObject::BasicScreenObject(){
 	rotationattractionangles.set(0,0,0);
 	
 	isRotationTweening = false;
-	
 	
 	lightingbefore		= false;
 	lightingenabled		= false;
@@ -97,6 +88,8 @@ BasicScreenObject::BasicScreenObject(){
 	isinteractive	= false;
 	isorderbyz		= false;
 	isupdating		= true;
+	
+	isRenderer		= false;
 }
 
 
@@ -172,30 +165,26 @@ void BasicScreenObject::_setup(ofEventArgs &e){
 
 void BasicScreenObject::_update(ofEventArgs &e){
 	if(!isupdating) return;
-	if(age == 1){
-		firstUpdate();
-	}
+	
+	if(age == 1) firstUpdate();
 	
 	// Update Animations based on Tweening
-	if (isMoveTweening) setPosition(tweenx, tweeny, tweenz);
+	if (isMoveTweening)		setPosition(tweenx, tweeny, tweenz);
 	if (isScaleTweening)	setScale(tweenscalex, tweenscaley, tweenscalez);
 	if (isColorTweening)	setColor(tweenr,tweeng,tweenb);
+	if (isSizeTweening)		setSize(tweenWidth, tweenHeight);
 	if (isRotationTweening) {
 		ofQuaternion nowquat=getOrientationQuat();
 		nowquat.slerp(tweenrotslerp, startquat, endquat);
 		setOrientation(nowquat);
 	}
-	if (isSizeTweening) setSize(tweenWidth, tweenHeight);
-
+	
 	
 	// Animations based on Forces and Attractionpoints
 	doRotate();
 	doMove();
 	
-	if(isorderbyz){
-		doOrderChildrenByZ();
-	}
-	
+	if(isorderbyz) doOrderChildrenByZ();
 	
 	update();
 	
@@ -204,7 +193,9 @@ void BasicScreenObject::_update(ofEventArgs &e){
 			IPositioner* p = positioner->second;
 			p->restrict(this);
 		}
-	}	
+	}
+	
+	isCombinedVisible = getCombinedVisible();
 	
 	age++;	
 }
@@ -330,13 +321,12 @@ void BasicScreenObject::doOrderChildrenByZ(){
 
 
 void BasicScreenObject::draw(){
-	if (getCombinedVisible()) {
-	
-	//if (isvisible && parent_so!=NULL) {	
+	if (isCombinedVisible) {
+
 		glPushMatrix();
 		glMultMatrixf(getLocalTransformMatrix().getPtr());		
 		
-		setupMask();
+		if (hasmask) setupMask();
         
 		glBlendFunc(sfactor, dfactor);
 				
@@ -373,7 +363,7 @@ void BasicScreenObject::draw(){
 		if(depthtestenabled && !depthtestbefore)glDisable(GL_DEPTH_TEST);
 		if(!depthtestenabled && depthtestbefore)glEnable(GL_DEPTH_TEST);
 				
-		restoreMask();
+		if(hasmask) restoreMask();
 		
 		glPopMatrix();
 	}
@@ -393,13 +383,12 @@ void BasicScreenObject::drawChildren(){
 
 
 void BasicScreenObject::drawForPicking(){
-	if (getCombinedVisible()) {
-	//if (isvisible && parent_so!=NULL) {
+	if (isCombinedVisible) {
 		
 		glPushMatrix();
 		glMultMatrixf(getLocalTransformMatrix().getPtr());
 		
-		setupMask();
+		if (hasmask) setupMask();
 		
 		depthtestbefore = glIsEnabled(GL_DEPTH_TEST);
 		if (depthtestenabled && !depthtestbefore)glEnable(GL_DEPTH_TEST);
@@ -421,7 +410,7 @@ void BasicScreenObject::drawForPicking(){
 		if(!depthtestenabled && depthtestbefore){
 			glEnable(GL_DEPTH_TEST);
 		}
-		restoreMask();		
+		if(hasmask) restoreMask();		
 		glPopMatrix();
 	}
 }
@@ -632,32 +621,14 @@ void BasicScreenObject::show(float _time){
 }
 
 
-/*
 bool BasicScreenObject::getCombinedVisible(){
-	//return true;
-	if (isvisible ) {
-		bool parentvisible = true;
-		if (parent_so != NULL) {
-			parentvisible = parent_so->getCombinedVisible();
-			return parentvisible;
-		} else if (myname=="Renderer") {
-			return true;
-		}
+	if (!isvisible) return false;	// do not go up in the tree if i'm not visible
+	if (isRenderer) return true;
+	
+	if(parent_so != NULL){
+		return parent_so->getCombinedVisible();
 	}
 	return false;
-}
-*/
-
-bool BasicScreenObject::getCombinedVisible(){
-	bool parentvisible = true;
-	if(parent_so != NULL){
-		parentvisible = parent_so->getCombinedVisible();
-	}
-	if(isvisible){
-		return parentvisible;
-	}else{
-		return isvisible;
-	}
 }
 
 /********************************************************
@@ -717,58 +688,54 @@ BasicScreenObject* BasicScreenObject::getMaskObject() { return maskobject; }
 
 
 void BasicScreenObject::setupMask(){
-	if(hasMask()){
-		if(masktype == MASK_TYPE_STENCIL){
-			glClear(GL_STENCIL_BUFFER_BIT );
-			glEnable(GL_STENCIL_TEST);
-			glStencilFunc(GL_ALWAYS, 0x1, 0x1);
-			glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
-			glColorMask(0,0,0,0);
-			glDisable(GL_DEPTH_TEST);
-			maskobject->disableDepthTest();
-			maskobject->draw();
-			glColorMask(1,1,1,1);
-			glStencilFunc(GL_EQUAL, 0x1, 0x1);
-			glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-			
-		}else if(masktype == MASK_TYPE_SCISSOR){
-			glEnable(GL_SCISSOR_TEST);
-			ofVec3f maskpos=maskobject->localToGlobal(0,0,0);
-			maskpos.y=ofGetHeight()-maskpos.y-maskobject->getHeight();
-			glScissor(maskpos.x, maskpos.y,maskobject->getWidth(), maskobject->getHeight());
-			
-		}else if(masktype==MASK_TYPE_CLIPPLANES){
-			GLdouble eq0[] = {1,0,0,-maskobject->getPosition().x};
-			GLdouble eq1[] = {0,1,0,-maskobject->getPosition().y};
-			GLdouble eq2[] = {-1,0,0,maskobject->getWidth() + maskobject->getPosition().x};
-			GLdouble eq3[] = {0,-1,0,maskobject->getHeight()+ maskobject->getPosition().y};	
-			
-			glClipPlane(GL_CLIP_PLANE0,eq0);
-			glClipPlane(GL_CLIP_PLANE1,eq1);
-			glClipPlane(GL_CLIP_PLANE2,eq2);
-			glClipPlane(GL_CLIP_PLANE3,eq3);
-			glEnable(GL_CLIP_PLANE0);
-			glEnable(GL_CLIP_PLANE1);
-			glEnable(GL_CLIP_PLANE2);
-			glEnable(GL_CLIP_PLANE3);
-		}
+	if(masktype == MASK_TYPE_STENCIL){
+		glClear(GL_STENCIL_BUFFER_BIT );
+		glEnable(GL_STENCIL_TEST);
+		glStencilFunc(GL_ALWAYS, 0x1, 0x1);
+		glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
+		glColorMask(0,0,0,0);
+		glDisable(GL_DEPTH_TEST);
+		maskobject->disableDepthTest();
+		maskobject->draw();
+		glColorMask(1,1,1,1);
+		glStencilFunc(GL_EQUAL, 0x1, 0x1);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+		
+	}else if(masktype == MASK_TYPE_SCISSOR){
+		glEnable(GL_SCISSOR_TEST);
+		ofVec3f maskpos=maskobject->localToGlobal(0,0,0);
+		maskpos.y=ofGetHeight()-maskpos.y-maskobject->getHeight();
+		glScissor(maskpos.x, maskpos.y,maskobject->getWidth(), maskobject->getHeight());
+		
+	}else if(masktype==MASK_TYPE_CLIPPLANES){
+		GLdouble eq0[] = {1,0,0,-maskobject->getPosition().x};
+		GLdouble eq1[] = {0,1,0,-maskobject->getPosition().y};
+		GLdouble eq2[] = {-1,0,0,maskobject->getWidth() + maskobject->getPosition().x};
+		GLdouble eq3[] = {0,-1,0,maskobject->getHeight()+ maskobject->getPosition().y};	
+		
+		glClipPlane(GL_CLIP_PLANE0,eq0);
+		glClipPlane(GL_CLIP_PLANE1,eq1);
+		glClipPlane(GL_CLIP_PLANE2,eq2);
+		glClipPlane(GL_CLIP_PLANE3,eq3);
+		glEnable(GL_CLIP_PLANE0);
+		glEnable(GL_CLIP_PLANE1);
+		glEnable(GL_CLIP_PLANE2);
+		glEnable(GL_CLIP_PLANE3);
 	}
 }
 
 
 void BasicScreenObject::restoreMask(){
-	if(hasMask()){
-		if(masktype == MASK_TYPE_STENCIL){
-			glDisable(GL_STENCIL_TEST);
-		}else if(masktype == MASK_TYPE_SCISSOR){
-			glDisable(GL_SCISSOR_TEST);
-		}else if(masktype == MASK_TYPE_CLIPPLANES){
-			glDisable(GL_CLIP_PLANE0);
-			glDisable(GL_CLIP_PLANE1);
-			glDisable(GL_CLIP_PLANE2);
-			glDisable(GL_CLIP_PLANE3);
-		}
-	}	
+	if(masktype == MASK_TYPE_STENCIL){
+		glDisable(GL_STENCIL_TEST);
+	}else if(masktype == MASK_TYPE_SCISSOR){
+		glDisable(GL_SCISSOR_TEST);
+	}else if(masktype == MASK_TYPE_CLIPPLANES){
+		glDisable(GL_CLIP_PLANE0);
+		glDisable(GL_CLIP_PLANE1);
+		glDisable(GL_CLIP_PLANE2);
+		glDisable(GL_CLIP_PLANE3);
+	}
 }
 
 
@@ -1112,9 +1079,12 @@ void BasicScreenObject::stopMoveAttraction(){
 void BasicScreenObject::doRotate(){
 	
 	rotationspeed *= rotationdrag;
-	addRotation(rotationspeed.x, rotationspeed.y, rotationspeed.z);
 	
-	if(rotationattractionforce>0){
+	if (rotationspeed.length() > 0) {
+		addRotation(rotationspeed.x, rotationspeed.y, rotationspeed.z);
+	}
+	
+	if(rotationattractionforce > 0){
 		ofQuaternion	betweenquat = rotationattractionquat-getOrientationQuat();
 		float			betweenangle;
 		ofVec3f			dirvec(1,0,0);
@@ -1128,17 +1098,18 @@ void BasicScreenObject::doRotate(){
 
 void BasicScreenObject::doMove(){
 	speed *= movedrag;
-	//ofLog(OF_LOG_NOTICE, ofToString(speed.length()));
-	//if (speed.x+speed.y+speed.z > 0.000000000001) {
+	
+	if (speed.length() > 0) {
 		move(speed.x, speed.y, speed.z);	// TODO: don't call this if speed is 0... this will dispatch massive amounts of positionChangedEvents but why does it not work then??
-	//}
-		if(moveattractionforce > 0){
-			ofVec3f	dist;
-			dist.set(endposition);
-			dist	-= getPosition();
-			dist	*= moveattractionforce;
-			addSpeed(dist.x, dist.y, dist.z,movedrag);
-		}
+	}
+	
+	if(moveattractionforce > 0){
+		ofVec3f	dist;
+		dist.set(endposition);
+		dist	-= getPosition();
+		dist	*= moveattractionforce;
+		addSpeed(dist.x, dist.y, dist.z,movedrag);
+	}
 	
 }
 

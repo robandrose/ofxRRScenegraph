@@ -25,6 +25,8 @@ Renderer::Renderer(){
 	
 	bTuioSetup=false;
 	bColorPickerSetup=false;
+	
+	isRenderer = true;
 }
 
 Renderer::~Renderer(){

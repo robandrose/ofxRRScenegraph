@@ -311,6 +311,8 @@ protected:
 	bool isvisible;
     bool isinteractive;
 	bool isorderbyz;
+	bool isRenderer;
+	bool isCombinedVisible; // updated in _update(), so it will only be called once per frame
 	
 	
 	
@@ -396,6 +398,8 @@ protected:
 	
     
 private:
+	
+	
 	
     void setRoot(BasicScreenObject* _root);
     
