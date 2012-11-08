@@ -30,13 +30,19 @@ BasicButton::~BasicButton(){
 
 
 void BasicButton::onFirstTouchDown(MultiTouchEvent& _event){
-	if(hasactiveimage){
-		currentImage = active;
+	if (isenabled) {
+		if(hasactiveimage){
+			currentImage = active;
+		}
+		ofNotifyEvent(pressEvent, myEventArgs, this);
 	}
 }
 
 void BasicButton::onLastTouchUp(MultiTouchEvent& _event){
-	currentImage = temp;
+	if (isenabled) {
+		currentImage = temp;
+		ofNotifyEvent(releaseEvent, myEventArgs, this);
+	}
 }
 
 
@@ -86,27 +92,30 @@ bool BasicButton::isSelected(){
 }
 
 void BasicButton::select(){
-	if(isselected)return;
+	if(isselected || !isenabled)return;
 	isselected=true;
 	temp=selected;
 	currentImage = selected;
 }
 
 void BasicButton::deselect(){
-	if(!isselected)return;
+	if(!isselected || !isenabled)return;
 	isselected=false;
 	temp=normal;
 	currentImage = normal;
 }
 
 void BasicButton::disable(){
+	if (!isenabled) return;
 	isenabled=false;
+	isselected=false;
 	temp=disabled;
 	currentImage = disabled;
 }
 
 void BasicButton::enable(){
-	isenabled=false;
+	if (isenabled) return;
+	isenabled=true;
 	temp=normal;
 	currentImage = normal;
 }

@@ -17,6 +17,9 @@ class BasicButton : public BasicInteractiveObject {
 public:
 	BasicButton();
 	virtual ~BasicButton();	// destructor
+	
+	ofEvent<BasicScreenObjectEvent> pressEvent;
+	ofEvent<BasicScreenObjectEvent> releaseEvent;
 
 	virtual void onTap(MultiTouchEvent& _event){};
 	virtual void onDoubleTap(MultiTouchEvent& _event){};
