@@ -89,7 +89,7 @@ void TextField::setSize(float _width, float _height){
 	layout = pango->createLayout(width, height);
 	layout->setWidth(width); 
 	layout->fill(0, 0, 0, 0);
-	text_image.clear();
+	//text_image.clear();
 	text_image.allocate(layout->getWidth(), layout->getHeight(), OF_IMAGE_COLOR_ALPHA);	
 	changed=true;
 }
@@ -117,7 +117,12 @@ void TextField::setTabs(vector<int> _tabs){
 void TextField::setColor(float _r, float _g, float _b){
 	BasicScreenObject::setColor(_r,_g,_b);
 	changed=true;
+}
 
+
+void TextField::setColor(ofColor _c){
+	BasicScreenObject::setColor(_c.r,_c.g,_c.b);
+	changed=true;
 }
 
 ofPoint TextField::getTextBounds(){
@@ -129,6 +134,7 @@ ofPoint TextField::getTextBounds(){
 }
 
 void TextField::renderText(){
+
 	layout->context->clear();
 	layout->setWidth(width);
 	layout->setFontDescription(*fd);
@@ -139,15 +145,17 @@ void TextField::renderText(){
 	layout->setTabs(tabs);
 	layout->setPangoAlign(align);
 	layout->show();
-	
+
 	text_image.setFromPixels(layout->context->getSurface()->getPixels(), text_image.width, text_image.height, OF_IMAGE_COLOR_ALPHA, true);
 	bounds=layout->getPixelSize();	
+	
+	changed=false;
 	
 	if(bounds.y!=height){
 		setSize(width, bounds.y);
 	}
 	
-	changed=false;
+	
 }
 
 void TextField::_draw(){
