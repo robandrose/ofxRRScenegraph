@@ -44,7 +44,6 @@ void TextField::update(){
 		// TODO: fix this bug. if rendered only once, text is scrambled sometimes.
 		renderText();
 		renderText();
-		changed=false;
 	}
 }
 
@@ -122,6 +121,10 @@ void TextField::setColor(float _r, float _g, float _b){
 }
 
 ofPoint TextField::getTextBounds(){
+	if (changed) {
+		renderText();
+		renderText();
+	}
 	return bounds;
 }
 
@@ -142,7 +145,9 @@ void TextField::renderText(){
 	
 	if(bounds.y!=height){
 		setSize(width, bounds.y);
-	}	
+	}
+	
+	changed=false;
 }
 
 void TextField::_draw(){
