@@ -107,3 +107,33 @@ void Image::setImagePointer(ofImage* _img) {
     changed = true;
     loaded = true;
 }
+
+
+/**
+ *	fits the image into the supplied rect (width/height) and center-crops the image.
+ *  image will have _width and _hight as its dimensions after calling this method
+ */
+void Image::cropFitScale(int _width, int _height) {
+	float sourceAspect	= getWidth() / float(getHeight());
+	float destAspect	= _width / float(_height);
+	float tempWidth, tempHeight;
+	
+	if (sourceAspect > destAspect) {
+		// landscape
+		tempHeight = _height;
+		tempWidth = _height * sourceAspect;
+	} else {
+		// portrait
+		tempWidth = _width;
+		tempHeight = _width / sourceAspect;
+	}
+	
+	setSize(tempWidth, tempHeight);
+	
+	// do crop / center
+	float cropX = (tempWidth - _width) / 2.0;
+	float cropY = (tempHeight - _height) / 2.0;
+	
+	crop(cropX, cropY, _width, _height);
+
+}
