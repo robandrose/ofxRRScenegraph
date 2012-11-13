@@ -1,3 +1,11 @@
+/*
+ *  TextField.cpp
+ *
+ *  Created by Matthias Rohrbach on 14.07.11.
+ *  Copyright 2011 __MyCompanyName__. All rights reserved.
+ *
+ */
+
 #include "TextField.h"
 
 const int TextField::ALIGN_LEFT=PANGO_ALIGN_LEFT;
@@ -17,7 +25,6 @@ TextField::TextField(){
 	setFontSize(15);
 	setFontName("Graphik");
 	setSize(200, 50);
-	
 	setLineSpacing(3);
 	setTextAlign(ALIGN_LEFT);
 	setIndent(0.0);
@@ -72,7 +79,6 @@ void TextField::setFontDescription(string _fontdescription){
 	fontdescription=_fontdescription;	
 	fd = new ofxPCPangoFontDescription();
 	fd->createFromString(fontdescription);
-	fd->setWeight(PANGO_WEIGHT_LIGHT);
 	changed=true;
 }
 
@@ -113,6 +119,11 @@ void TextField::setColor(float _r, float _g, float _b){
 	changed=true;
 }
 
+
+void TextField::setColor(ofColor _c){
+	BasicScreenObject::setColor(_c.r,_c.g,_c.b);
+	changed=true;
+}
 
 ofPoint TextField::getTextBounds(){
 	if (changed) {
