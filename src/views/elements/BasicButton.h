@@ -33,6 +33,8 @@ public:
 	virtual void deselect();
 	virtual void enable();
 	virtual void disable();
+	virtual void isScalingImage(bool _scale);
+	virtual bool isScalingImage();
 	
 	bool isSelected();
 	
@@ -48,7 +50,8 @@ protected:
 	ofImage* disabled;
     ofImage* temp;
 
-	bool isenabled;
-	bool isselected;
-	bool hasactiveimage;
+	bool isEnabled;
+	bool _isSelected;
+	bool hasActiveimage;
+	bool _isScalingImage;
 };

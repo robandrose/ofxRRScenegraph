@@ -12,10 +12,10 @@
 
 
 BasicButton::BasicButton() {
-	isenabled=true;
-	isselected=false;
-	hasactiveimage=false;	
-	isselected=false;
+	isEnabled=true;
+	_isSelected=false;
+	hasActiveimage=false;	
+	_isScalingImage = true;
 	
 	temp=NULL;
 	normal=NULL;
@@ -30,8 +30,8 @@ BasicButton::~BasicButton(){
 
 
 void BasicButton::onFirstTouchDown(MultiTouchEvent& _event){
-	if (isenabled) {
-		if(hasactiveimage){
+	if (isEnabled) {
+		if(hasActiveimage){
 			currentImage = active;
 		}
 		ofNotifyEvent(pressEvent, myEventArgs, this);
@@ -39,7 +39,7 @@ void BasicButton::onFirstTouchDown(MultiTouchEvent& _event){
 }
 
 void BasicButton::onLastTouchUp(MultiTouchEvent& _event){
-	if (isenabled) {
+	if (isEnabled) {
 		currentImage = temp;
 		ofNotifyEvent(releaseEvent, myEventArgs, this);
 	}
@@ -50,7 +50,14 @@ void BasicButton::_draw(){
 	if(normal==NULL){
 		ofRect(0,0,width,height);
 	}
-	if (currentImage != NULL) currentImage->draw(0,0,width, height);
+	if (currentImage != NULL) {
+		if (_isScalingImage) {
+			currentImage->draw(0,0,width, height);
+		} else {
+			currentImage->draw(width/2.0-currentImage->getWidth()/2.0, height/2.0-currentImage->getHeight()/2.0);
+		}
+
+	}
 }
 
 
@@ -65,10 +72,10 @@ void BasicButton::setImage(ofImage* _normal, ofImage* _selected, ofImage* _activ
 	
 	active=_active;
 	
-	hasactiveimage=true;
+	hasActiveimage=true;
 	if(active==NULL){
 		active=normal;
-		hasactiveimage=false;
+		hasActiveimage=false;
 	}
 
 	disabled=_disabled;
@@ -80,7 +87,7 @@ void BasicButton::setImage(ofImage* _normal, ofImage* _selected, ofImage* _activ
 }
 
 void BasicButton::toggle(){
-	if(isselected){
+	if(_isSelected){
 		deselect();
 	}else{
 		select();
@@ -88,34 +95,41 @@ void BasicButton::toggle(){
 }
 
 bool BasicButton::isSelected(){
-	return isselected;
+	return _isSelected;
 }
 
 void BasicButton::select(){
-	if(isselected || !isenabled)return;
-	isselected=true;
+	if(_isSelected || !isEnabled)return;
+	_isSelected=true;
 	temp=selected;
 	currentImage = selected;
 }
 
 void BasicButton::deselect(){
-	if(!isselected || !isenabled)return;
-	isselected=false;
+	if(!_isSelected || !isEnabled)return;
+	_isSelected=false;
 	temp=normal;
 	currentImage = normal;
 }
 
 void BasicButton::disable(){
-	if (!isenabled) return;
-	isenabled=false;
-	isselected=false;
+	if (!isEnabled) return;
+	isEnabled=false;
+	_isSelected=false;
 	temp=disabled;
 	currentImage = disabled;
 }
 
 void BasicButton::enable(){
-	if (isenabled) return;
-	isenabled=true;
+	if (isEnabled) return;
+	isEnabled=true;
 	temp=normal;
 	currentImage = normal;
+}
+
+void  BasicButton::isScalingImage(bool _scale) {
+	_isScalingImage = _scale;
+}
+bool  BasicButton::isScalingImage() {
+	return _isScalingImage;
 }
