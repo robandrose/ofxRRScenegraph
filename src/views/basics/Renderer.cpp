@@ -10,30 +10,30 @@
 #include "Renderer.h"
 
 Renderer::Renderer(){
-	myname="Renderer";
-	nextPickingName = 100;
-	cursorsize=10;
-	maxcursors=20;
-	captureincrement=2;
-	mapsampling=2;
+	myname			="Renderer";
+	nextPickingName	= 100;
+	cursorsize		= 10;
+	maxcursors		= 20;
+	captureincrement= 2;
+	mapsampling		= 2;
 	
 	touchtomouse = true;
 	mousetotouch = true;
 	mousetouchid = -1;
 	
-	currentviewport=ofRectangle(0,0,0,0);
+	currentviewport	= ofRectangle(0,0,0,0);
 	
-	bTuioSetup=false;
-	bColorPickerSetup=false;
-	
-	isRenderer = true;
-	
-	drawcursors = true;
+	bTuioSetup			= false;
+	bColorPickerSetup	= false;
+	isRenderer			= true;
+	drawcursors			= true;
 }
+
 
 Renderer::~Renderer(){
 
 }
+
 
 void Renderer::setup(){
 	
@@ -46,34 +46,36 @@ void Renderer::setup(){
 	ofAddListener(ofEvents().touchMoved,this,&Renderer::tuioUpdated);
 }
 
+
 void Renderer::setupColorPicker(float _width, float _height, float _sampling, float _increment){	
+	
 	BasicScreenObject::setSize(_width,_height);
-	mapsampling=_sampling;
-	captureincrement=_increment;
-	mapscale=1.0f/(float)mapsampling;
+	mapsampling			= _sampling;
+	captureincrement	= _increment;
+	mapscale			= 1.0f/(float)mapsampling;
 	
 	ofFbo::Settings s;
 	
-	s.width=getWidth()/mapsampling;
-	s.height=getHeight()/mapsampling;
-	s.internalformat=GL_RGB;
-	s.useDepth=true;
+	s.width				= getWidth()/mapsampling;
+	s.height			= getHeight()/mapsampling;
+	s.internalformat	= GL_RGB;
+	s.useDepth			= true;
 	
 	pickingmap.allocate(s );
 	maxbounds = ofRectangle ( 0 , 0 , pickingmap.getWidth()-1 , pickingmap.getHeight()-1 ) ;
 	camera.setupPerspective();
 	
 	bColorPickerSetup=true;
-	
 }
 
 
 void Renderer::update(){
+	
 	Tweener.update();
 
 	if(bColorPickerSetup){
 		
-		bool waslighting=glIsEnabled(GL_LIGHTING);
+		bool waslighting = glIsEnabled(GL_LIGHTING);
 		if(waslighting){
 			glDisable(GL_LIGHTING);
 		}
@@ -90,6 +92,7 @@ void Renderer::update(){
 			pickingmap.end();		
 			pickingmap.readToPixels(mapPixels);
 		}
+		
 		if(waslighting){
 			glEnable(GL_LIGHTING);
 		}
@@ -97,7 +100,8 @@ void Renderer::update(){
 }
 
 void Renderer::draw(){
-	currentviewport=ofGetCurrentViewport();
+	
+	currentviewport = ofGetCurrentViewport();
 	camera.begin();
 	BasicScreenObject::draw();
 	camera.end();
@@ -112,7 +116,7 @@ void Renderer::_draw(){
 void Renderer::startTuio(int _port) {
 	port = _port;
 	tuio.connect(_port);
-	bTuioSetup=true;
+	bTuioSetup = true;
 }
 
 
@@ -194,8 +198,8 @@ void Renderer::mouseDragged(ofMouseEventArgs& _cursor){
 void Renderer::notifyObjects(float _screenx, float _screeny,int _fingerid, int _action){
 	
 	mtRay ray;
-	ray.pos=camera.screenToWorld(ofVec3f(_screenx,_screeny,-1),currentviewport);
-	ray.dir=camera.screenToWorld(ofVec3f(_screenx,_screeny,1), currentviewport)-ray.pos;
+	ray.pos = camera.screenToWorld(ofVec3f(_screenx,_screeny,-1),currentviewport);
+	ray.dir = camera.screenToWorld(ofVec3f(_screenx,_screeny,1), currentviewport)-ray.pos;
 	ray.screenpos.set(_screenx, _screeny);
 	
 	
@@ -259,11 +263,15 @@ void Renderer::drawCursors(){
 		std::list<TuioCursor*> cursorList =  tuio.client->getTuioCursors();
 		std::list<TuioCursor*>::iterator tit;
 		tuio.client->lockCursorList();
-		for (tit=cursorList.begin(); tit != cursorList.end(); tit++) {
+		
+		for (tit = cursorList.begin(); tit != cursorList.end(); tit++) {
 			TuioCursor * cur = (*tit);
 			glColor3f(0.1,0.1, 0.1);
-			for(int i=0;i<5;i++){
-				ofEllipse(cur->getX()*ofGetWidth(), cur->getY()*ofGetHeight(), 20.0+i*i, 20.0+i*i);
+			for(int i = 0; i < 5; i++){
+				ofEllipse(cur->getX()*ofGetWidth(),
+						  cur->getY()*ofGetHeight(),
+						  20.0+i*i,
+						  20.0+i*i);
 			}
 		}
 		tuio.client->unlockCursorList();
@@ -272,8 +280,11 @@ void Renderer::drawCursors(){
 	if (mousetotouch) {
 		if (ofGetMousePressed()) {
 			glColor3f(0.1,0.1, 0.1);
-			for(int i=0;i<5;i++){
-				ofEllipse(ofGetMouseX(), ofGetMouseY(), 20.0+i*i, 20.0+i*i);
+			for(int i = 0; i < 5; i++){
+				ofEllipse(ofGetMouseX(),
+						  ofGetMouseY(),
+						  20.0+i*i,
+						  20.0+i*i);
 			}
 		}
 	}
@@ -282,14 +293,17 @@ void Renderer::drawCursors(){
 }
 
 BasicScreenObject* Renderer::getObjectAt(float _screenx, float _screeny){
-	int fbox=_screenx/mapsampling;
-	int fboy=_screeny/mapsampling;
-	fbox=ofClamp(fbox, 0, maxbounds.width);
-	fboy=ofClamp(fboy, 0, maxbounds.height);
-	int index = (fbox + fboy * pickingmap.getWidth()) * 3 ;
-	ofColor	fboc=ofColor( mapPixels[index] , mapPixels[index + 1] , mapPixels[index + 2] );
-	GLint pickingName=colorToPickingName(fboc);
-	BasicScreenObject* obj = NULL;
+	int fbox	=_screenx/mapsampling;
+	int fboy	=_screeny/mapsampling;
+	fbox		= ofClamp(fbox, 0, maxbounds.width);
+	fboy		= ofClamp(fboy, 0, maxbounds.height);
+	
+	int index	= (fbox + fboy * pickingmap.getWidth()) * 3 ;
+	
+	ofColor	fboc			= ofColor( mapPixels[index] , mapPixels[index + 1] , mapPixels[index + 2] );
+	GLint pickingName		= colorToPickingName(fboc);
+	BasicScreenObject* obj	= NULL;
+	
 	if (pickingObjects.find(pickingName) != pickingObjects.end()) {
 		obj = pickingObjects[pickingName];
 	}	

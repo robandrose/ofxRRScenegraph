@@ -13,7 +13,6 @@
 #include "BasicScreenObject.h"
 #include "BasicInteractiveObject.h"
 #include "ofxTuioClient.h"
-//#include "GuiSettingsController.h"
 #include "ofxTweener.h"
 
 
@@ -66,7 +65,6 @@ protected:
 	bool bTuioSetup;
 	bool bColorPickerSetup;
 	
-	
 	void setup();
 	void _draw();
 	void update();
@@ -85,11 +83,11 @@ protected:
 	virtual void _drawForPicking(){};
 	
 	// mouse-touch and touch-mouse emulator settings 
-	bool touchtomouse;
-	bool mousetotouch;
+	bool	touchtomouse;
+	bool	mousetotouch;
 	
 	// the finger/session id of the touch that is emulating the mouse
-	int mousetouchid;
+	int		mousetouchid;
 	
 	// the event object of the last emulated mouse event (used to ignore the mouse event if it was created using the emulator)
 	ofMouseEventArgs* lastfakemouseevent;
@@ -99,26 +97,23 @@ protected:
 	GLuint nextPickingName;
 	map<GLuint, BasicScreenObject*> pickingObjects;
 	
-	int port;
-	int maxcursors;
-	bool drawcursors;
-	float cursorsize;
-	long lastinteraction;
-	
+	int		port;
+	int		maxcursors;
+	bool	drawcursors;
+	float	cursorsize;
+	long	lastinteraction;
 	
 	// Pixel picking:
+	ofFbo		pickingmap;
+	ofPixels	mapPixels ;
 	
-	ofFbo pickingmap;
-	ofPixels mapPixels ;
-	
-	int captureincrement ;
-	float mapsampling;
-	float mapscale ;            //amount the screen is scaled
-	float mapscaleinv ;           //returns fbo to screen size
+	int		captureincrement ;
+	float	mapsampling;
+	float	mapscale ;            //amount the screen is scaled
+	float	mapscaleinv ;           //returns fbo to screen size
 	ofRectangle maxbounds;
 	
 	// Camera
-	
 	ofCamera camera;
 	
 	// Save currentviewport, to enable raygeneration in update loop
