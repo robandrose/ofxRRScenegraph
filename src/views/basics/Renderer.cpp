@@ -27,6 +27,8 @@ Renderer::Renderer(){
 	bColorPickerSetup=false;
 	
 	isRenderer = true;
+	
+	drawcursors = true;
 }
 
 Renderer::~Renderer(){
@@ -99,7 +101,7 @@ void Renderer::draw(){
 	camera.begin();
 	BasicScreenObject::draw();
 	camera.end();
-	drawCursors();
+	if (drawcursors) drawCursors();
 }
 
 
@@ -302,5 +304,9 @@ GLuint Renderer::getNextPickingName(BasicScreenObject* _object) {
 
 long Renderer::lastInteractionMillis(){
 	return lastinteraction;
+}
+
+void Renderer::isDrawCursors(bool _drawCursors) {
+	drawcursors = _drawCursors;
 }
 
