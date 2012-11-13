@@ -36,7 +36,6 @@ public:
 	void setTabs(vector<int> _tabs);
 	
 	virtual void setColor(float _r, float _g, float _b);
-	virtual void setColor(ofColor _c);
 	
 	ofPoint getTextBounds();	
 	ofxPCPangoLayout* getLayout();
