@@ -230,10 +230,14 @@ public:
 	void moveTo(float _endx, float _endy, float _movetime);
 	void moveTo(float _endx, float _endy, float _movetime, float (ofxTransitions::*ease) (float,float,float,float));
 	void moveTo(float _endx, float _endy, float _movetime, float (ofxTransitions::*ease) (float,float,float,float), float delay);
-		
+	
 	void fadeTo(float _endalpha, float _fadetime);
 	void fadeTo(float _endalpha, float _fadetime, float (ofxTransitions::*ease) (float,float,float,float));
-	void fadeTo(float _endalpha, float _fadetime, float (ofxTransitions::*ease) (float,float,float,float), float delay);
+	void fadeTo(float _endalpha, float _fadetime, float (ofxTransitions::*ease) (float,float,float,float), float delay);		
+	
+	void fadeToInvisible(float _fadetime);
+	void fadeToInvisible(float _fadetime, float (ofxTransitions::*ease) (float,float,float,float));
+	void fadeToInvisible(float _fadetime, float (ofxTransitions::*ease) (float,float,float,float), float delay);
 	
 	void scaleTo(float _endxscale, float _endyscale,float _endzscale, float _scaletime);
 	void scaleTo(float _endxscale, float _endyscale,float _endzscale, float _scaletime, float (ofxTransitions::*ease) (float,float,float,float));
@@ -380,6 +384,7 @@ protected:
 	float		tweenEndAlpha;
 	bool		isColorTweening;
 	bool		isFadeTweening;
+	bool		isFadeTweeningToInvisible;
 	
     // Screenobjects:
     BasicScreenObject*			root;

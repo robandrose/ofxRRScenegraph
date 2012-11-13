@@ -40,6 +40,7 @@ BasicScreenObject::BasicScreenObject(){
 	tweenb		= 255;
 	isColorTweening	= false;
 	isFadeTweening	= false;
+	isFadeTweeningToInvisible = false;
 	
 	// Rotation
 	rotationdrag = 0.99;
@@ -955,6 +956,22 @@ void BasicScreenObject::fadeTo(float _endalpha, float _fadetime, float (ofxTrans
 }
 
 
+
+void BasicScreenObject::fadeToInvisible(float _fadetime) {
+	fadeToInvisible(_fadetime, &ofxTransitions::linear, 0);
+}
+void BasicScreenObject::fadeToInvisible(float _fadetime, float (ofxTransitions::*ease) (float,float,float,float)) {
+	fadeToInvisible(_fadetime, ease, 0);
+}
+void BasicScreenObject::fadeToInvisible(float _fadetime, float (ofxTransitions::*ease) (float,float,float,float), float delay) {
+	visibletimer.stopTimer();
+	tweenEndAlpha = 0.0;
+	Tweener.addTween(alpha, tweenEndAlpha, _fadetime/1000.0, ease, delay/1000.0);
+	isFadeTweening = true;
+	isFadeTweeningToInvisible = true;
+}
+
+
 void BasicScreenObject::scaleTo(float _endscale, float _scaletime) {
 	scaleTo(_endscale, _endscale, _endscale, _scaletime, &ofxTransitions::easeInOutCubic, 0);
 }
@@ -1185,6 +1202,10 @@ void BasicScreenObject::onTweenComplete(float&  param) {
 		//ofLog(OF_LOG_NOTICE, "fade tween complete");
 		setAlpha(tweenEndAlpha);
 		isFadeTweening = false;
+		if (isFadeTweeningToInvisible) {
+			isVisible(false);
+			isFadeTweeningToInvisible = false;
+		}
 	} else if (&param == &tweenWidth || &param == &tweenHeight) {
 		//ofLog(OF_LOG_NOTICE, "size tween complete");
 		setSize(tweenEndWidth, tweenEndHeight);
