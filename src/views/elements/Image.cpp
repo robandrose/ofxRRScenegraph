@@ -1,57 +1,104 @@
-/*
- *  Image.cpp
- *  UI_Components_Dev
- *
- *  Created by Matthias Rohrbach on 04.07.12.
- *  Copyright 2012 rob & rose grafik. All rights reserved.
- *
- */
-
 #include "Image.h"
 
+
 Image::Image(){
-	hasmaxsize=false;
-	changed=false;
-    isupdatereal=false;
-    img = new ofImage();
-    loaded = false;
+	hasMaxSize	= false;
+	changed		= false;
+    isUpdateReal= false;
+    img			= new ofImage();
+    loaded		= false;
+	loadingAsync= false;
+	loadingPlaceholder = NULL;
 }
+
 
 Image::~Image(){
 	img->clear();
 }
 
+
 void Image::setup(){
 	
 }
 
+
 void Image::update(){
+	if (loadingAsync) {
+		if (img->getWidth() > 0) {
+			loaded		= true;
+			loadingAsync= false;
+			changed		= true;
+			setSize(img->getWidth(), img->getHeight());
+			if (loadingPlaceholder != NULL) {
+				loadingPlaceholder->isVisible(false);
+			}
+			ofNotifyEvent(imageLoadedEvent, myEventArgs, this);
+		}
+	}
 	if(changed && img){
 		updateSize();
 	}
 }
 
+
 void Image::load(string _filename){
 	img->loadImage(_filename);
 	setSize(img->getWidth(), img->getHeight());
-	changed=true;
-	loaded = true;
+	changed = true;
+	loaded  = true;
 }
+
+
+void Image::loadAsyncFromDisk(string _filename, ofxThreadedImageLoader* loader) {
+	loadingAsync = true;
+	loaded		 = false;
+	if (loadingPlaceholder != NULL) {
+		loadingPlaceholder->isVisible(true);
+	}
+	img->clear();
+	loader->loadFromDisk(img, _filename);
+}
+
+
+void Image::loadAsyncFromURL(string _url, ofxThreadedImageLoader* loader) {
+	loadingAsync = true;
+	loaded		 = false;
+	if (loadingPlaceholder != NULL) {
+		loadingPlaceholder->isVisible(true);
+	}
+	img->clear();
+	loader->loadFromURL(img, _url);
+}
+
+
+void Image::setLoadingPlaceholder(BasicScreenObject* _loadingPlaceholder) {
+	if (loadingPlaceholder != NULL) {
+		removeChild(loadingPlaceholder);
+	}
+	loadingPlaceholder = _loadingPlaceholder;
+	addChild(loadingPlaceholder);
+	loadingPlaceholder->setPosition((width - loadingPlaceholder->getWidth())/2.0, (height - loadingPlaceholder->getHeight())/2.0);
+	loadingPlaceholder->isVisible(false);
+}
+
 
 ofImage* Image::getImagePointer(){
 	return img;
 }
 
+
 void Image::setSize(float _width, float _height){
 	BasicScreenObject::setSize(_width, _height);
-	if(isupdatereal){
+	if(isUpdateReal){
         updateRealImageSize();
 	}
 }
 
+
 void Image::updateRealImageSize(){
     if(img) img->resize(width, height);
 }
+
 
 void Image::crop(int x, int y, int w, int h) {
 	if (img==NULL) return;
@@ -59,53 +106,57 @@ void Image::crop(int x, int y, int w, int h) {
 	BasicScreenObject::setSize(w,h);
 }
 
+
 void Image::setMaxSize(float _maxwidth, float _maxheight){
-	hasmaxsize=true;
-	maxwidth=_maxwidth;
-	maxheight=_maxheight;
+	hasMaxSize	= true;
+	maxWidth	= _maxwidth;
+	maxHeight	= _maxheight;
 	
 	updateSize();
 }
 
+
 void Image::updateSize(){
-    if(img==NULL)return;
-    if(!hasmaxsize)return;
-	float fact=(maxwidth/maxheight)/(img->getWidth()/img->getHeight());
-	float newwidth=maxwidth;
-	float newheight=maxheight;
-	if(fact>=1){
-		newwidth=maxheight/img->getHeight()*img->getWidth();
+    if (img == NULL) return;
+    if(!hasMaxSize) return;
+	float fact = (maxWidth/maxHeight)/(img->getWidth()/img->getHeight());
+	float newwidth	= maxWidth;
+	float newheight	= maxHeight;
+	if(fact >= 1){
+		newwidth = maxHeight/img->getHeight()*img->getWidth();
 	}else{
-		newheight=maxwidth/img->getWidth()*img->getHeight();
+		newheight = maxWidth/img->getWidth()*img->getHeight();
 	}
 	setSize(newwidth, newheight);
 	changed=false;
 }
 
+
 void Image::_draw(){
-	if (img==NULL)return;
+	if (img == NULL) return;
 	
-	if(img->getWidth()>0){
-        img->draw(0,0,width,height);
+	if (img->getWidth() > 0) {
+        img->draw(0, 0, width, height);
 	}
 }
+
 
 bool Image::isLoaded() {
     return loaded;
 }
 
+
 void Image::clear() {
-    if (loaded && img != NULL) {
+	if (loaded && img != NULL) {
         img->clear();
     }
 }
 
 
 void Image::setImagePointer(ofImage* _img) {
-	
-    img = _img;
-    changed = true;
-    loaded = true;
+    img		= _img;
+    changed	= true;
+    loaded	= true;
 }
 
 
@@ -120,12 +171,12 @@ void Image::cropFitScale(int _width, int _height) {
 	
 	if (sourceAspect > destAspect) {
 		// landscape
-		tempHeight = _height;
-		tempWidth = _height * sourceAspect;
+		tempHeight	= _height;
+		tempWidth	= _height * sourceAspect;
 	} else {
 		// portrait
-		tempWidth = _width;
-		tempHeight = _width / sourceAspect;
+		tempWidth	= _width;
+		tempHeight	= _width / sourceAspect;
 	}
 	
 	setSize(tempWidth, tempHeight);
@@ -135,5 +186,4 @@ void Image::cropFitScale(int _width, int _height) {
 	float cropY = (tempHeight - _height) / 2.0;
 	
 	crop(cropX, cropY, _width, _height);
-
 }

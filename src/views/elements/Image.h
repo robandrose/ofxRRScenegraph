@@ -10,6 +10,7 @@
 
 #pragma once
 #include "BasicScreenObject.h"
+#include "ofxThreadedImageLoader.h"
 
 
 class Image:public BasicScreenObject{
@@ -21,12 +22,17 @@ public:
 	void update();
 	
 	void load(string _filename);
-	void setImagePointer(ofImage* _img);
-	ofImage* getImagePointer();
+	void loadAsyncFromDisk(string _filename, ofxThreadedImageLoader* loader);
+	void loadAsyncFromURL(string _url, ofxThreadedImageLoader* loader);
+	
+	void setLoadingPlaceholder(BasicScreenObject* _loadingPlaceholder);
+	
+	void		setImagePointer(ofImage* _img);
+	ofImage*	getImagePointer();
 	
 	void setSize(float _width, float _height);
 	void updateRealImageSize();
-	void isUpdateRealImageSize(bool _isupdatereal){isupdatereal=_isupdatereal;};
+	void isUpdateRealImageSize(bool _isupdatereal){isUpdateReal=_isupdatereal;};
 	
 	void setMaxSize(float _width, float _height);
 	void updateSize();
@@ -36,17 +42,21 @@ public:
     bool isLoaded();
     void clear();
 	
+	ofEvent<BasicScreenObjectEvent> imageLoadedEvent;
+	
 protected:
 	void _draw();
 	
 private:
-	ofImage* img;
+	ofImage*	img;
+	BasicScreenObject* loadingPlaceholder;
 
-	float maxwidth;
-	float maxheight;
-	bool hasmaxsize;
-	bool changed;
+	float		maxWidth;
+	float		maxHeight;
+	bool		hasMaxSize;
+	bool		changed;
 	
-	bool isupdatereal;
-    bool loaded;	
+	bool		isUpdateReal;
+    bool		loaded;
+	bool		loadingAsync;
 };
