@@ -86,10 +86,11 @@ void TextField::setFontDescription(string _fontdescription){
 
 void TextField::setSize(float _width, float _height){
 	BasicScreenObject::setSize(_width, _height);
+	if (layout != NULL) delete layout;
 	layout = pango->createLayout(width, height);
 	layout->setWidth(width); 
 	layout->fill(0, 0, 0, 0);
-	//text_image.clear();
+	text_image.clear();
 	text_image.allocate(layout->getWidth(), layout->getHeight(), OF_IMAGE_COLOR_ALPHA);	
 	changed=true;
 }
