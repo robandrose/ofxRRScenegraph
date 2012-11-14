@@ -697,7 +697,7 @@ void BasicScreenObject::setupMask(){
 		glColorMask(0,0,0,0);
 		glDisable(GL_DEPTH_TEST);
 		maskobject->disableDepthTest();
-		maskobject->draw();
+		maskobject->_draw();
 		glColorMask(1,1,1,1);
 		glStencilFunc(GL_EQUAL, 0x1, 0x1);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
