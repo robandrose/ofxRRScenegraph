@@ -2,6 +2,7 @@
 
 ShapeEllipse::ShapeEllipse() {
 	resolution = 50;
+	mode = OF_RECTMODE_CENTER;
 }
 void ShapeEllipse::_draw(){
 	//path.setFillColor(ofColor(color.r,color.g,color.b,getCombinedAlpha()));
@@ -13,10 +14,21 @@ void ShapeEllipse::_draw(){
 	}
 	ofSetLineWidth(_strokeWidth);
 	ofSetCircleResolution(resolution);
-	ofEllipse(0, 0, width, height);
+	if (mode==OF_RECTMODE_CENTER) {
+		ofEllipse(0, 0, width, height);
+	} else if (mode==OF_RECTMODE_CORNER) {
+		ofEllipse(width/2.0, height/2.0, width, height);
+	}
+	
 	ofPopStyle();
 }
 
+
 void ShapeEllipse::setResolution(int _resolution) {
 	resolution = _resolution;
+}
+
+
+void ShapeEllipse::setEllipseMode(int _mode) {
+	mode = _mode;
 }
