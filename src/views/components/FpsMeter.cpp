@@ -40,7 +40,13 @@ void FpsMeter::_draw() {
 		ofLine(i, height, i, height-ofMap(fpsList[currentPos], 0.0, largest, 0.0, height, false) );
 	}
 	ofSetColor(0, 0, 0);
-	ofDrawBitmapString("fps: " + ofToString(int(currentFps)), 5,height/2+5 );
+	if (currentFps<100) {
+		ofDrawBitmapString("fps:  " + ofToString(int(currentFps)), 5,height/2+5 );
+	} else {
+		ofDrawBitmapString("fps: " + ofToString(int(currentFps)), 5,height/2+5 );
+	}
+
+	
 	ofPopStyle();
 }
 
