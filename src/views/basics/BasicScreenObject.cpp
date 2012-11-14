@@ -953,6 +953,7 @@ void BasicScreenObject::fadeTo(float _endalpha, float _fadetime, float (ofxTrans
 	tweenEndAlpha = _endalpha;
 	Tweener.addTween(alpha, _endalpha, _fadetime/1000.0, ease, delay/1000.0);
 	isFadeTweening = true;
+	isFadeTweeningToInvisible = false;
 }
 
 
