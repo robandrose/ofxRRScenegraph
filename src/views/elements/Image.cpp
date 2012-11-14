@@ -23,29 +23,33 @@ void Image::setup(){
 
 
 void Image::update(){
-	if (loadingAsync) {
-		if (img->getWidth() > 0) {
-			loaded		= true;
-			loadingAsync= false;
-			changed		= true;
-			setSize(img->getWidth(), img->getHeight());
-			if (loadingPlaceholder != NULL) {
-				loadingPlaceholder->isVisible(false);
+	if (img) {
+		if (loadingAsync) {
+			if (img->getWidth() > 0) {
+				loaded		= true;
+				loadingAsync= false;
+				changed		= true;
+				setSize(img->getWidth(), img->getHeight());
+				if (loadingPlaceholder != NULL) {
+					loadingPlaceholder->isVisible(false);
+				}
+				ofNotifyEvent(imageLoadedEvent, myEventArgs, this);
 			}
-			ofNotifyEvent(imageLoadedEvent, myEventArgs, this);
 		}
-	}
-	if(changed && img){
-		updateSize();
+		if(changed){
+			updateSize();
+		}
 	}
 }
 
 
 void Image::load(string _filename){
+	img->clear();
 	img->loadImage(_filename);
 	setSize(img->getWidth(), img->getHeight());
 	changed = true;
 	loaded  = true;
+	ofNotifyEvent(imageLoadedEvent, myEventArgs, this);
 }
 
 
@@ -133,7 +137,7 @@ void Image::updateSize(){
 
 
 void Image::_draw(){
-	if (img == NULL) return;
+	if (img == NULL || loadingAsync) return;
 	
 	if (img->getWidth() > 0) {
         img->draw(0, 0, width, height);
