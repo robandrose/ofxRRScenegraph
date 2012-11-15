@@ -39,6 +39,8 @@ public:
 	void crop(int x, int y, int w, int h);
 	void cropFitScale(int _width, int _height);
 	
+	void setRectMode(ofRectMode _mode);
+	
     bool isLoaded();
     void clear();
 	
@@ -59,4 +61,6 @@ private:
 	bool		isUpdateReal;
     bool		loaded;
 	bool		loadingAsync;
+	
+	ofRectMode	mode;
 };

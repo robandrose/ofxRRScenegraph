@@ -9,6 +9,10 @@
 
 #include "ShapeRect.h"
 
+ShapeRect::ShapeRect() {
+	mode = OF_RECTMODE_CORNER;
+}
+
 void ShapeRect::_draw(){
 	ofPushStyle();
 	if (_isFilled) {
@@ -16,7 +20,12 @@ void ShapeRect::_draw(){
 	} else {
 		ofNoFill();
 	}
+	ofSetRectMode(mode);
 	ofSetLineWidth(_strokeWidth);
 	ofRect(0, 0, width, height);
 	ofPopStyle();
+}
+
+void ShapeRect::setRectMode(ofRectMode _mode) {
+	mode = _mode;
 }

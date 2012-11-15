@@ -9,6 +9,7 @@ Image::Image(){
     loaded		= false;
 	loadingAsync= false;
 	loadingPlaceholder = NULL;
+	mode		= OF_RECTMODE_CORNER;
 }
 
 
@@ -139,8 +140,12 @@ void Image::updateSize(){
 void Image::_draw(){
 	if (img == NULL || loadingAsync) return;
 	
+	
 	if (img->getWidth() > 0) {
+		ofPushStyle();
+		ofSetRectMode(mode);
         img->draw(0, 0, width, height);
+		ofPopStyle();
 	}
 }
 
@@ -190,4 +195,9 @@ void Image::cropFitScale(int _width, int _height) {
 	float cropY = (tempHeight - _height) / 2.0;
 	
 	crop(cropX, cropY, _width, _height);
+}
+
+
+void Image::setRectMode(ofRectMode _mode) {
+	mode = _mode;
 }

@@ -15,6 +15,10 @@
 class ShapeRect:public BasicShape{
 public:
 	
+	ShapeRect();
 	void _draw();
-	
+	void setRectMode(ofRectMode _mode);
+
+protected:
+	ofRectMode mode;
 };
