@@ -322,7 +322,10 @@ void BasicScreenObject::doOrderChildrenByZ(){
 
 
 void BasicScreenObject::draw(){
-	if (isCombinedVisible) {
+
+	
+	if (isCombinedVisible || ismask) {
+
 
 		glPushMatrix();
 		glMultMatrixf(getLocalTransformMatrix().getPtr());		
@@ -697,7 +700,7 @@ void BasicScreenObject::setupMask(){
 		glColorMask(0,0,0,0);
 		glDisable(GL_DEPTH_TEST);
 		maskobject->disableDepthTest();
-		maskobject->_draw();
+		maskobject->draw();
 		glColorMask(1,1,1,1);
 		glStencilFunc(GL_EQUAL, 0x1, 0x1);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
