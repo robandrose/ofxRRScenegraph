@@ -1141,8 +1141,8 @@ void BasicScreenObject::doMove(){
 
 // ofNode callbacks
 void BasicScreenObject::onPositionChanged() { ofNotifyEvent(positionChangedEvent, myEventArgs, this); };
-void BasicScreenObject::onOrientationChanged() {};
-void BasicScreenObject::onScaleChanged() {};
+void BasicScreenObject::onOrientationChanged() { ofNotifyEvent(rotationChangedEvent, myEventArgs, this); };
+void BasicScreenObject::onScaleChanged() { ofNotifyEvent(scaleChangedEvent, myEventArgs, this); };
 
 
 

@@ -285,6 +285,8 @@ public:
 	ofEvent<BasicScreenObjectEvent> showEvent;
 	
 	ofEvent<BasicScreenObjectEvent> positionChangedEvent;
+	ofEvent<BasicScreenObjectEvent> scaleChangedEvent;
+	ofEvent<BasicScreenObjectEvent> rotationChangedEvent;
 
 	
 	ofColor	pickingNameToColor(GLint _pickingName);
