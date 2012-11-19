@@ -1121,7 +1121,7 @@ void BasicScreenObject::doMove(){
 	speed *= movedrag;
 	
 	if (speed.length() > 0) {
-		move(speed.x, speed.y, speed.z);	// TODO: don't call this if speed is 0... this will dispatch massive amounts of positionChangedEvents but why does it not work then??
+		move(speed.x, speed.y, speed.z);
 	}
 	
 	if(moveattractionforce > 0){
