@@ -86,7 +86,6 @@ BasicScreenObject::BasicScreenObject(){
 	isScaleTweening = false;
 	
 	isvisible		= true;
-	isinteractive	= false;
 	isorderbyz		= false;
 	isupdating		= true;
 	
@@ -241,11 +240,6 @@ BasicScreenObject* BasicScreenObject::getRoot(){
 void BasicScreenObject::setRoot(BasicScreenObject* _root){
 	root = _root;
 	
-	if (root->getName() == "Renderer") {
-		Renderer* renderer = (Renderer*)root;
-		pickingName = renderer->getNextPickingName(this);
-	}
-	
 	for (int i = 0; i < childlist.size(); i++) {
 		BasicScreenObject* elm = childlist.at(i);
 		elm->setRoot(_root);
@@ -337,10 +331,10 @@ void BasicScreenObject::draw(){
 		lightingbefore	= glIsEnabled(GL_LIGHTING);
 		depthtestbefore	= glIsEnabled(GL_DEPTH_TEST);
 		
-		if(depthtestenabled && !depthtestbefore)glEnable(GL_DEPTH_TEST);
+		if(depthtestenabled  && !depthtestbefore)glEnable(GL_DEPTH_TEST);
 		if(!depthtestenabled && depthtestbefore)glDisable(GL_DEPTH_TEST);
 		
-		if(lightingenabled && !lightingbefore)glEnable(GL_LIGHTING);
+		if(lightingenabled  && !lightingbefore)glEnable(GL_LIGHTING);
 		if(!lightingenabled && lightingbefore)glDisable(GL_LIGHTING);
 		
 		
@@ -395,16 +389,8 @@ void BasicScreenObject::drawForPicking(){
 		if (hasmask) setupMask();
 		
 		depthtestbefore = glIsEnabled(GL_DEPTH_TEST);
-		if (depthtestenabled && !depthtestbefore)glEnable(GL_DEPTH_TEST);
+		if (depthtestenabled  && !depthtestbefore)glEnable(GL_DEPTH_TEST);
 		if (!depthtestenabled && depthtestbefore)glDisable(GL_DEPTH_TEST);
-		
-		if(isinteractive){
-			ofPushStyle();
-			ofColor pickingColor = pickingNameToColor(pickingName);
-			ofSetColor(pickingColor.r, pickingColor.g, pickingColor.b);
-			_drawForPicking();
-			ofPopStyle();			
-		}
 		
 		drawChildrenForPicking();
 		
@@ -1082,9 +1068,6 @@ void BasicScreenObject::sizeTo(float _width, float _height, float _time, float (
 }
 
 
-
-
-
 void BasicScreenObject::setMoveAttractionPoint(float _endx, float _endy, float _endz, float _force, float _drag){
 	endposition.set(_endx, _endy, _endz);
 	moveattractionforce = _force;
@@ -1173,10 +1156,6 @@ bool BasicScreenObject::hasPositioner(string _name) {
 
 
 
- 
-
-
-
 /********************************************************
  *
  *	TWEENER EVENTS
@@ -1235,34 +1214,4 @@ void BasicScreenObject::onTweenComplete(float&  param) {
 		}
 	}
 	
-}
-
-/********************************************************
- *
- *	Stuff for Interactive Objects: Maybe move it there?
- *	maybe move all picking-stuff to interactive-object? does a non-interactive object ever need picking?
- *
- ********************************************************/
-
-
-bool BasicScreenObject::isInteractive() {
-	return isinteractive;
-}
-
-
-ofColor BasicScreenObject::pickingNameToColor(GLint _pickingName) {
-	GLint c = _pickingName;
-	int r = c >> 16 & 0xFF;
-	int g = c >> 8 & 0xFF;
-	int b = c & 0xFF;
-	return ofColor(r,g,b);
-}
-
-
-GLint BasicScreenObject::colorToPickingName(ofColor& _color) {
-	int r = _color.r;
-	int g = _color.g;
-	int b = _color.b;
-	int c = (r << 16) + (g << 8) + b;
-	return c;
 }

@@ -36,7 +36,7 @@ public:
     void isDrawCursors(bool _dracursors);
 	
 	BasicScreenObject* getObjectAt(float _screenx, float _screeny);
-	GLuint getNextPickingName(BasicScreenObject* _object);
+	GLuint getNextPickingName(BasicInteractiveObject* _object);
 	
 	ofCamera* getCamera(){return &camera;};
 	
@@ -95,7 +95,7 @@ protected:
 	void notifyObjects(float _screenx, float _screeny,int _fingerid, int _action);
 	
 	GLuint nextPickingName;
-	map<GLuint, BasicScreenObject*> pickingObjects;
+	map<GLuint, BasicInteractiveObject*> pickingObjects;
 	
 	int		port;
 	int		maxcursors;

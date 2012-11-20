@@ -207,7 +207,7 @@ void Renderer::notifyObjects(float _screenx, float _screeny,int _fingerid, int _
 	
 	for(int i=0;i<pickingObjects.size();i++){
 		BasicInteractiveObject* obj =(BasicInteractiveObject*) pickingObjects[i];
-		if (obj != NULL && obj->isInteractive() && obj!=overobj) {
+		if (obj != NULL && obj!=overobj) {
 			switch (_action) {
 				case (MT_ADD) : {
 					obj->touchDownOutside(ray,_fingerid);
@@ -310,7 +310,7 @@ BasicScreenObject* Renderer::getObjectAt(float _screenx, float _screeny){
 	return obj;	
 }
 
-GLuint Renderer::getNextPickingName(BasicScreenObject* _object) {
+GLuint Renderer::getNextPickingName(BasicInteractiveObject* _object) {
 	GLuint np = ++nextPickingName;
 	pickingObjects[np] = _object;
 	return np;

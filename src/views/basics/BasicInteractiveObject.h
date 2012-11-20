@@ -61,6 +61,7 @@ public:
 	// Attention on overload, don't forget to call BasicInteractiveObject::update() in update()
 	virtual void update();
 	virtual void _drawForPicking(){ofRect(0,0,width,height);};
+	virtual void drawForPicking();
 	
 	virtual void onFirstTouchDown(MultiTouchEvent& _event){};
 	virtual void onLastTouchUp(MultiTouchEvent& _event){};
@@ -119,7 +120,9 @@ public:
 	bool isScaleing(){return isscaling;};
 	
 	ofVec3f getDragSpeed(){return mttranslatespeed;};
-						 
+	
+	
+	
 	//events
 	
 	ofEvent<MultiTouchEvent> firstTouchDownEvent;
@@ -173,6 +176,9 @@ public:
 	
 	ofVec3f mtpivot;
 	
+	virtual void setRoot(BasicScreenObject* _root);
+	ofColor	pickingNameToColor(GLint _pickingName);
+	GLint	colorToPickingName(ofColor& _color);
 	
 protected:
 	

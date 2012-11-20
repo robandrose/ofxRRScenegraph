@@ -37,7 +37,7 @@ BasicInteractiveObject::BasicInteractiveObject(){
 	
 	
 	dragtarget		= this;
-	isinteractive	= true;
+	//isinteractive	= true;
 	
 	mtscale = 1.0;
 	mtrotate.set(0, 0, 0, 1);
@@ -104,6 +104,52 @@ BasicInteractiveObject::~BasicInteractiveObject(){
 
 void BasicInteractiveObject::update(){
 	updateMtTransform();
+}
+
+
+void BasicInteractiveObject::drawForPicking(){
+	if (isCombinedVisible) {
+		
+		glPushMatrix();
+		glMultMatrixf(getLocalTransformMatrix().getPtr());
+		
+		if (hasmask) setupMask();
+		
+		depthtestbefore = glIsEnabled(GL_DEPTH_TEST);
+		if (depthtestenabled && !depthtestbefore)glEnable(GL_DEPTH_TEST);
+		if (!depthtestenabled && depthtestbefore)glDisable(GL_DEPTH_TEST);
+		
+		ofPushStyle();
+		ofColor pickingColor = pickingNameToColor(pickingName);
+		ofSetColor(pickingColor.r, pickingColor.g, pickingColor.b);
+		_drawForPicking();
+		ofPopStyle();			
+		
+		drawChildrenForPicking();
+		
+		if(depthtestenabled && !depthtestbefore){
+			glDisable(GL_DEPTH_TEST);
+		}
+		if(!depthtestenabled && depthtestbefore){
+			glEnable(GL_DEPTH_TEST);
+		}
+		if(hasmask) restoreMask();		
+		glPopMatrix();
+	}
+}
+
+void BasicInteractiveObject::setRoot(BasicScreenObject* _root){
+	root = _root;
+	
+	if (root->getName() == "Renderer") {
+		Renderer* renderer = (Renderer*)root;
+		pickingName = renderer->getNextPickingName(this);
+	}
+	
+	for (int i = 0; i < childlist.size(); i++) {
+		BasicScreenObject* elm = childlist.at(i);
+		elm->setRoot(_root);
+	}
 }
 
 
@@ -461,4 +507,21 @@ int BasicInteractiveObject::getNumActiveTouches(){
 
 bool BasicInteractiveObject::isMultiTouchActive(int touchId) {
 	return activeMultiTouches.find(touchId) != activeMultiTouches.end();
+}
+
+ofColor BasicInteractiveObject::pickingNameToColor(GLint _pickingName) {
+	GLint c = _pickingName;
+	int r = c >> 16 & 0xFF;
+	int g = c >> 8 & 0xFF;
+	int b = c & 0xFF;
+	return ofColor(r,g,b);
+}
+
+
+GLint BasicInteractiveObject::colorToPickingName(ofColor& _color) {
+	int r = _color.r;
+	int g = _color.g;
+	int b = _color.b;
+	int c = (r << 16) + (g << 8) + b;
+	return c;
 }

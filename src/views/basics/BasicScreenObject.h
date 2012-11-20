@@ -72,8 +72,6 @@ public:
     bool isVisible();
 	void isVisible(bool _visible);
 	
-	bool isInteractive();
-	void isInteractive(bool _isinteractive){isinteractive=_isinteractive;};
 	
 	// Search through the tree upwards 
 	bool	getCombinedVisible();
@@ -288,10 +286,6 @@ public:
 	ofEvent<BasicScreenObjectEvent> positionChangedEvent;
 	ofEvent<BasicScreenObjectEvent> scaleChangedEvent;
 	ofEvent<BasicScreenObjectEvent> rotationChangedEvent;
-
-	
-	ofColor	pickingNameToColor(GLint _pickingName);
-	GLint	colorToPickingName(ofColor& _color);
 	
 	
 	// Positioners
@@ -299,6 +293,8 @@ public:
 	bool			removePositioner(string _name);
 	IPositioner*	getPositioner(string _name);
 	bool			hasPositioner(string _name);
+	
+	virtual void setRoot(BasicScreenObject* _root);
 
 protected:
     
@@ -316,7 +312,6 @@ protected:
     bool isupdating;
     bool isadded;
 	bool isvisible;
-    bool isinteractive;
 	bool isorderbyz;
 	bool isRenderer;
 	bool isCombinedVisible; // updated in _update(), so it will only be called once per frame
@@ -405,11 +400,6 @@ protected:
 	map<string,IPositioner*>::iterator positioner;
 	
     
-private:
-	
-	
-	
-    void setRoot(BasicScreenObject* _root);
     
     // killing
 	ofxTimer killingtimer;
