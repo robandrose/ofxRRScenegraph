@@ -295,6 +295,14 @@ public:
 	bool			hasPositioner(string _name);
 	
 	virtual void setRoot(BasicScreenObject* _root);
+	
+	bool	isMoveTweenActive() { return isMoveTweening; };
+	bool	isFadeTweenActive() { return isFadeTweening; };
+	bool	isFadeToInvisibleTweenActive() { return isFadeTweeningToInvisible; };
+	bool	isSizeTweenActive() { return isSizeTweening; };
+	bool	isScaleTweenActive() { return isScaleTweening; };
+	bool	isColorTweenActive() { return isColorTweening; };
+	bool	isRotateTweenActive() { return isRotationTweening; };
 
 protected:
     
