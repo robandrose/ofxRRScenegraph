@@ -23,11 +23,8 @@
 
 class BasicScreenObject:public ofNode {
 
-	
-	
-	
-public:
 
+public:
 	
 	BasicScreenObject();
 	virtual ~BasicScreenObject();
@@ -220,7 +217,7 @@ public:
 	
 	ofColor	getColor();
 	
-	ofVec3f		getSpeed() { return speed; };
+	ofVec3f	getSpeed() { return speed; };
     
 	//tweening functions. lots of convenience stuff, and transparent for most ofxTweener properties (see Tweener.addTween())
 	void moveTo(float _endx, float _endy, float _endz, float _movetime);
