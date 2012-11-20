@@ -56,9 +56,10 @@ void Renderer::setupColorPicker(float _width, float _height, float _sampling, fl
 	
 	ofFbo::Settings s;
 	
-	s.width				= getWidth()/mapsampling;
-	s.height			= getHeight()/mapsampling;
-	s.internalformat	= GL_RGB;
+	s.width				= getWidth()  / mapsampling;
+	s.height			= getHeight() / mapsampling;
+	//s.internalformat	= GL_LUMINANCE32F_ARB;
+	s.internalformat	= GL_RGB; // would be much faster using GL_LUMINANCE or GL_LUMINANCE32F_ARB (32bit resolution should be enough);
 	s.useDepth			= true;
 	
 	pickingmap.allocate(s );
@@ -70,6 +71,7 @@ void Renderer::setupColorPicker(float _width, float _height, float _sampling, fl
 
 
 void Renderer::update(){
+	//int startTime = ofGetElapsedTimeMillis();
 	
 	Tweener.update();
 
@@ -90,22 +92,29 @@ void Renderer::update(){
 			ofPopMatrix();
 			
 			pickingmap.end();		
-			pickingmap.readToPixels(mapPixels);
+			pickingmap.readToPixels(mapPixels);					// < takes 20ms for rgb fbo. 1ms for GL_LUMINANCE
+			//ofLog(OF_LOG_NOTICE, ofToString(mapPixels.size()));
 		}
 		
 		if(waslighting){
 			glEnable(GL_LIGHTING);
 		}
 	}
+
+	//ofLog(OF_LOG_NOTICE, "update: " + ofToString(ofGetElapsedTimeMillis()-startTime));
 }
 
 void Renderer::draw(){
+	
+	//int startTime = ofGetElapsedTimeMillis();
 	
 	currentviewport = ofGetCurrentViewport();
 	camera.begin();
 	BasicScreenObject::draw();
 	camera.end();
 	if (drawcursors) drawCursors();
+	
+	//ofLog(OF_LOG_NOTICE, "draw: " + ofToString(ofGetElapsedTimeMillis()-startTime));
 }
 
 
@@ -299,8 +308,10 @@ BasicScreenObject* Renderer::getObjectAt(float _screenx, float _screeny){
 	fboy		= ofClamp(fboy, 0, maxbounds.height);
 	
 	int index	= (fbox + fboy * pickingmap.getWidth()) * 3 ;
+	//int index	= (fbox + fboy * pickingmap.getWidth());
 	
 	ofColor	fboc			= ofColor( mapPixels[index] , mapPixels[index + 1] , mapPixels[index + 2] );
+	//ofColor	fboc			= ofColor( mapPixels[index] , mapPixels[index] , mapPixels[index] );
 	GLint pickingName		= colorToPickingName(fboc);
 	BasicScreenObject* obj	= NULL;
 	
