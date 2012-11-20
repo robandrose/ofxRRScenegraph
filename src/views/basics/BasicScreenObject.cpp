@@ -1189,19 +1189,33 @@ void BasicScreenObject::onTweenComplete(float&  param) {
 	if (&param == &tweenx || &param == &tweeny || &param == &tweenz) {
 		//ofLog(OF_LOG_NOTICE, "move tween complete");
 		setPosition(tweenEndX, tweenEndY, tweenEndZ);
-		isMoveTweening = false;
+		if (isMoveTweening) {
+			isMoveTweening = false;
+			ofNotifyEvent(moveToCompleteEvent, myEventArgs, this);
+		}
+		
 	} else if (&param == &tweenscalex || &param == &tweenscaley || &param == &tweenscalez) {
 		//ofLog(OF_LOG_NOTICE, "scale tween complete");
 		setScale(tweenEndScaleX, tweenEndScaleY, tweenEndScaleZ);
-		isScaleTweening = false;
+		if (isScaleTweening) {
+			isScaleTweening = false;
+			ofNotifyEvent(scaleToCompleteEvent, myEventArgs, this);
+		}
+		
 	} else if (&param == &tweenrotslerp) {
 		//ofLog(OF_LOG_NOTICE, "rotation tween complete");
-		isRotationTweening = false;
 		setOrientation(endquat);
+		isRotationTweening = false;
+		ofNotifyEvent(rotateToCompleteEvent, myEventArgs, this);
+		
 	} else if (&param == &tweenr || &param == &tweeng || &param == &tweenb) {
 		//ofLog(OF_LOG_NOTICE, "color tween complete");
 		setColor(tweenEndR, tweenEndG, tweenEndB);
-		isColorTweening = false;
+		if (isColorTweening) {
+			isColorTweening = false;
+			ofNotifyEvent(colorToCompleteEvent, myEventArgs, this);
+		}
+		
 	}  else if (&param == &alpha) {
 		//ofLog(OF_LOG_NOTICE, "fade tween complete");
 		setAlpha(tweenEndAlpha);
@@ -1210,10 +1224,15 @@ void BasicScreenObject::onTweenComplete(float&  param) {
 			isVisible(false);
 			isFadeTweeningToInvisible = false;
 		}
+		ofNotifyEvent(fadeToCompleteEvent, myEventArgs, this);
+		
 	} else if (&param == &tweenWidth || &param == &tweenHeight) {
 		//ofLog(OF_LOG_NOTICE, "size tween complete");
 		setSize(tweenEndWidth, tweenEndHeight);
-		isSizeTweening = false;
+		if (isSizeTweening) {
+			isSizeTweening = false;
+			ofNotifyEvent(sizeToCompleteEvent, myEventArgs, this);
+		}
 	}
 	
 }

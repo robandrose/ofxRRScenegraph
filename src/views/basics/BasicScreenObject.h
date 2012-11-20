@@ -279,6 +279,7 @@ public:
 	ofEvent<BasicScreenObjectEvent> scaleToCompleteEvent;
 	ofEvent<BasicScreenObjectEvent> fadeToCompleteEvent;
 	ofEvent<BasicScreenObjectEvent> colorToCompleteEvent;
+	ofEvent<BasicScreenObjectEvent> sizeToCompleteEvent;
 		
 	ofEvent<BasicScreenObjectEvent> killEvent;
 	ofEvent<BasicScreenObjectEvent> hideEvent;
