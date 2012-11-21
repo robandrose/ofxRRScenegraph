@@ -14,30 +14,7 @@
 
 BasicInteractiveObject::BasicInteractiveObject(){
 	
-	ofAddListener(firstTouchDownEvent,	this, &BasicInteractiveObject::onFirstTouchDown);	
-	ofAddListener(lastTouchUpEvent,		this, &BasicInteractiveObject::onLastTouchUp);	
-	
-	ofAddListener(tapEvent,				this, &BasicInteractiveObject::onTap);	
-	ofAddListener(doubleTapEvent,		this, &BasicInteractiveObject::onDoubleTap);
-	
-	ofAddListener(swipeUpEvent,			this, &BasicInteractiveObject::onSwipeUp);
-	ofAddListener(swipeDownEvent,		this, &BasicInteractiveObject::onSwipeDown);
-	ofAddListener(swipeLeftEvent,		this, &BasicInteractiveObject::onSwipeLeft);
-	ofAddListener(swipeRightEvent,		this, &BasicInteractiveObject::onSwipeRight);
-	ofAddListener(scaleStartEvent,		this, &BasicInteractiveObject::onScaleStart);
-	ofAddListener(scaleStopEvent,		this, &BasicInteractiveObject::onScaleStop);
-	ofAddListener(dragStartEvent,		this, &BasicInteractiveObject::onDragStart);
-	ofAddListener(dragStopEvent,		this, &BasicInteractiveObject::onDragStop);
-	ofAddListener(rotateStartEvent,		this, &BasicInteractiveObject::onRotateStart);
-	ofAddListener(rotateStopEvent,		this, &BasicInteractiveObject::onRotateStop);
-	
-	ofAddListener(startMultiTouchScopeEvent,	this, &BasicInteractiveObject::onStartMultiTouchScope);
-	ofAddListener(updateMultiTouchScopeEvent,	this, &BasicInteractiveObject::onUpdateMultiTouchScope);
-	ofAddListener(endMultiTouchScopeEvent,		this, &BasicInteractiveObject::onEndMultiTouchScope);
-	
-	
 	dragtarget		= this;
-	//isinteractive	= true;
 	
 	mtscale = 1.0;
 	mtrotate.set(0, 0, 0, 1);
@@ -75,6 +52,27 @@ BasicInteractiveObject::BasicInteractiveObject(){
 	mtscaledist		= 0;
 	
 	mtscoperunning	= false;
+	
+	ofAddListener(firstTouchDownEvent,	this, &BasicInteractiveObject::onFirstTouchDown);	
+	ofAddListener(lastTouchUpEvent,		this, &BasicInteractiveObject::onLastTouchUp);	
+	
+	ofAddListener(tapEvent,				this, &BasicInteractiveObject::onTap);	
+	ofAddListener(doubleTapEvent,		this, &BasicInteractiveObject::onDoubleTap);
+	
+	ofAddListener(swipeUpEvent,			this, &BasicInteractiveObject::onSwipeUp);
+	ofAddListener(swipeDownEvent,		this, &BasicInteractiveObject::onSwipeDown);
+	ofAddListener(swipeLeftEvent,		this, &BasicInteractiveObject::onSwipeLeft);
+	ofAddListener(swipeRightEvent,		this, &BasicInteractiveObject::onSwipeRight);
+	ofAddListener(scaleStartEvent,		this, &BasicInteractiveObject::onScaleStart);
+	ofAddListener(scaleStopEvent,		this, &BasicInteractiveObject::onScaleStop);
+	ofAddListener(dragStartEvent,		this, &BasicInteractiveObject::onDragStart);
+	ofAddListener(dragStopEvent,		this, &BasicInteractiveObject::onDragStop);
+	ofAddListener(rotateStartEvent,		this, &BasicInteractiveObject::onRotateStart);
+	ofAddListener(rotateStopEvent,		this, &BasicInteractiveObject::onRotateStop);
+	
+	ofAddListener(startMultiTouchScopeEvent,	this, &BasicInteractiveObject::onStartMultiTouchScope);
+	ofAddListener(updateMultiTouchScopeEvent,	this, &BasicInteractiveObject::onUpdateMultiTouchScope);
+	ofAddListener(endMultiTouchScopeEvent,		this, &BasicInteractiveObject::onEndMultiTouchScope);
 }
 
 

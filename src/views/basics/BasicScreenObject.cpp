@@ -11,15 +11,7 @@
 
 
 BasicScreenObject::BasicScreenObject(){
-	
-	ofAddListener(ofEvents().setup,		this, &BasicScreenObject::_setup);
-	ofAddListener(ofEvents().update,	this, &BasicScreenObject::_update);
-	ofAddListener(ofEvents().exit,		this, &BasicScreenObject::_exit);
-	ofAddListener(killEvent,	this, &BasicScreenObject::onKill);
-	ofAddListener(hideEvent,	this, &BasicScreenObject::onHide);
-	ofAddListener(showEvent,	this, &BasicScreenObject::onShow);
-	ofAddListener(Tweener.onTweenCompleteEvent, this, &BasicScreenObject::onTweenComplete);
-	
+		
 	masktype= MASK_TYPE_CLIPPLANES;
 	ismask	= false;
 	hasmask	= false;
@@ -90,6 +82,14 @@ BasicScreenObject::BasicScreenObject(){
 	isupdating		= true;
 	
 	isRenderer		= false;
+	
+	ofAddListener(ofEvents().setup,		this, &BasicScreenObject::_setup);
+	ofAddListener(ofEvents().update,	this, &BasicScreenObject::_update);
+	ofAddListener(ofEvents().exit,		this, &BasicScreenObject::_exit);
+	ofAddListener(killEvent,	this, &BasicScreenObject::onKill);
+	ofAddListener(hideEvent,	this, &BasicScreenObject::onHide);
+	ofAddListener(showEvent,	this, &BasicScreenObject::onShow);
+	ofAddListener(Tweener.onTweenCompleteEvent, this, &BasicScreenObject::onTweenComplete);
 }
 
 
@@ -1058,8 +1058,8 @@ void BasicScreenObject::sizeTo(float _width, float _height, float _time, float (
 	sizeTo(_width, _height, _time, ease, 0);
 }
 void BasicScreenObject::sizeTo(float _width, float _height, float _time, float (ofxTransitions::*ease) (float,float,float,float), float delay) {
-	tweenWidth	= getWidth();
-	tweenHeight	= getHeight();
+	tweenWidth	= width;
+	tweenHeight	= height;
 	tweenEndWidth = _width;
 	tweenEndHeight = _height;
 	Tweener.addTween(tweenWidth, _width, _time/1000.0, ease, delay/1000.0);
