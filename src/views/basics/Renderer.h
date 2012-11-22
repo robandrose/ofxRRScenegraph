@@ -60,6 +60,8 @@ public:
 	bool isTouchToMouse(){return touchtomouse;};
 	
 	
+	void forceUpdate();
+	
 protected:
 	
 	bool bTuioSetup;

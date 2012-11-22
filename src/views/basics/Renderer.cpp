@@ -104,6 +104,9 @@ void Renderer::update(){
 	//ofLog(OF_LOG_NOTICE, "update: " + ofToString(ofGetElapsedTimeMillis()-startTime));
 }
 
+
+void Renderer::forceUpdate() { update(); }
+
 void Renderer::draw(){
 	
 	//int startTime = ofGetElapsedTimeMillis();
