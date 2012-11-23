@@ -6,6 +6,7 @@ Image::Image(){
 	changed		= false;
     isUpdateReal= false;
     img			= new ofImage();
+	//img->setUseTexture(false);
     loaded		= false;
 	loadingAsync= false;
 	loadingPlaceholder = NULL;
@@ -33,6 +34,7 @@ void Image::update(){
 				setSize(img->getWidth(), img->getHeight());
 				if (loadingPlaceholder != NULL) {
 					loadingPlaceholder->isVisible(false);
+					//loadingPlaceholder->fadeToInvisible(20);
 				}
 				ofNotifyEvent(imageLoadedEvent, myEventArgs, this);
 			}

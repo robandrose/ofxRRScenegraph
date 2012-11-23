@@ -156,7 +156,6 @@ void TextField::renderText(){
 		setSize(width, bounds.y);
 	}
 	
-	
 }
 
 void TextField::_draw(){
