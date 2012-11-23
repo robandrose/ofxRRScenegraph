@@ -215,7 +215,7 @@ void BasicInteractiveObject::addMultiTouch(mtRay ray, int touchId){
 		mtstarttime		= ofGetElapsedTimeMillis();
 		mtscoperunning	= true;
 
-		MultiTouchEvent params(this);
+		MultiTouchEvent params(this, mtp);
 		ofNotifyEvent(firstTouchDownEvent,params,this);
 	}
 	
@@ -262,6 +262,23 @@ void BasicInteractiveObject::removeMultiTouch(mtRay ray, int touchId){
 
 	if(isMultiTouchActive(touchId)){
 		
+		// copy that touch in case we need to dispatch it with an event
+		MultiTouchPoint* oldMtp = activeMultiTouches[touchId];
+		MultiTouchPoint* mtp	= new MultiTouchPoint();
+		mtp->starttime			= oldMtp->starttime;
+		mtp->globalmovedist		= oldMtp->globalmovedist;
+		mtp->screenpos			= oldMtp->screenpos;
+		mtp->localoffset		= oldMtp->localoffset;
+		mtp->localstartpos		= oldMtp->localstartpos;
+		mtp->localpos			= oldMtp->localpos;
+		mtp->localposbef		= oldMtp->localposbef;
+		mtp->localspeed			= oldMtp->localspeed;
+		mtp->localspeeddamped	= oldMtp->localspeeddamped;
+		mtp->globalstartpos		= oldMtp->globalstartpos;
+		mtp->globalpos			= oldMtp->globalpos;
+		mtp->globalposbef		= oldMtp->globalposbef;
+		mtp->globalspeed		= oldMtp->globalspeed;
+		
 		activeMultiTouches.erase(activeMultiTouches.find(touchId));
 		
 		if(getNumActiveTouches() == 0 && mtcounter > 0){
@@ -273,19 +290,19 @@ void BasicInteractiveObject::removeMultiTouch(mtRay ray, int touchId){
 				// check for taps
 				if (!isdragging && mtscopeduration<500) {
 					if(mtcounter == 1){
-						MultiTouchEvent params(this);
+						MultiTouchEvent params(this, mtp);
 						ofNotifyEvent(tapEvent,params,this);
 						
 					}
 					if(mtcounter == 2){
-						MultiTouchEvent params(this);
+						MultiTouchEvent params(this, mtp);
 						ofNotifyEvent(doubleTapEvent,params,this);
 					}
 					
 					// check for swipe
 				} else if (mtscopeduration < 1000 && mttranslatespeed.length() > 0.0){
 					
-					MultiTouchEvent params(this);
+					MultiTouchEvent params(this, mtp);
 					
 					if (abs(mttranslatespeed.x) > abs(mttranslatespeed.y)) {
 						if (mttranslatespeed.x < 0) {
@@ -310,7 +327,7 @@ void BasicInteractiveObject::removeMultiTouch(mtRay ray, int touchId){
 				ofNotifyEvent(dragStopEvent,params,this);
 			}
 			
-			MultiTouchEvent params(this);
+			MultiTouchEvent params(this, mtp);
 			ofNotifyEvent(lastTouchUpEvent,params,this);
 			
 			mtcounter=0;

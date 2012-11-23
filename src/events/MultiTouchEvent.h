@@ -9,10 +9,17 @@
 
 #pragma once
 class BasicInteractiveObject;
+class MultiTouchPoint;
 class MultiTouchEvent {
 	public:
 		BasicInteractiveObject* target;
+		MultiTouchPoint* touchPoint;
 		MultiTouchEvent(BasicInteractiveObject* _target) {
 			target = _target;
+			touchPoint = NULL;
+		}
+		MultiTouchEvent(BasicInteractiveObject* _target, MultiTouchPoint* _mtp) {
+			target = _target;
+			touchPoint = _mtp;
 		}
 };
