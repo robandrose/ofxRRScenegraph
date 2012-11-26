@@ -34,6 +34,7 @@ public:
 	
 	bool isSelected();
 	TextField	text;
+	ShapeRect	bg;
 	
 protected:
 	virtual void _draw();
@@ -48,7 +49,7 @@ protected:
 	ofColor		disabledColor;
 	ofColor		tempColor;
 	
-	ShapeRect	bg;
+	
 	
 	bool	needsRelayout;
 	
