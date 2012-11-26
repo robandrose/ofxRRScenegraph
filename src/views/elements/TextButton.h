@@ -33,14 +33,14 @@ public:
 
 	
 	bool isSelected();
-	
+	TextField	text;
 	
 protected:
 	virtual void _draw();
 	
 	virtual void layout();
 	
-	TextField	text;
+	
 	ofColor		currentColor;
 	ofColor		activeColor;
 	ofColor		normalColor;

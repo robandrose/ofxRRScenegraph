@@ -18,6 +18,9 @@ TextButton::TextButton() {
 	addChild(&bg);
 	
 	needsRelayout = false;
+	
+	text.setColor(0,0,0);
+	addChild(&text);
 }
 
 TextButton::~TextButton(){
@@ -50,16 +53,14 @@ void TextButton::onLastTouchUp(MultiTouchEvent& _event){
 
 
 void TextButton::_draw(){
-	ofPushStyle();
+
 	if(normalColor==NULL){
-		ofSetColor(255, 255,255);
+		bg.setColor(255, 255,255);
 	}
 	if (currentColor != NULL) {
 		ofSetColor(currentColor);
+		bg.setColor(currentColor);
 	}
-	ofRect(0,0,width,height);
-	
-	ofPopStyle();
 }
 
 
