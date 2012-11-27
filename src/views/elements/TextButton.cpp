@@ -5,8 +5,7 @@
 TextButton::TextButton() {
 	isEnabled=true;
 	_isSelected=false;
-	hasActiveimage=false;	
-	_isScalingImage = true;
+	hasActiveColor=false;	
 	
 	tempColor=NULL;
 	normalColor=NULL;
@@ -37,7 +36,7 @@ void TextButton::update() {
 
 void TextButton::onFirstTouchDown(MultiTouchEvent& _event){
 	if (isEnabled) {
-		if(hasActiveimage){
+		if(hasActiveColor){
 			currentColor = activeColor;
 		}
 		ofNotifyEvent(pressEvent, myEventArgs, this);
@@ -58,7 +57,6 @@ void TextButton::_draw(){
 		bg.setColor(255, 255,255);
 	}
 	if (currentColor != NULL) {
-		ofSetColor(currentColor);
 		bg.setColor(currentColor);
 	}
 }
@@ -95,10 +93,10 @@ void TextButton::setColors(ofColor _normalColor, ofColor _selectedColor, ofColor
 	
 	activeColor=_activeColor;
 	
-	hasActiveimage=true;
+	hasActiveColor=true;
 	if(activeColor==NULL){
 		activeColor=normalColor;
-		hasActiveimage=false;
+		hasActiveColor=false;
 	}
 
 	disabledColor=_disabledColor;

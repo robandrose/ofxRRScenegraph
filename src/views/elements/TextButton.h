@@ -55,6 +55,5 @@ protected:
 	
 	bool	isEnabled;
 	bool	_isSelected;
-	bool	hasActiveimage;
-	bool	_isScalingImage;
+	bool	hasActiveColor;
 };
