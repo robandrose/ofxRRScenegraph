@@ -35,9 +35,10 @@ BasicInteractiveObject::BasicInteractiveObject(){
 	rotatedamp		= .3;
 	scaledamp		= .3;
 	
-	setDragThreshold(20);
-	setRotationThreshold(4);
-	setScaleThreshold(.1);
+	dragthreshold	= 20;
+	rotatethreshold	= 4;
+	scalethreshold	= .1;
+	tapThreshold	= 1000.0;
 	
 	mttoucha		= NULL;
 	mttouchb		= NULL;
@@ -151,13 +152,14 @@ void BasicInteractiveObject::setRoot(BasicScreenObject* _root){
 }
 
 
-void BasicInteractiveObject::setDragThreshold(		float _dragthreshold)		{ dragthreshold=_dragthreshold; }
-void BasicInteractiveObject::setScaleThreshold(		float _scalethreshold)		{ scalethreshold=_scalethreshold; }
-void BasicInteractiveObject::setRotationThreshold(	float _rotatethreshold)		{ rotatethreshold=_rotatethreshold; }
+void BasicInteractiveObject::setDragThreshold(		float _dragthreshold)		{ dragthreshold		= _dragthreshold; }
+void BasicInteractiveObject::setScaleThreshold(		float _scalethreshold)		{ scalethreshold	= _scalethreshold; }
+void BasicInteractiveObject::setRotationThreshold(	float _rotatethreshold)		{ rotatethreshold	= _rotatethreshold; }
+void BasicInteractiveObject::setTapThreshold(		float _tapThreshold)		{ tapThreshold		= _tapThreshold; }
 
-void BasicInteractiveObject::setDragDamping(		float _dragDamping)			{ dragdamp = _dragDamping; };
-void BasicInteractiveObject::setScaleDamping(		float _scaleDamping)		{ scaledamp = _scaleDamping; };
-void BasicInteractiveObject::setRotationDamping(	float _rotationDamping)		{ rotatedamp = _rotationDamping; };
+void BasicInteractiveObject::setDragDamping(		float _dragDamping)			{ dragdamp		= _dragDamping; };
+void BasicInteractiveObject::setScaleDamping(		float _scaleDamping)		{ scaledamp		= _scaleDamping; };
+void BasicInteractiveObject::setRotationDamping(	float _rotationDamping)		{ rotatedamp	= _rotationDamping; };
 
 
 //Aktionen, werden direkt vom Renderer aufgerufen.
@@ -288,13 +290,12 @@ void BasicInteractiveObject::removeMultiTouch(mtRay ray, int touchId){
 			
 			if(!isrotating && !isscaling){
 				// check for taps
-				if (!isdragging && mtscopeduration<500) {
+				if (!isdragging && mtscopeduration < tapThreshold) {
 					if(mtcounter == 1){
 						MultiTouchEvent params(this, mtp);
 						ofNotifyEvent(tapEvent,params,this);
 						
-					}
-					if(mtcounter == 2){
+					} else if(mtcounter == 2){
 						MultiTouchEvent params(this, mtp);
 						ofNotifyEvent(doubleTapEvent,params,this);
 					}

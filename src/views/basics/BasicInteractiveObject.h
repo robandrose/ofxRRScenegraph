@@ -89,6 +89,7 @@ public:
 	void setDragThreshold(float _dragthreshold);
 	void setScaleThreshold(float _scalethreshold);
 	void setRotationThreshold(float _rotationthreshold);
+	void setTapThreshold(float _tapThreshold);
 	
 	void setDragDamping(float _dragDamping);
 	void setScaleDamping(float _scaleDamping);
@@ -202,6 +203,7 @@ protected:
 	float dragthreshold;
 	float scalethreshold;
 	float rotatethreshold;
+	float tapThreshold;
 	
 	float dragdamp;
 	float scaledamp;
