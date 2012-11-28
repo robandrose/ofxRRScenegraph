@@ -31,6 +31,8 @@ public:
 	void setTextAlign(int _textalign);
 	void setLineSpacing(int _linespacing);
 	float getLineSpacing(){return linespacing;};
+	void setAntialiasType(cairo_antialias_t _type); 
+	cairo_antialias_t getAntialiasType() {return antialias_type;};
 	
 	void setIndent(float _indent);
 	void setTabs(vector<int> _tabs);
@@ -47,19 +49,20 @@ public:
 	
 private:
 	
-	ofxPango* pango;
-	ofxPCContext* context;
-	ofxPCPangoLayout* layout;
+	ofxPango*			pango;
+	ofxPCContext*		context;
+	ofxPCPangoLayout*	layout;
 	ofxPCPangoFontDescription* fd;
 	
-	ofImage text_image;	
+	ofImage		text_image;	
 	
-	string mytext;	
-	string fontname;
-	float fontsize;
-	string fontdescription;
-	int align;
-	bool justify;
+	string		mytext;	
+	string		fontname;
+	float		fontsize;
+	string		fontdescription;
+	int			align;
+	bool		justify;
+	cairo_antialias_t	antialias_type;
 	
 	int linespacing;
 	float indent;

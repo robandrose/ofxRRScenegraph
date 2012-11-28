@@ -28,7 +28,7 @@ TextField::TextField(){
 	setLineSpacing(3);
 	setTextAlign(ALIGN_LEFT);
 	setIndent(0.0);
-	
+	setAntialiasType(CAIRO_ANTIALIAS_DEFAULT);
 }
 
 TextField::~TextField(){
@@ -126,6 +126,11 @@ void TextField::setColor(ofColor _c){
 	changed=true;
 }
 
+void TextField::setAntialiasType(cairo_antialias_t _type) {
+	antialias_type = _type;
+	changed = true;
+}
+
 ofPoint TextField::getTextBounds(){
 	if (changed) {
 		renderText();
@@ -138,7 +143,7 @@ void TextField::renderText(){
 
 	layout->context->clear();
 	layout->setWidth(width);
-	layout->setFontDescription(*fd);
+	layout->setFontDescription(*fd, antialias_type);
 	layout->setTextColor(color.r/255.0f,color.g/255.0f,color.b/255.0f,1);
 	layout->setSpacing(linespacing);	
 	layout->setIndent(indent);
