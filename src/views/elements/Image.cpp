@@ -6,11 +6,15 @@ Image::Image(){
 	changed		= false;
     isUpdateReal= false;
     img			= new ofImage();
-	//img->setUseTexture(false);
+	//img->setUseTexture(true);
     loaded		= false;
 	loadingAsync= false;
 	loadingPlaceholder = NULL;
 	mode		= OF_RECTMODE_CORNER;
+	
+	tmpResizeCounter = 0;
+	
+	tmpFilepath = "";
 }
 
 
@@ -53,6 +57,7 @@ void Image::load(string _filename){
 	changed = true;
 	loaded  = true;
 	ofNotifyEvent(imageLoadedEvent, myEventArgs, this);
+	tmpFilepath = _filename;
 }
 
 
@@ -64,6 +69,7 @@ void Image::loadAsyncFromDisk(string _filename, ofxThreadedImageLoader* loader) 
 	}
 	img->clear();
 	loader->loadFromDisk(img, _filename);
+	tmpFilepath = _filename;
 }
 
 
@@ -103,7 +109,9 @@ void Image::setSize(float _width, float _height){
 
 
 void Image::updateRealImageSize(){
-    if(img) img->resize(width, height);
+    if(img) img->resize(width, height);	// heavy lifting here... causes lags
+	//ofLog(OF_LOG_NOTICE, tmpFilepath + " resizing to (" + ofToString(tmpResizeCounter) + "): " + ofToString(width) + ", " + ofToString(height));
+	tmpResizeCounter++;
 }
 
 
@@ -149,6 +157,12 @@ void Image::_draw(){
         img->draw(0, 0, width, height);
 		ofPopStyle();
 	}
+	/*
+	if (tmpResizeCounter>1) {
+		ofLog(OF_LOG_NOTICE, "resized more than once (" + ofToString(tmpResizeCounter) + "): " + tmpFilepath);
+	}
+	*/
+	tmpResizeCounter = 0;
 }
 
 
@@ -190,7 +204,9 @@ void Image::cropFitScale(int _width, int _height) {
 		tempHeight	= _width / sourceAspect;
 	}
 	
+	//isUpdateReal = false;
 	setSize(tempWidth, tempHeight);
+	//isUpdateReal = true;
 	
 	// do crop / center
 	float cropX = (tempWidth - _width) / 2.0;

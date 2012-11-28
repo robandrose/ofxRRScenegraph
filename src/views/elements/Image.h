@@ -63,4 +63,8 @@ private:
 	bool		loadingAsync;
 	
 	ofRectMode	mode;
+	
+	
+	int tmpResizeCounter; //TODO: remove
+	string tmpFilepath;
 };
