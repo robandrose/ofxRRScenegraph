@@ -2,29 +2,22 @@
 
 
 Image::Image(){
-	hasMaxSize	= false;
-	changed		= false;
-    isUpdateReal= false;
-    img			= new ofImage();
-	//img->setUseTexture(true);
-    loaded		= false;
-	loadingAsync= false;
-	loadingPlaceholder = NULL;
-	mode		= OF_RECTMODE_CORNER;
-	
-	tmpResizeCounter = 0;
-	
-	tmpFilepath = "";
+	hasMaxSize			= false;
+	changed				= false;
+    isUpdateReal		= false;
+    img					= new ofImage();
+    loaded				= false;
+	loadingAsync		= false;
+	loadingPlaceholder	= NULL;
+	mode				= OF_RECTMODE_CORNER;
+
+	tmpResizeCounter	= 0;
+	tmpFilepath			= "";
 }
 
 
 Image::~Image(){
 	img->clear();
-}
-
-
-void Image::setup(){
-	
 }
 
 
@@ -35,10 +28,9 @@ void Image::update(){
 				loaded		= true;
 				loadingAsync= false;
 				changed		= true;
-				setSize(img->getWidth(), img->getHeight());
+				BasicScreenObject::setSize(img->getWidth(), img->getHeight());
 				if (loadingPlaceholder != NULL) {
 					loadingPlaceholder->isVisible(false);
-					//loadingPlaceholder->fadeToInvisible(20);
 				}
 				ofNotifyEvent(imageLoadedEvent, myEventArgs, this);
 			}
@@ -116,9 +108,9 @@ void Image::updateRealImageSize(){
 
 
 void Image::crop(int x, int y, int w, int h) {
+	BasicScreenObject::setSize(w,h);
 	if (img==NULL) return;
 	img->crop(x, y, w, h);
-	BasicScreenObject::setSize(w,h);
 }
 
 
@@ -126,8 +118,7 @@ void Image::setMaxSize(float _maxwidth, float _maxheight){
 	hasMaxSize	= true;
 	maxWidth	= _maxwidth;
 	maxHeight	= _maxheight;
-	
-	updateSize();
+	changed = true;
 }
 
 
@@ -204,9 +195,7 @@ void Image::cropFitScale(int _width, int _height) {
 		tempHeight	= _width / sourceAspect;
 	}
 	
-	//isUpdateReal = false;
 	setSize(tempWidth, tempHeight);
-	//isUpdateReal = true;
 	
 	// do crop / center
 	float cropX = (tempWidth - _width) / 2.0;

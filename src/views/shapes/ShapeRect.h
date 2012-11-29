@@ -13,12 +13,14 @@
 
 
 class ShapeRect:public BasicShape{
+
 public:
 	
 	ShapeRect();
 	void _draw();
-	void setRectMode(ofRectMode _mode);
+	void setRectMode(ofRectMode _mode)	{ mode = _mode; };
 
+	
 protected:
 	ofRectMode mode;
 };

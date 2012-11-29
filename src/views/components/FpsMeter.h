@@ -3,12 +3,13 @@
 #include "Shapes.h";
 
 class FpsMeter:public BasicScreenObject{
+
 public:
 	FpsMeter();
 	void update();
 	void _draw();
 	void setSize(float _width, float _height);
-	void setWarningThreshold(float _warnThreshold);
+	void setWarningThreshold(float _warnThreshold)	{ warningThreshold = _warnThreshold; };
 	
 	static const int MAX_SIZE = 1920;
 	

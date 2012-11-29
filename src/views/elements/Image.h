@@ -18,7 +18,7 @@ public:
 	Image();
 	virtual ~Image();
 	
-	void setup();
+	void setup() {};
 	void update();
 	
 	void load(string _filename);

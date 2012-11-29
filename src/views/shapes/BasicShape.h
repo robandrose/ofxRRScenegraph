@@ -16,10 +16,11 @@ class BasicShape:public BasicScreenObject{
 public:
 	BasicShape();
 	virtual void _draw(){};
-	virtual void isFilled(bool filled);
-	virtual bool isFilled();
-	virtual void setStrokeWidth(float _sWidth);
-	virtual float getStrokeWidth();
+	virtual void isFilled(bool filled)			{ _isFilled = filled; };
+	virtual bool isFilled()						{ return _isFilled; };
+	virtual void setStrokeWidth(float _sWidth)	{ _strokeWidth = _sWidth; };
+	virtual float getStrokeWidth()				{ return _strokeWidth; };
+	
 	ofPath path;
 
 protected:

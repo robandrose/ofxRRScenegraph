@@ -1,9 +1,11 @@
 #include "FpsMeter.h"
 
+
+
 FpsMeter::FpsMeter(){
 	setSize(100, 30);
 	color = ofColor(255,255,255,255);
-	warningThreshold = 120;
+	warningThreshold = 60;
 }
 
 
@@ -19,6 +21,7 @@ void FpsMeter::update() {
 		if (fpsList[i]>largest) largest = fpsList[i];
 	}
 }
+
 
 void FpsMeter::_draw() {
 	ofPushStyle();
@@ -49,6 +52,7 @@ void FpsMeter::_draw() {
 	
 	ofPopStyle();
 }
+
 
 void FpsMeter::setSize(float _width, float _height){
 	_width = ofClamp(_width, 0, MAX_SIZE);

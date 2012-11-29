@@ -1,9 +1,13 @@
 #include "ShapeEllipse.h"
 
+
+
 ShapeEllipse::ShapeEllipse() {
 	resolution = 50;
 	mode = OF_RECTMODE_CENTER;
 }
+
+
 void ShapeEllipse::_draw(){
 	//path.setFillColor(ofColor(color.r,color.g,color.b,getCombinedAlpha()));
 	ofPushStyle();
@@ -21,14 +25,4 @@ void ShapeEllipse::_draw(){
 	}
 	
 	ofPopStyle();
-}
-
-
-void ShapeEllipse::setResolution(int _resolution) {
-	resolution = _resolution;
-}
-
-
-void ShapeEllipse::setEllipseMode(int _mode) {
-	mode = _mode;
 }

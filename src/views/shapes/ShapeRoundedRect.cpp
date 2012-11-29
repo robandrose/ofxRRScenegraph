@@ -9,9 +9,12 @@
 
 #include "ShapeRoundedRect.h"
 
+
+
 ShapeRoundedRect::ShapeRoundedRect() {
 	cornerRadius = 10.0;
 }
+
 
 void ShapeRoundedRect::_draw(){
 	
@@ -20,10 +23,9 @@ void ShapeRoundedRect::_draw(){
 	path.setStrokeColor(ofColor(color.r,color.g,color.b,getCombinedAlpha()));
 	path.setFilled(_isFilled);
 	path.draw();
-	
 }
 
-//----------------------------------------------------------
+
 void ShapeRoundedRect::setRadius(float r){
 	
 	// way faster than ofRectRounded()!!!

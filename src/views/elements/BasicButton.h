@@ -16,7 +16,7 @@ class BasicButton : public BasicInteractiveObject {
 	
 public:
 	BasicButton();
-	virtual ~BasicButton();	// destructor
+	virtual ~BasicButton() {};	// destructor
 	
 	ofEvent<BasicScreenObjectEvent> pressEvent;
 	ofEvent<BasicScreenObjectEvent> releaseEvent;
@@ -33,8 +33,8 @@ public:
 	virtual void deselect();
 	virtual void enable();
 	virtual void disable();
-	virtual void isScalingImage(bool _scale);
-	virtual bool isScalingImage();
+	virtual void isScalingImage(bool _scale)	{ _isScalingImage = _scale; };
+	virtual bool isScalingImage()				{ return _isScalingImage; };
 	
 	bool isSelected();
 	
@@ -42,16 +42,16 @@ public:
 protected:
 	virtual void _draw();
 	
-	string mytxt;
-	ofImage* currentImage;
-	ofImage* active;
-	ofImage* normal;
-	ofImage* selected;
-	ofImage* disabled;
-    ofImage* temp;
+	string		mytxt;
+	ofImage*	currentImage;
+	ofImage*	active;
+	ofImage*	normal;
+	ofImage*	selected;
+	ofImage*	disabled;
+    ofImage*	temp;
 
-	bool isEnabled;
-	bool _isSelected;
-	bool hasActiveimage;
-	bool _isScalingImage;
+	bool		isEnabled;
+	bool		_isSelected;
+	bool		hasActiveimage;
+	bool		_isScalingImage;
 };

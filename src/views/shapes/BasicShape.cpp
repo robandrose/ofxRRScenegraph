@@ -14,22 +14,6 @@ BasicShape::BasicShape() {
 	_strokeWidth	= 1.0;
 }
 
-bool BasicShape::isFilled() {
-	return _isFilled;
-}
-
-void BasicShape::isFilled(bool filled) {
-	_isFilled = filled;
-}
-
-float BasicShape::getStrokeWidth() {
-	return _strokeWidth;
-}
-
-void BasicShape::setStrokeWidth(float _sWidth) {
-	_strokeWidth = _sWidth;
-}
-
 
 
 

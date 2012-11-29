@@ -11,7 +11,9 @@
 #include "BasicShape.h"
 
 
+
 class ShapeRoundedRect:public BasicShape{
+
 public:	
 	ShapeRoundedRect();
 	void _draw();

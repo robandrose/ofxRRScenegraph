@@ -3,16 +3,16 @@
 
 
 TextButton::TextButton() {
-	isEnabled=true;
-	_isSelected=false;
-	hasActiveColor=false;	
+	isEnabled		= true;
+	_isSelected		= false;
+	hasActiveColor	= false;	
 	
-	tempColor=NULL;
-	normalColor=NULL;
-	selectedColor=NULL;
-	disabledColor=NULL;
-	activeColor=NULL;
-	currentColor=NULL;
+	tempColor		= NULL;
+	normalColor		= NULL;
+	selectedColor	= NULL;
+	disabledColor	= NULL;
+	activeColor		= NULL;
+	currentColor	= NULL;
 	
 	addChild(&bg);
 	
@@ -20,9 +20,6 @@ TextButton::TextButton() {
 	
 	text.setColor(0,0,0);
 	addChild(&text);
-}
-
-TextButton::~TextButton(){
 }
 
 
@@ -43,6 +40,7 @@ void TextButton::onFirstTouchDown(MultiTouchEvent& _event){
 	}
 }
 
+
 void TextButton::onLastTouchUp(MultiTouchEvent& _event){
 	if (isEnabled) {
 		currentColor = tempColor;
@@ -53,7 +51,7 @@ void TextButton::onLastTouchUp(MultiTouchEvent& _event){
 
 void TextButton::_draw(){
 
-	if(normalColor==NULL){
+	if(normalColor == NULL){
 		bg.setColor(255, 255,255);
 	}
 	if (currentColor != NULL) {
@@ -84,28 +82,29 @@ void TextButton::layout() {
 
 void TextButton::setColors(ofColor _normalColor, ofColor _selectedColor, ofColor _activeColor, ofColor _disabledColor) {
 	
-	normalColor=_normalColor;
-	selectedColor=_selectedColor;
+	normalColor = _normalColor;
+	selectedColor = _selectedColor;
 
-	if(selectedColor==NULL){
-		selectedColor=normalColor;
+	if(selectedColor == NULL){
+		selectedColor = normalColor;
 	}
 	
-	activeColor=_activeColor;
+	activeColor = _activeColor;
 	
-	hasActiveColor=true;
-	if(activeColor==NULL){
-		activeColor=normalColor;
-		hasActiveColor=false;
+	hasActiveColor = true;
+	if(activeColor == NULL){
+		activeColor		= normalColor;
+		hasActiveColor	= false;
 	}
 
 	disabledColor=_disabledColor;
-	if(disabledColor==NULL){
-		disabledColor=normalColor;
+	if(disabledColor == NULL){
+		disabledColor = normalColor;
 	}
-	tempColor=normalColor;
-    currentColor = normalColor;
+	tempColor		= normalColor;
+    currentColor	= normalColor;
 }
+
 
 void TextButton::toggle(){
 	if(_isSelected){
@@ -115,35 +114,35 @@ void TextButton::toggle(){
 	}
 }
 
-bool TextButton::isSelected(){
-	return _isSelected;
-}
 
 void TextButton::select(){
 	if(_isSelected || !isEnabled)return;
-	_isSelected=true;
-	tempColor=selectedColor;
-	currentColor = selectedColor;
+	_isSelected		= true;
+	tempColor		= selectedColor;
+	currentColor	= selectedColor;
 }
+
 
 void TextButton::deselect(){
 	if(!_isSelected || !isEnabled)return;
-	_isSelected=false;
-	tempColor=normalColor;
-	currentColor = normalColor;
+	_isSelected		= false;
+	tempColor		= normalColor;
+	currentColor	= normalColor;
 }
+
 
 void TextButton::disable(){
 	if (!isEnabled) return;
-	isEnabled=false;
-	_isSelected=false;
-	tempColor=disabledColor;
-	currentColor = disabledColor;
+	isEnabled		= false;
+	_isSelected		= false;
+	tempColor		= disabledColor;
+	currentColor	= disabledColor;
 }
+
 
 void TextButton::enable(){
 	if (isEnabled) return;
-	isEnabled=true;
-	tempColor=normalColor;
-	currentColor = normalColor;
+	isEnabled		= true;
+	tempColor		= normalColor;
+	currentColor	= normalColor;
 }

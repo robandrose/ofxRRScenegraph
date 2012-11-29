@@ -41,7 +41,7 @@ public:
     virtual void drawChildrenForPicking();
 	
     //abstract method, must be overwritten
-	virtual void _draw()=0; //the elements private draw method
+	virtual void _draw() {}; //the elements private draw method
 	
 	virtual void _drawForPicking(){};
     virtual void _drawAfterChildren(){};

@@ -8,7 +8,7 @@ class TextButton : public BasicInteractiveObject {
 	
 public:
 	TextButton();
-	virtual ~TextButton();	// destructor
+	virtual ~TextButton() {};	// destructor
 	
 	void update();
 	
@@ -31,16 +31,13 @@ public:
 	
 	virtual void setSize(float _width, float _height);
 
-	
-	bool isSelected();
+	bool isSelected()	{ return _isSelected; };
 	TextField	text;
 	ShapeRect	bg;
 	
 protected:
 	virtual void _draw();
-	
 	virtual void layout();
-	
 	
 	ofColor		currentColor;
 	ofColor		activeColor;
@@ -49,10 +46,7 @@ protected:
 	ofColor		disabledColor;
 	ofColor		tempColor;
 	
-	
-	
 	bool	needsRelayout;
-	
 	bool	isEnabled;
 	bool	_isSelected;
 	bool	hasActiveColor;
