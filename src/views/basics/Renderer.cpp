@@ -26,6 +26,7 @@ Renderer::Renderer(){
 	bTuioSetup			= false;
 	bColorPickerSetup	= false;
 	isRenderer			= true;
+	_isAddedToRenderer	= true;
 	drawcursors			= true;
 }
 

@@ -52,9 +52,9 @@ BasicScreenObject::BasicScreenObject(){
 	depthtestenabled	= false;
 	
 	
-	age			= 0;
-	isadded		= false;
-	issetup		= false; // TODO: issetup needed??
+	age					= 0;
+	_isAddedToRenderer	= false;
+	issetup				= false; // TODO: issetup needed??
 
 	
 	parent_so	= NULL;
@@ -221,8 +221,11 @@ BasicScreenObject* BasicScreenObject::getParent() {
 
 
 void BasicScreenObject::setParent(BasicScreenObject* _parent){
-	isadded		= true;
-	parent_so	=_parent;
+	_isAddedToRenderer	= _parent->isAddedToRenderer();
+	parent_so			=_parent;
+	_isParentTreeVisible=_parent->isParentTreeVisible();
+	setChildrenParentTreeVisibility();
+	setChildrenParentTreeAddedToRenderer();
 	setParent(* dynamic_cast<ofNode*> (_parent));
 }
 
@@ -274,6 +277,20 @@ void BasicScreenObject::removeChildren(){ childlist.resize(0); }
 void BasicScreenObject::removeChildAt(BasicScreenObject* _child, int _index){ }
 
 
+void BasicScreenObject::clearParent() {
+	_isAddedToRenderer = false;
+	setChildrenParentTreeAddedToRenderer();
+	ofNode::clearParent();
+};
+
+void BasicScreenObject::setChildrenParentTreeAddedToRenderer() {
+	for (int i = 0; i < childlist.size(); i++)
+	{
+		childlist[i]->isAddedToRenderer(_isAddedToRenderer);
+	}
+}
+
+
 void BasicScreenObject::moveMeToTop(){
 	if(parent_so != NULL){
 		parent_so->moveChildToTop(this);
@@ -290,7 +307,8 @@ void BasicScreenObject::moveChildToTop(BasicScreenObject* _child){
 vector<BasicScreenObject*>* BasicScreenObject::getChildren(){ return &childlist; }
 
 
-bool BasicScreenObject::isAdded(){ return isadded; }
+bool BasicScreenObject::isAddedToRenderer(){ return _isAddedToRenderer; }
+void BasicScreenObject::isAddedToRenderer(bool _added) { _isAddedToRenderer = _added; setChildrenParentTreeAddedToRenderer(); };
 
 
 void BasicScreenObject::isOrderChildrenByZ(bool _isorderbyz){ isorderbyz = _isorderbyz; }
@@ -317,7 +335,7 @@ void BasicScreenObject::draw(){
 
 	//int elapsed = 0;
 	
-	if ((isvisible && _isParentTreeVisible) || ismask) {
+	if ((isvisible && _isParentTreeVisible && _isAddedToRenderer) || ismask) {
 
 		glPushMatrix();
 		glMultMatrixf(getLocalTransformMatrix().getPtr());		
@@ -379,7 +397,7 @@ void BasicScreenObject::drawChildren(){
 
 
 void BasicScreenObject::drawForPicking(){
-	if (isvisible && _isParentTreeVisible) {
+	if (isvisible && _isParentTreeVisible && _isAddedToRenderer) {
 		
 		glPushMatrix();
 		glMultMatrixf(getLocalTransformMatrix().getPtr());
@@ -573,20 +591,24 @@ bool BasicScreenObject::isVisible() { return isvisible; }
 void BasicScreenObject::isVisible( bool _visible ) { 
 
 	isvisible = _visible; 
-	for (int i = 0; i < childlist.size(); i++) {
-		childlist[i]->isParentTreeVisible(_isParentTreeVisible && isvisible);
-	}
+	setChildrenParentTreeVisibility();
 }
 
 
 void BasicScreenObject::isParentTreeVisible( bool _visible) {
 
 	_isParentTreeVisible = _visible;
+	setChildrenParentTreeVisibility();
 	
+}
+
+
+void BasicScreenObject::setChildrenParentTreeVisibility() {
 	for (int i = 0; i < childlist.size(); i++) {
 		childlist[i]->isParentTreeVisible(_isParentTreeVisible && isvisible);
 	}
 }
+
 
 void BasicScreenObject::hide(){
 	isVisible(false);
@@ -648,7 +670,6 @@ float BasicScreenObject::getCombinedAlpha(){
 	}
 	return combinedbalpha;
 }
-
 
 
 /********************************************************

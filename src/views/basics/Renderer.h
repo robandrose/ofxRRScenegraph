@@ -59,6 +59,8 @@ public:
 	void isTouchToMouse(bool _touchtomouse){touchtomouse=_touchtomouse;};
 	bool isTouchToMouse(){return touchtomouse;};
 	
+	bool isVisible() { return true; };
+	bool isParentTreeVisible() { return true; };
 	
 	void forceUpdate();
 	

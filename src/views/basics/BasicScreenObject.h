@@ -71,6 +71,7 @@ public:
 	void isParentTreeVisible(bool _visible);
 	bool isParentTreeVisible() { return _isParentTreeVisible; }; 
 	
+	
 	float	getCombinedAlpha();
 	
 	// Child Parent Root Relations:
@@ -87,12 +88,15 @@ public:
 	virtual void removeChild(BasicScreenObject* _child);
 	virtual void removeChildAt(BasicScreenObject* _child, int _index);
 	virtual void removeChildren();
+	void		 clearParent();
 	virtual void moveMeToTop();
 	virtual void moveChildToTop(BasicScreenObject* _child);
 	virtual vector<BasicScreenObject*>* getChildren();
 	virtual void killMeSoftly(float _time);
 	
-	bool	isAdded();
+	bool	isAddedToRenderer();
+	void	isAddedToRenderer(bool _added);
+	//void	setChildrenParentTreeVisibility();
 	
 	void	isOrderChildrenByZ(bool _isorderbyz);
 	bool	isOrderChildrenByZ();
@@ -316,7 +320,7 @@ protected:
 	
 	bool issetup; // TODO: issetup needed??
     bool isupdating;
-    bool isadded;
+    bool _isAddedToRenderer;
 	bool isorderbyz;
 	bool isRenderer;	
 	
@@ -424,6 +428,9 @@ protected:
 	float	dfactor;
 
 	GLint pickingName;
+	
+	void setChildrenParentTreeVisibility();
+	void setChildrenParentTreeAddedToRenderer();
 
 private:
 	float	alpha;
