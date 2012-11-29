@@ -77,11 +77,12 @@ BasicScreenObject::BasicScreenObject(){
 	tweenrotslerp	= 0.0;
 	isScaleTweening = false;
 	
-	isvisible		= true;
-	isorderbyz		= false;
-	isupdating		= true;
+	isvisible				= true;
+	_isParentTreeVisible	= true;
+	isorderbyz				= false;
+	isupdating				= true;
 	
-	isRenderer		= false;
+	isRenderer				= false;
 	
 	ofAddListener(ofEvents().setup,		this, &BasicScreenObject::_setup);
 	ofAddListener(ofEvents().update,	this, &BasicScreenObject::_update);
@@ -195,8 +196,6 @@ void BasicScreenObject::_update(ofEventArgs &e){
 		}
 	}
 	
-	isCombinedVisible = getCombinedVisible();
-	
 	age++;	
 }
 
@@ -241,8 +240,7 @@ void BasicScreenObject::setRoot(BasicScreenObject* _root){
 	root = _root;
 	
 	for (int i = 0; i < childlist.size(); i++) {
-		BasicScreenObject* elm = childlist.at(i);
-		elm->setRoot(_root);
+		childlist[i]->setRoot(_root);
 	}
 }
 
@@ -317,9 +315,9 @@ void BasicScreenObject::doOrderChildrenByZ(){
 
 void BasicScreenObject::draw(){
 
+	//int elapsed = 0;
 	
-	if (isCombinedVisible || ismask) {
-
+	if ((isvisible && _isParentTreeVisible) || ismask) {
 
 		glPushMatrix();
 		glMultMatrixf(getLocalTransformMatrix().getPtr());		
@@ -341,6 +339,7 @@ void BasicScreenObject::draw(){
 		ofPushMatrix();
 		ofPushStyle();
 		ofSetColor(color.r,color.g,color.b,getCombinedAlpha());
+		
 		_draw();
 		ofPopStyle();
 		ofPopMatrix();
@@ -354,12 +353,12 @@ void BasicScreenObject::draw(){
 		ofPopMatrix();
 		
 		// lighting out
-		if(lightingenabled && !lightingbefore)glDisable(GL_LIGHTING);
-		if(!lightingenabled && lightingbefore)glEnable(GL_LIGHTING);
+		if( lightingenabled && !lightingbefore)glDisable(GL_LIGHTING);
+		if(!lightingenabled &&  lightingbefore)glEnable(GL_LIGHTING);
 		
 		// Depthtest out
-		if(depthtestenabled && !depthtestbefore)glDisable(GL_DEPTH_TEST);
-		if(!depthtestenabled && depthtestbefore)glEnable(GL_DEPTH_TEST);
+		if( depthtestenabled && !depthtestbefore)glDisable(GL_DEPTH_TEST);
+		if(!depthtestenabled &&  depthtestbefore)glEnable(GL_DEPTH_TEST);
 				
 		if(hasmask) restoreMask();
 		
@@ -374,14 +373,13 @@ void BasicScreenObject::_draw(ofEventArgs &e){ _draw(); }
 void BasicScreenObject::drawChildren(){
 	for (int i = 0; i < childlist.size(); i++)
 	{
-		BasicScreenObject* elm = childlist.at(i);
-		elm->draw();
+		childlist[i]->draw();
 	}
 }
 
 
 void BasicScreenObject::drawForPicking(){
-	if (isCombinedVisible) {
+	if (isvisible && _isParentTreeVisible) {
 		
 		glPushMatrix();
 		glMultMatrixf(getLocalTransformMatrix().getPtr());
@@ -407,10 +405,8 @@ void BasicScreenObject::drawForPicking(){
 
 
 void BasicScreenObject::drawChildrenForPicking(){
-	for (int i = 0; i < childlist.size(); i++)
-	{
-		BasicScreenObject* elm = childlist.at(i);
-		elm->drawForPicking();
+	for (int i = 0; i < childlist.size(); i++) {
+		childlist[i]->drawForPicking();
 	}
 }
 
@@ -574,8 +570,23 @@ ofRectangle BasicScreenObject::getScreenBoundingBox(){
 
 
 bool BasicScreenObject::isVisible() { return isvisible; }
-void BasicScreenObject::isVisible( bool _visible ) { isvisible = _visible; }
+void BasicScreenObject::isVisible( bool _visible ) { 
 
+	isvisible = _visible; 
+	for (int i = 0; i < childlist.size(); i++) {
+		childlist[i]->isParentTreeVisible(_isParentTreeVisible && isvisible);
+	}
+}
+
+
+void BasicScreenObject::isParentTreeVisible( bool _visible) {
+
+	_isParentTreeVisible = _visible;
+	
+	for (int i = 0; i < childlist.size(); i++) {
+		childlist[i]->isParentTreeVisible(_isParentTreeVisible && isvisible);
+	}
+}
 
 void BasicScreenObject::hide(){
 	isVisible(false);
@@ -610,16 +621,6 @@ void BasicScreenObject::show(float _time){
 	fadeTo(255, _time);
 }
 
-
-bool BasicScreenObject::getCombinedVisible(){
-	if (!isvisible) return false;	// do not go up in the tree if i'm not visible
-	if (isRenderer) return true;
-	
-	if(parent_so != NULL){
-		return parent_so->getCombinedVisible();
-	}
-	return false;
-}
 
 /********************************************************
  *

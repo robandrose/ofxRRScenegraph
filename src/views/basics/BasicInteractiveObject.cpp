@@ -107,7 +107,7 @@ void BasicInteractiveObject::update(){
 
 
 void BasicInteractiveObject::drawForPicking(){
-	if (isCombinedVisible) {
+	if (isVisible() && isParentTreeVisible()) {
 		
 		glPushMatrix();
 		glMultMatrixf(getLocalTransformMatrix().getPtr());

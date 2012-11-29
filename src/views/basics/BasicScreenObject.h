@@ -68,10 +68,9 @@ public:
 	
     bool isVisible();
 	void isVisible(bool _visible);
+	void isParentTreeVisible(bool _visible);
+	bool isParentTreeVisible() { return _isParentTreeVisible; }; 
 	
-	
-	// Search through the tree upwards 
-	bool	getCombinedVisible();
 	float	getCombinedAlpha();
 	
 	// Child Parent Root Relations:
@@ -318,12 +317,8 @@ protected:
 	bool issetup; // TODO: issetup needed??
     bool isupdating;
     bool isadded;
-	bool isvisible;
 	bool isorderbyz;
-	bool isRenderer;
-	bool isCombinedVisible; // updated in _update(), so it will only be called once per frame
-	
-	
+	bool isRenderer;	
 	
 	
 	/********************************************************
@@ -385,7 +380,6 @@ protected:
 	ofColor		color;
 	float		tweenr, tweeng, tweenb;
 	float		tweenEndR, tweenEndG, tweenEndB;
-	float		alpha;
 	float		tweenEndAlpha;
 	bool		isColorTweening;
 	bool		isFadeTweening;
@@ -430,6 +424,10 @@ protected:
 	float	dfactor;
 
 	GLint pickingName;
-	
+
+private:
+	float	alpha;
+	bool	isvisible;
+	bool	_isParentTreeVisible;
 };
 #endif
