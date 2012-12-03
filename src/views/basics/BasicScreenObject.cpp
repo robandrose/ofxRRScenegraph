@@ -777,8 +777,14 @@ float BasicScreenObject::getHeight() { return height; }
 
 
 void BasicScreenObject::setSize(float _width, float _height){
+	int oldWidth = width;
+	int oldHeight = height;
 	width	= _width;
 	height	= _height;
+	
+	if (oldWidth!= width || oldHeight != height) {
+		ofNotifyEvent(sizeChangedEvent, myEventArgs, this);
+	}
 }
 
 

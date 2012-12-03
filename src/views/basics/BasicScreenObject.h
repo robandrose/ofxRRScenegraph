@@ -288,6 +288,7 @@ public:
 	ofEvent<BasicScreenObjectEvent> positionChangedEvent;
 	ofEvent<BasicScreenObjectEvent> scaleChangedEvent;
 	ofEvent<BasicScreenObjectEvent> rotationChangedEvent;
+	ofEvent<BasicScreenObjectEvent>	sizeChangedEvent;
 	
 	
 	// Positioners
