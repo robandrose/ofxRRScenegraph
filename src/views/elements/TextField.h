@@ -48,6 +48,8 @@ public:
 	static const int ALIGN_LEFT;
 	static const int ALIGN_RIGHT;
 	
+	ofEvent<BasicScreenObjectEvent> textRenderedEvent;
+	
 protected:
 	
 	ofxPango*					pango;
