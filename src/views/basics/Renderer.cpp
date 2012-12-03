@@ -87,10 +87,10 @@ void Renderer::update(){
 			pickingmap.begin();
 			
 			ofClear(0);
-			ofPushMatrix() ;
+			//ofPushMatrix() ;
 			ofScale( mapscale , mapscale , mapscale) ;		
 			BasicScreenObject::drawForPicking();	
-			ofPopMatrix();
+			//ofPopMatrix();
 			
 			pickingmap.end();		
 			pickingmap.readToPixels(mapPixels);					// < takes 20ms for rgb fbo. 1ms for GL_LUMINANCE
