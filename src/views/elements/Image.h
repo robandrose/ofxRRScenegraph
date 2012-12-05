@@ -38,6 +38,7 @@ public:
 	void updateSize();
 	void crop(int x, int y, int w, int h);
 	void cropFitScale(int _width, int _height);
+	void clone(Image* _srcImage);
 	
 	void setRectMode(ofRectMode _mode);
 	

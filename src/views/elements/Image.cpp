@@ -42,6 +42,26 @@ void Image::update(){
 }
 
 
+void Image::_draw(){
+	if (img == NULL || loadingAsync) return;
+	
+	
+	if (img->getWidth() > 0) {
+		ofPushStyle();
+		
+		ofSetRectMode(mode);
+        img->draw(0, 0, width, height);
+		ofPopStyle();
+	}
+	/*
+	 if (tmpResizeCounter>1) {
+	 ofLog(OF_LOG_NOTICE, "resized more than once (" + ofToString(tmpResizeCounter) + "): " + tmpFilepath);
+	 }
+	 */
+	tmpResizeCounter = 0;
+}
+
+
 void Image::load(string _filename){
 	img->clear();
 	img->loadImage(_filename);
@@ -114,6 +134,11 @@ void Image::crop(int x, int y, int w, int h) {
 }
 
 
+void Image::clone(Image* _srcImage) {
+	img->clone(*_srcImage->getImagePointer());
+}
+
+
 void Image::setMaxSize(float _maxwidth, float _maxheight){
 	hasMaxSize	= true;
 	maxWidth	= _maxwidth;
@@ -135,25 +160,6 @@ void Image::updateSize(){
 	}
 	setSize(newwidth, newheight);
 	changed=false;
-}
-
-
-void Image::_draw(){
-	if (img == NULL || loadingAsync) return;
-	
-	
-	if (img->getWidth() > 0) {
-		ofPushStyle();
-		ofSetRectMode(mode);
-        img->draw(0, 0, width, height);
-		ofPopStyle();
-	}
-	/*
-	if (tmpResizeCounter>1) {
-		ofLog(OF_LOG_NOTICE, "resized more than once (" + ofToString(tmpResizeCounter) + "): " + tmpFilepath);
-	}
-	*/
-	tmpResizeCounter = 0;
 }
 
 
