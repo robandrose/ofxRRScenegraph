@@ -20,6 +20,13 @@
 #define MT_UPDATE 1
 #define MT_REMOVE 2
 
+struct TouchAction {
+	float	screenX;
+	float	screenY;
+	int		fingerId;
+	int		action;
+};
+
 class Renderer : public BasicInteractiveObject {
 public:
 	Renderer();
@@ -70,7 +77,7 @@ protected:
 	bool bColorPickerSetup;
 	
 	void setup();
-	void _draw();
+	void _draw() {};
 	void update();
 	
 	//TUIO Controller functions
@@ -96,7 +103,8 @@ protected:
 	// the event object of the last emulated mouse event (used to ignore the mouse event if it was created using the emulator)
 	ofMouseEventArgs* lastfakemouseevent;
 	
-	void notifyObjects(float _screenx, float _screeny,int _fingerid, int _action);
+	void notifyObjects(TouchAction _touchAction);
+	void queueTouchAction(float _screenx, float _screeny,int _fingerid, int _action);
 	
 	GLuint nextPickingName;
 	map<GLuint, BasicInteractiveObject*> pickingObjects;
@@ -107,14 +115,16 @@ protected:
 	float	cursorsize;
 	long	lastinteraction;
 	
+	queue<TouchAction>	touchActions;
+	
 	// Pixel picking:
 	ofFbo		pickingmap;
 	ofPixels	mapPixels ;
 	
-	int		captureincrement ;
-	float	mapsampling;
-	float	mapscale ;            //amount the screen is scaled
-	float	mapscaleinv ;           //returns fbo to screen size
+	int			captureincrement ;
+	float		mapsampling;
+	float		mapscale ;            //amount the screen is scaled
+	float		mapscaleinv ;           //returns fbo to screen size
 	ofRectangle maxbounds;
 	
 	// Camera

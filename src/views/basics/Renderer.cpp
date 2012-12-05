@@ -59,7 +59,6 @@ void Renderer::setupColorPicker(float _width, float _height, float _sampling, fl
 	
 	s.width				= getWidth()  / mapsampling;
 	s.height			= getHeight() / mapsampling;
-	//s.internalformat	= GL_LUMINANCE32F_ARB;
 	s.internalformat	= GL_RGB; // would be much faster using GL_LUMINANCE or GL_LUMINANCE32F_ARB (32bit resolution should be enough);
 	s.useDepth			= true;
 	
@@ -87,18 +86,24 @@ void Renderer::update(){
 			pickingmap.begin();
 			
 			ofClear(0);
-			//ofPushMatrix() ;
 			ofScale( mapscale , mapscale , mapscale) ;		
 			BasicScreenObject::drawForPicking();	
-			//ofPopMatrix();
 			
-			pickingmap.end();		
-			pickingmap.readToPixels(mapPixels);					// < takes 20ms for rgb fbo. 1ms for GL_LUMINANCE
+			pickingmap.end();						
 			//ofLog(OF_LOG_NOTICE, ofToString(mapPixels.size()));
 		}
 		
 		if(waslighting){
 			glEnable(GL_LIGHTING);
+		}
+		
+		if (!touchActions.empty()) {
+			pickingmap.readToPixels(mapPixels);	// < takes 20ms for rgb fbo. 1ms for GL_LUMINANCE
+		}
+		
+		while (!touchActions.empty() ) {
+			notifyObjects(touchActions.front());
+			touchActions.pop();
 		}
 	}
 
@@ -107,6 +112,7 @@ void Renderer::update(){
 
 
 void Renderer::forceUpdate() { update(); }
+
 
 void Renderer::draw(){
 	
@@ -121,10 +127,6 @@ void Renderer::draw(){
 	//ofLog(OF_LOG_NOTICE, "draw: " + ofToString(ofGetElapsedTimeMillis()-startTime));
 }
 
-
-void Renderer::_draw(){		
-	
-}
 
 void Renderer::startTuio(int _port) {
 	port = _port;
@@ -147,8 +149,9 @@ void Renderer::tuioAdded(ofTouchEventArgs & _cursor) {
 		
 	}
 	
-	notifyObjects(_cursor.x*ofGetWidth(), _cursor.y*ofGetHeight(), _cursor.id, MT_ADD);
+	queueTouchAction(_cursor.x*ofGetWidth(), _cursor.y*ofGetHeight(), _cursor.id, MT_ADD);
 }
+
 
 void Renderer::tuioRemoved(ofTouchEventArgs & _cursor){
 	
@@ -163,8 +166,9 @@ void Renderer::tuioRemoved(ofTouchEventArgs & _cursor){
 		ofNotifyEvent( ofEvents().mouseReleased , mouseEventArgs );
 	}
 	
-	notifyObjects(_cursor.x*ofGetWidth(), _cursor.y*ofGetHeight(), _cursor.id, MT_REMOVE);
+	queueTouchAction(_cursor.x*ofGetWidth(), _cursor.y*ofGetHeight(), _cursor.id, MT_REMOVE);
 }
+
 
 void Renderer::tuioUpdated(ofTouchEventArgs & _cursor){
 	
@@ -177,61 +181,70 @@ void Renderer::tuioUpdated(ofTouchEventArgs & _cursor){
 		ofNotifyEvent( ofEvents().mouseDragged, mouseEventArgs );
 	}
 	
-	notifyObjects(_cursor.x*ofGetWidth(), _cursor.y*ofGetHeight(), _cursor.id, MT_UPDATE);
+	queueTouchAction(_cursor.x*ofGetWidth(), _cursor.y*ofGetHeight(), _cursor.id, MT_UPDATE);
 }
+
 
 void Renderer::mousePressed(ofMouseEventArgs& _cursor){
 	if (mousetotouch) {
 		// ignore this mouse-event, if it was created by emulating a mouse-event from a touch
 		if (lastfakemouseevent != &_cursor) {
-			notifyObjects(_cursor.x, _cursor.y, -1, MT_ADD);
+			queueTouchAction(_cursor.x, _cursor.y, -1, MT_ADD);
 		}
 	}
 }
+
 
 void Renderer::mouseReleased(ofMouseEventArgs& _cursor){
 	if (mousetotouch) {
 		// ignore this mouse-event, if it was created by emulating a mouse-event from a touch
 		if (lastfakemouseevent != &_cursor) {
-			notifyObjects(_cursor.x, _cursor.y, -1, MT_REMOVE);
+			queueTouchAction(_cursor.x, _cursor.y, -1, MT_REMOVE);
 		}
 	}
 }
+
 
 void Renderer::mouseDragged(ofMouseEventArgs& _cursor){
 	if (mousetotouch) {
 		// ignore this mouse-event, if it was created by emulating a mouse-event from a touch
 		if (lastfakemouseevent != &_cursor) {
-			notifyObjects(_cursor.x, _cursor.y, -1, MT_UPDATE);
+			queueTouchAction(_cursor.x, _cursor.y, -1, MT_UPDATE);
 		}
 	}
 }
 
 
-void Renderer::notifyObjects(float _screenx, float _screeny,int _fingerid, int _action){
+void Renderer::queueTouchAction(float _screenx, float _screeny, int _fingerid, int _action) {
+	TouchAction touch = {_screenx, _screeny, _fingerid, _action};
+	touchActions.push(touch);
+}
+
+
+void Renderer::notifyObjects(TouchAction _touchAction) {
 	
 	mtRay ray;
-	ray.pos = camera.screenToWorld(ofVec3f(_screenx,_screeny,-1),currentviewport);
-	ray.dir = camera.screenToWorld(ofVec3f(_screenx,_screeny,1), currentviewport)-ray.pos;
-	ray.screenpos.set(_screenx, _screeny);
+	ray.pos = camera.screenToWorld( ofVec3f( _touchAction.screenX, _touchAction.screenY,-1),	currentviewport);
+	ray.dir = camera.screenToWorld( ofVec3f( _touchAction.screenX, _touchAction.screenY, 1),	currentviewport) - ray.pos;
+	ray.screenpos.set(_touchAction.screenX, _touchAction.screenY);
 	
 	
-	BasicInteractiveObject* overobj=(BasicInteractiveObject*)getObjectAt(_screenx, _screeny);
+	BasicInteractiveObject* overobj = (BasicInteractiveObject*)getObjectAt(_touchAction.screenX, _touchAction.screenY);
 	
 	for(int i=0;i<pickingObjects.size();i++){
 		BasicInteractiveObject* obj =(BasicInteractiveObject*) pickingObjects[i];
 		if (obj != NULL && obj!=overobj) {
-			switch (_action) {
+			switch (_touchAction.action) {
 				case (MT_ADD) : {
-					obj->touchDownOutside(ray,_fingerid);
+					obj->touchDownOutside(	ray,_touchAction.fingerId );
 					break;
 				}
 				case (MT_UPDATE) : {
-					obj->touchMovedOutside(ray,_fingerid);
+					obj->touchMovedOutside(	ray,_touchAction.fingerId );
 					break;
 				}
 				case (MT_REMOVE) : {
-					obj->touchUpOutside(ray,_fingerid);
+					obj->touchUpOutside(	ray,_touchAction.fingerId );
 					break;
 				}
 			}
@@ -239,17 +252,17 @@ void Renderer::notifyObjects(float _screenx, float _screeny,int _fingerid, int _
 	}
 	
 	if(overobj!=NULL){
-		switch (_action) {
+		switch (_touchAction.action) {
 			case (MT_ADD) : {
-				overobj->touchDownOnMe(ray,_fingerid);
+				overobj->touchDownOnMe(	ray,_touchAction.fingerId );
 				break;
 			}
 			case (MT_UPDATE) : {
-				overobj->touchMovedOnMe(ray,_fingerid);
+				overobj->touchMovedOnMe(ray,_touchAction.fingerId );
 				break;
 			}
 			case (MT_REMOVE) : {
-				overobj->touchUpOnMe(ray,_fingerid);
+				overobj->touchUpOnMe(	ray,_touchAction.fingerId );
 				break;
 			}
 		}		
@@ -259,16 +272,14 @@ void Renderer::notifyObjects(float _screenx, float _screeny,int _fingerid, int _
 }
 
 
- 
 void Renderer::drawMap() {
 	ofSetColor(255, 255, 255);
 	pickingmap.draw(0, 0,pickingmap.getWidth(),pickingmap.getHeight());
 }
 
+
 void Renderer::drawCursors(){
 
-	
-	
 	ofEnableAlphaBlending();
 	glBlendFunc(GL_ONE, GL_ONE);
 	
@@ -305,6 +316,7 @@ void Renderer::drawCursors(){
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 }
 
+
 BasicScreenObject* Renderer::getObjectAt(float _screenx, float _screeny){
 	int fbox	=_screenx/mapsampling;
 	int fboy	=_screeny/mapsampling;
@@ -313,6 +325,8 @@ BasicScreenObject* Renderer::getObjectAt(float _screenx, float _screeny){
 	
 	int index	= (fbox + fboy * pickingmap.getWidth()) * 3 ;
 	//int index	= (fbox + fboy * pickingmap.getWidth());
+	
+	//if (bColorPickerSetup)	pickingmap.readToPixels(mapPixels);
 	
 	ofColor	fboc			= ofColor( mapPixels[index] , mapPixels[index + 1] , mapPixels[index + 2] );
 	//ofColor	fboc			= ofColor( mapPixels[index] , mapPixels[index] , mapPixels[index] );
@@ -325,17 +339,19 @@ BasicScreenObject* Renderer::getObjectAt(float _screenx, float _screeny){
 	return obj;	
 }
 
+
 GLuint Renderer::getNextPickingName(BasicInteractiveObject* _object) {
 	GLuint np = ++nextPickingName;
 	pickingObjects[np] = _object;
 	return np;
 }
 
+
 long Renderer::lastInteractionMillis(){
 	return lastinteraction;
 }
 
+
 void Renderer::isDrawCursors(bool _drawCursors) {
 	drawcursors = _drawCursors;
 }
-
