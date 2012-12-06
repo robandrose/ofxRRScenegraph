@@ -14,6 +14,7 @@
 #include "BasicInteractiveObject.h"
 #include "ofxTuioClient.h"
 #include "ofxTweener.h"
+#include "ofxFastFboReader.h"
 
 
 #define MT_ADD 0
@@ -118,8 +119,9 @@ protected:
 	queue<TouchAction>	touchActions;
 	
 	// Pixel picking:
-	ofFbo		pickingmap;
-	ofPixels	mapPixels ;
+	ofFbo				pickingmap;
+	//ofxFastFboReader	fboReader;
+	ofPixels			mapPixels ;
 	
 	int			captureincrement ;
 	float		mapsampling;

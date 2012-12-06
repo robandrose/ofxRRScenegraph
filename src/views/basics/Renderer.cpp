@@ -63,6 +63,7 @@ void Renderer::setupColorPicker(float _width, float _height, float _sampling, fl
 	s.useDepth			= true;
 	
 	pickingmap.allocate(s );
+
 	maxbounds = ofRectangle ( 0 , 0 , pickingmap.getWidth()-1 , pickingmap.getHeight()-1 ) ;
 	camera.setupPerspective();
 	
@@ -99,6 +100,7 @@ void Renderer::update(){
 		
 		if (!touchActions.empty()) {
 			pickingmap.readToPixels(mapPixels);	// < takes 20ms for rgb fbo. 1ms for GL_LUMINANCE
+			//fboReader.readToPixels(pickingmap, mapPixels);
 		}
 		
 		while (!touchActions.empty() ) {
@@ -273,8 +275,8 @@ void Renderer::notifyObjects(TouchAction _touchAction) {
 
 
 void Renderer::drawMap() {
-	ofSetColor(255, 255, 255);
-	pickingmap.draw(0, 0,pickingmap.getWidth(),pickingmap.getHeight());
+	//ofSetColor(255, 255, 255);
+	pickingmap.draw(0, 0);
 }
 
 
