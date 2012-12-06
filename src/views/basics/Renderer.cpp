@@ -28,6 +28,8 @@ Renderer::Renderer(){
 	isRenderer			= true;
 	_isAddedToRenderer	= true;
 	drawcursors			= true;
+	
+	//fboReader.setAsync(false);
 }
 
 
@@ -92,6 +94,8 @@ void Renderer::update(){
 			
 			pickingmap.end();						
 			//ofLog(OF_LOG_NOTICE, ofToString(mapPixels.size()));
+			
+			
 		}
 		
 		if(waslighting){
@@ -99,8 +103,10 @@ void Renderer::update(){
 		}
 		
 		if (!touchActions.empty()) {
+			//int startTime = ofGetElapsedTimeMillis();
 			pickingmap.readToPixels(mapPixels);	// < takes 20ms for rgb fbo. 1ms for GL_LUMINANCE
 			//fboReader.readToPixels(pickingmap, mapPixels);
+			//ofLog(OF_LOG_NOTICE, ofToString((ofGetElapsedTimeMillis()-startTime)));
 		}
 		
 		while (!touchActions.empty() ) {

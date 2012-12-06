@@ -14,7 +14,7 @@
 #include "BasicInteractiveObject.h"
 #include "ofxTuioClient.h"
 #include "ofxTweener.h"
-#include "ofxFastFboReader.h"
+//#include "ofxFastFboReader.h"
 
 
 #define MT_ADD 0
