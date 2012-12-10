@@ -291,11 +291,11 @@ void BasicInteractiveObject::removeMultiTouch(mtRay ray, int touchId){
 			if(!isrotating && !isscaling){
 				// check for taps
 				if (!isdragging && mtscopeduration < tapThreshold) {
-					if(mtcounter == 1){
+					if ( mtcounter == 1 ){
 						MultiTouchEvent params(this, mtp);
 						ofNotifyEvent(tapEvent,params,this);
 						
-					} else if(mtcounter == 2){
+					} else if ( mtcounter == 2 ){
 						MultiTouchEvent params(this, mtp);
 						ofNotifyEvent(doubleTapEvent,params,this);
 					}
