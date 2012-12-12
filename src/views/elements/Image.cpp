@@ -135,6 +135,7 @@ void Image::crop(int x, int y, int w, int h) {
 
 
 void Image::clone(Image* _srcImage) {
+	setSize(_srcImage->getWidth(), _srcImage->getHeight());
 	img->clone(*_srcImage->getImagePointer());
 }
 
