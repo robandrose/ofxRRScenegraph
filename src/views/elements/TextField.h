@@ -19,7 +19,7 @@ public:
 	
 	void	setup();
 	void	update();
-	void	_draw();
+	virtual void	_draw();
 	
 	void	setText(string _text);
 	string	getText();
