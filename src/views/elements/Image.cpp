@@ -140,6 +140,12 @@ void Image::clone(Image* _srcImage) {
 }
 
 
+void Image::clone(ofImage* _srcImage) {
+	setSize(_srcImage->getWidth(), _srcImage->getHeight());
+	img->clone(*_srcImage);
+}
+
+
 void Image::setMaxSize(float _maxwidth, float _maxheight){
 	hasMaxSize	= true;
 	maxWidth	= _maxwidth;
