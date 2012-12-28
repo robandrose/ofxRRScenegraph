@@ -50,6 +50,8 @@ public:
 	
 	ofEvent<BasicScreenObjectEvent> textRenderedEvent;
 	
+	void renderText();	
+	
 protected:
 	
 	ofxPango*					pango;
@@ -75,5 +77,5 @@ protected:
 	bool		changed;
 	
 	void updateFontDescription();
-	void renderText();	
+	
 };

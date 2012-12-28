@@ -173,7 +173,7 @@ void TextField::renderText() {
 	layout->setTabs(tabs);
 	layout->setPangoAlign(textAlign);
 	layout->show();
-
+	
 	bounds=layout->getPixelSize();	
 	
 	changed=false;
