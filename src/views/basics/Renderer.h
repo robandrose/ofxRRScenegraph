@@ -48,7 +48,10 @@ public:
 	
 	ofCamera* getCamera(){return &camera;};
 	
-	long lastInteractionMillis();
+	long getLastInteractionMillis();
+	void setIdleTimeout(int _millis) { idleTimeout = _millis; };
+	ofEvent<BasicScreenObjectEvent> idleEvent;
+	ofEvent<BasicScreenObjectEvent> idleFinishEvent;
 	
 	/* Wether the mouse events should emulate touch-events.
 	 * If both isMouseToTouch and isTouchToMouse are activated,
@@ -115,6 +118,8 @@ protected:
 	bool	drawcursors;
 	float	cursorsize;
 	long	lastinteraction;
+	bool	idleEventFired;
+	int		idleTimeout;
 	
 	queue<TouchAction>	touchActions;
 	

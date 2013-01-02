@@ -167,7 +167,7 @@ void TextField::renderText() {
 	layout->context->clear();
 	layout->setFontDescription(*fd, antialiasType);
 	layout->setTextColor(color.r/255.0f, color.g/255.0f, color.b/255.0f, 1);
-	layout->setSpacing(lineSpacing);	
+	layout->setSpacing(lineSpacing);
 	layout->setIndent(indent);
 	layout->setMarkup(textContent);
 	layout->setTabs(tabs);

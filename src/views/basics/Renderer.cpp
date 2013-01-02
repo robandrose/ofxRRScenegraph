@@ -10,7 +10,7 @@
 #include "Renderer.h"
 
 Renderer::Renderer(){
-	myname			="Renderer";
+	myname			= "Renderer";
 	nextPickingName	= 100;
 	cursorsize		= 10;
 	maxcursors		= 20;
@@ -29,7 +29,8 @@ Renderer::Renderer(){
 	_isAddedToRenderer	= true;
 	drawcursors			= true;
 	
-	//fboReader.setAsync(false);
+	idleEventFired		= false;
+	idleTimeout			= 30000;	// 30 seconds
 }
 
 
@@ -74,8 +75,7 @@ void Renderer::setupColorPicker(float _width, float _height, float _sampling, fl
 
 
 void Renderer::update(){
-	//int startTime = ofGetElapsedTimeMillis();
-	
+
 	Tweener.update();
 
 	if(bColorPickerSetup){
@@ -93,9 +93,6 @@ void Renderer::update(){
 			BasicScreenObject::drawForPicking();	
 			
 			pickingmap.end();						
-			//ofLog(OF_LOG_NOTICE, ofToString(mapPixels.size()));
-			
-			
 		}
 		
 		if(waslighting){
@@ -103,10 +100,7 @@ void Renderer::update(){
 		}
 		
 		if (!touchActions.empty()) {
-			//int startTime = ofGetElapsedTimeMillis();
 			pickingmap.readToPixels(mapPixels);	// < takes 20ms for rgb fbo. 1ms for GL_LUMINANCE
-			//fboReader.readToPixels(pickingmap, mapPixels);
-			//ofLog(OF_LOG_NOTICE, ofToString((ofGetElapsedTimeMillis()-startTime)));
 		}
 		
 		while (!touchActions.empty() ) {
@@ -114,8 +108,15 @@ void Renderer::update(){
 			touchActions.pop();
 		}
 	}
-
-	//ofLog(OF_LOG_NOTICE, "update: " + ofToString(ofGetElapsedTimeMillis()-startTime));
+	
+	if (!idleEventFired) {
+		if (ofGetElapsedTimeMillis() > lastinteraction + idleTimeout) {
+			idleEventFired = true;
+			ofNotifyEvent(idleEvent, myEventArgs, this);
+			ofLog(OF_LOG_NOTICE, "idle fired");
+		}
+	}
+	
 }
 
 
@@ -276,7 +277,13 @@ void Renderer::notifyObjects(TouchAction _touchAction) {
 		}		
 	}
 	
-	lastinteraction=ofGetElapsedTimeMillis();
+	lastinteraction	= ofGetElapsedTimeMillis();
+	
+	if (idleEventFired) {
+		idleEventFired = false;
+		ofNotifyEvent(idleFinishEvent, myEventArgs, this);
+		ofLog(OF_LOG_NOTICE, "idle finish fired");
+	}
 }
 
 
@@ -355,7 +362,8 @@ GLuint Renderer::getNextPickingName(BasicInteractiveObject* _object) {
 }
 
 
-long Renderer::lastInteractionMillis(){
+long Renderer::getLastInteractionMillis
+(){
 	return lastinteraction;
 }
 
