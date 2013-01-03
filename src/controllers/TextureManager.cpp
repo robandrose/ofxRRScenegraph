@@ -25,7 +25,6 @@ void TextureManager::loadSettings(){
 	int numtextures=settings->getNumTags("texture");
 	
 	for(int i=0;i<numtextures;i++){
-		//cout << settings->getValue("texture:source", "", i)<< "\n";
 		string key = settings->getValue("texture:key","", i);
 		string source= settings->getValue("texture:source", "", i);
 		ofImage* img=new ofImage();
