@@ -74,6 +74,7 @@ public:
 	bool isParentTreeVisible() { return true; };
 	
 	void forceUpdate();
+	void forceInteraction();
 	
 protected:
 	

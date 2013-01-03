@@ -113,7 +113,6 @@ void Renderer::update(){
 		if (ofGetElapsedTimeMillis() > lastinteraction + idleTimeout) {
 			idleEventFired = true;
 			ofNotifyEvent(idleEvent, myEventArgs, this);
-			ofLog(OF_LOG_NOTICE, "idle fired");
 		}
 	}
 	
@@ -282,7 +281,6 @@ void Renderer::notifyObjects(TouchAction _touchAction) {
 	if (idleEventFired) {
 		idleEventFired = false;
 		ofNotifyEvent(idleFinishEvent, myEventArgs, this);
-		ofLog(OF_LOG_NOTICE, "idle finish fired");
 	}
 }
 
@@ -370,4 +368,13 @@ long Renderer::getLastInteractionMillis
 
 void Renderer::isDrawCursors(bool _drawCursors) {
 	drawcursors = _drawCursors;
+}
+
+
+void Renderer::forceInteraction() {
+	lastinteraction	= ofGetElapsedTimeMillis();
+	if (idleEventFired) {
+		idleEventFired = false;
+		ofNotifyEvent(idleFinishEvent, myEventArgs, this);
+	}
 }
