@@ -1,16 +1,9 @@
-/*
- *  TextField.cpp
- *
- *  Created by Matthias Rohrbach on 14.07.11.
- *  Copyright 2011 __MyCompanyName__. All rights reserved.
- *
- */
-
 #include "TextField.h"
 
-const int TextField::ALIGN_LEFT=PANGO_ALIGN_LEFT;
-const int TextField::ALIGN_RIGHT=PANGO_ALIGN_RIGHT;
-const int TextField::ALIGN_CENTER=PANGO_ALIGN_CENTER;
+const int TextField::ALIGN_LEFT		= PANGO_ALIGN_LEFT;
+const int TextField::ALIGN_RIGHT	= PANGO_ALIGN_RIGHT;
+const int TextField::ALIGN_CENTER	= PANGO_ALIGN_CENTER;
+
 
 
 TextField::TextField() {
@@ -23,7 +16,7 @@ TextField::TextField() {
 	setFontSize(15);
 	setFontName("Graphik");
 	setSize(200, 50);
-	setLineSpacing(3);
+	setLineSpacing(1);
 	setTextAlign(ALIGN_LEFT);
 	setIndent(0.0);
 	setAntialiasType(CAIRO_ANTIALIAS_DEFAULT);
