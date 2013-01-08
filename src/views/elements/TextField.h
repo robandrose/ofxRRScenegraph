@@ -34,6 +34,7 @@ public:
 	float	getLineSpacing(){return lineSpacing;};
 	void	setAntialiasType(cairo_antialias_t _type); 
 	cairo_antialias_t getAntialiasType() {return antialiasType;};
+	int		getLineCount();
 	
 	void setIndent(float _indent);
 	void setTabs(vector<int> _tabs);

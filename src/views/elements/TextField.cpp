@@ -137,6 +137,11 @@ void TextField::setAntialiasType(cairo_antialias_t _type) {
 }
 
 
+int TextField::getLineCount() {
+	return layout->getLineCount();
+}
+
+
 ofPoint TextField::getTextBounds() {
 	if (changed) {
 		renderText();
