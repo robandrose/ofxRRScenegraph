@@ -499,10 +499,10 @@ ofRectangle BasicScreenObject::getBoundingBox(BasicScreenObject* ref){
 	screenpos[2] = localToForeign(ref,width, height, 0);
 	screenpos[3] = localToForeign(ref,0, height, 0);
 	
-	float smallestx	= 100000;
-	float smallesty	= 100000;
-	float biggestx	= -100000;
-	float biggesty	= -100000;
+	float smallestx	= FLT_MAX;
+	float smallesty	= FLT_MAX;
+	float biggestx	= -FLT_MAX;
+	float biggesty	= -FLT_MAX;
 	
 	for(int i=0; i < 4; i++){
 		ofVec2f spos	= screenpos[i];
@@ -547,10 +547,10 @@ ofRectangle BasicScreenObject::getScreenBoundingBox(){
 	screenpos[2] = r->getCamera()->worldToScreen(localToGlobal(width, height, 0));
 	screenpos[3] = r->getCamera()->worldToScreen(localToGlobal(0, height, 0));
 	
-	float smallestx	= 100000;
-	float smallesty	= 100000;
-	float biggestx	= -100000;
-	float biggesty	= -100000;
+	float smallestx	= FLT_MAX;
+	float smallesty	= FLT_MAX;
+	float biggestx	= -FLT_MAX;
+	float biggesty	= -FLT_MAX;
 	
 	for(int i=0; i < 4; i++){
 		ofVec2f spos	= screenpos[i];
