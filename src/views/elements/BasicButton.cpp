@@ -15,7 +15,7 @@ BasicButton::BasicButton() {
 	isEnabled		= true;
 	_isSelected		= false;
 	hasActiveimage	= false;	
-	_isScalingImage = true;
+	_isScalingImage = false;
 	
 	temp			= NULL;
 	normal			= NULL;
