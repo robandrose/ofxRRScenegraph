@@ -405,6 +405,10 @@ void BasicInteractiveObject::resetMTStartValues(){
 
 void BasicInteractiveObject::updateMtTransform(){
 	if(!mtscoperunning) return;
+	if (!isDraggable() && !isRotateable() && !isScaleable()) return;
+	
+	bool matrixNeedsUpdate = false;
+	
 	mttransform = getCurrentMtTransform();
 	
 	mttransformmatrix.makeIdentityMatrix();
@@ -412,6 +416,7 @@ void BasicInteractiveObject::updateMtTransform(){
 	if(getNumActiveTouches() > 1){
 		
 		mttransformmatrix.translate(-(mttranslatestart+mtpivot));
+		matrixNeedsUpdate = true;
 		
 		if(isScaleable()){
 			
@@ -486,15 +491,19 @@ void BasicInteractiveObject::updateMtTransform(){
 		
 		if(isDragAuto() && isdragging){
 			mttransformmatrix.translate(mttranslate);
+			matrixNeedsUpdate = true;
 		}
 	}
 	
-	ofMatrix4x4 currentmatrix;
+	// only affect current matrix if we're actuall 
+	if (matrixNeedsUpdate && (isDraggable() || isRotateable() || isScaleable())) {
+		ofMatrix4x4 currentmatrix;
 	
-	currentmatrix.set(mttransformmatrixstart);
-	currentmatrix.postMult(mttransformmatrix);
+		currentmatrix.set(mttransformmatrixstart);
+		currentmatrix.postMult(mttransformmatrix);
 	
-	setTransformMatrix(currentmatrix);
+		setTransformMatrix(currentmatrix);
+	}
 	
 	MultiTouchEvent params(this);
 	ofNotifyEvent(updateMultiTouchScopeEvent, params, this);
