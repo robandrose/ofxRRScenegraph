@@ -47,14 +47,15 @@ void BasicButton::_draw(){
 	if(normal == NULL){
 		ofRect(0,0,width,height);
 	}
+	
 	if (currentImage != NULL) {
+		//ofSetColor(color.r, color.g, color.b, 0);	// TODO: strange stuff with alpha
 		if (_isScalingImage) {
 			currentImage->draw(0,0,width, height);
 		} else {
 			currentImage->draw((width  - currentImage->getWidth()) *.5,
 							   (height - currentImage->getHeight())*.5);
 		}
-
 	}
 }
 
