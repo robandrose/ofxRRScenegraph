@@ -960,7 +960,7 @@ void BasicScreenObject::moveTo(float _endx, float _endy, float _endz, float _mov
 
 
 void BasicScreenObject::fadeTo(float _endalpha, float _fadetime) {
-	fadeTo(_endalpha, _fadetime, &ofxTransitions::linear, 0);
+	fadeTo(_endalpha, _fadetime, &ofxTransitions::easeInOutCubic, 0);
 }
 void BasicScreenObject::fadeTo(float _endalpha, float _fadetime, float (ofxTransitions::*ease) (float,float,float,float)) {
 	fadeTo(_endalpha, _fadetime, ease, 0);
@@ -976,7 +976,7 @@ void BasicScreenObject::fadeTo(float _endalpha, float _fadetime, float (ofxTrans
 
 
 void BasicScreenObject::fadeToInvisible(float _fadetime) {
-	fadeToInvisible(_fadetime, &ofxTransitions::linear, 0);
+	fadeToInvisible(_fadetime, &ofxTransitions::easeInOutCubic, 0);
 }
 void BasicScreenObject::fadeToInvisible(float _fadetime, float (ofxTransitions::*ease) (float,float,float,float)) {
 	fadeToInvisible(_fadetime, ease, 0);
