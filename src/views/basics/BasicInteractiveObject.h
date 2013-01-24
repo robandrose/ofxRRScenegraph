@@ -181,6 +181,8 @@ public:
 	ofColor	pickingNameToColor(GLint _pickingName);
 	GLint	colorToPickingName(ofColor& _color);
 	
+	map<int, MultiTouchPoint*>* getActiveMultiTouches() { return &activeMultiTouches; };
+	
 protected:
 	
 	ofVec3f camerapoint;	
