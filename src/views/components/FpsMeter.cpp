@@ -12,13 +12,15 @@ FpsMeter::FpsMeter(){
 void FpsMeter::update() {
 	BasicScreenObject::update();
 	
-	currentFps				= ofGetFrameRate();
-	fpsList[currentIndex]	= currentFps;
-	currentIndex			= (currentIndex + 1) % currentSize;
+	if (isVisible()) {
+		currentFps				= ofGetFrameRate();
+		fpsList[currentIndex]	= currentFps;
+		currentIndex			= (currentIndex + 1) % currentSize;
 	
-	largest = 0;
-	for (int i=0; i < currentSize; i++) {
-		if (fpsList[i]>largest) largest = fpsList[i];
+		largest = 0;
+		for (int i=0; i < currentSize; i++) {
+			if (fpsList[i]>largest) largest = fpsList[i];
+		}
 	}
 }
 
