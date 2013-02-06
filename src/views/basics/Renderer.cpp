@@ -41,6 +41,9 @@ Renderer::~Renderer(){
 
 void Renderer::setup(){
 	
+	camera.setupPerspective();
+	BasicScreenObject::setSize(ofGetWidth(),ofGetHeight());
+	
 	ofAddListener(ofEvents().mousePressed, this, &Renderer::mousePressed);
 	ofAddListener(ofEvents().mouseDragged, this, &Renderer::mouseDragged);
 	ofAddListener(ofEvents().mouseReleased, this, &Renderer::mouseReleased);
