@@ -5,19 +5,16 @@ const int TextField::ALIGN_RIGHT	= PANGO_ALIGN_RIGHT;
 const int TextField::ALIGN_CENTER	= PANGO_ALIGN_CENTER;
 
 
-
 TextField::TextField() {
 	pango	= new ofxPango();
 	context	= NULL;
 	layout	= NULL;
 	fd		= NULL;
-	changed	= false;
-		
-	
+	changed	= false;	
 	umlautoffsetfactor=0.2;
 	umlautoffset=0;
 	
-	
+	setLetterSpacing(0);
 	setFontSize(15);
 	setFontName("Graphik");
 	setSize(200, 50);
@@ -95,7 +92,6 @@ void TextField::setFontSize(float _fontSize) {
 	fontSize = _fontSize;
 	
 	umlautoffset=fontSize*umlautoffsetfactor;
-	
 	updateFontDescription();
 }
 
@@ -124,6 +120,13 @@ void TextField::setLineSpacing(int _lineSpacing) {
 	if(_lineSpacing == lineSpacing) return;
 	lineSpacing	= _lineSpacing;
 	changed		= true;
+}
+
+void TextField::setLetterSpacing(int _letterSpacing){
+	if(_letterSpacing == letterSpacing) return;
+	letterSpacing=_letterSpacing;
+	changed		= true;
+	
 }
 
 
@@ -184,12 +187,23 @@ string TextField::getText() {
 
 void TextField::renderText() {
 
+	string pre="";
+	string post="";
+	
+	if(letterSpacing!=0){
+		pre="<span letter_spacing=\""+ofToString(letterSpacing)+"\" >";
+		post="</span>";
+	}
+	
+	
 	layout->context->clear();
 	layout->setFontDescription(*fd, antialiasType);
 	layout->setTextColor(color.r/255.0f, color.g/255.0f, color.b/255.0f, 1);
 	layout->setSpacing(lineSpacing);
 	layout->setIndent(indent);
-	layout->setMarkup(textContent);
+	
+	layout->setMarkup(pre+textContent+post);
+	
 	layout->setTabs(tabs);
 	layout->setPangoAlign(textAlign);
 	layout->show();

@@ -30,6 +30,7 @@ public:
 	
 	void	setSize(float _width, float _height);
 	void	setTextAlign(int _textalign);
+	void	setLetterSpacing(int _letterspacing); // 1024=1 geviert (?)
 	void	setLineSpacing(int _linespacing);
 	float	getLineSpacing(){return lineSpacing;};
 	void	setAntialiasType(cairo_antialias_t _type); 
@@ -71,6 +72,7 @@ protected:
 	cairo_antialias_t	antialiasType;
 	
 	int			lineSpacing;
+	int		letterSpacing;
 	float		indent;
 	vector<int>	tabs;
 	ofPoint		bounds;
