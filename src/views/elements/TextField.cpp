@@ -13,6 +13,11 @@ TextField::TextField() {
 	fd		= NULL;
 	changed	= false;
 		
+	
+	umlautoffsetfactor=0.2;
+	umlautoffset=0;
+	
+	
 	setFontSize(15);
 	setFontName("Graphik");
 	setSize(200, 50);
@@ -24,6 +29,7 @@ TextField::TextField() {
 
 
 void TextField::setup() {
+	if (layout != NULL) delete layout;
 	layout = pango->createLayout(width, height);
 	layout->setWidth(width);
 	layout->fill(0, 0, 0, 0);
@@ -40,14 +46,22 @@ void TextField::update() {
 void TextField::_draw() {
 	// TODO: find a solution here... sometimes text-alpha is not properly blended
 	//ofSetColor(255, 255, 255, getCombinedAlpha());
+	
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // To avoid ugly dark eges in alpha blending
 	//glBlendFunc(GL_SOURCE1_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // To avoid ugly dark eges in alpha blending
-	textImage.draw(0, 0);
+	textImage.draw(0, -umlautoffset);
 }
 
 
 void TextField::updateFontDescription() {
-	setFontDescription(fontName+" "+ofToString(fontSize));	
+	setFontDescription(fontName+" "+ofToString(fontSize));
+	
+	if(layout!=NULL){
+		layout->context->setIdentityMatrix();
+		layout->context->translate(0, umlautoffset);
+
+	}
+	
 }
 
 
@@ -79,6 +93,9 @@ void TextField::setFontName(string _fontName) {
 void TextField::setFontSize(float _fontSize) {
 	if(_fontSize == fontSize) return;
 	fontSize = _fontSize;
+	
+	umlautoffset=fontSize*umlautoffsetfactor;
+	
 	updateFontDescription();
 }
 
@@ -86,8 +103,13 @@ void TextField::setFontSize(float _fontSize) {
 void TextField::setSize(float _width, float _height) {
 	BasicScreenObject::setSize(_width, _height);
 	if (layout != NULL) delete layout;
-	layout = pango->createLayout(width, height);	
+	layout = pango->createLayout(width, height+umlautoffset);
+	layout->context->setIdentityMatrix();
+	layout->context->translate(0, umlautoffset);
+
+	
 	changed=true;
+	
 }
 
 
@@ -180,7 +202,7 @@ void TextField::renderText() {
 		setSize(width, bounds.y);
 	}
 	
-	textImage.setFromPixels(layout->context->getSurface()->getPixels(), width, height, OF_IMAGE_COLOR_ALPHA, true);
+	textImage.setFromPixels(layout->context->getSurface()->getPixels(), width, height+umlautoffset, OF_IMAGE_COLOR_ALPHA, true);
 	
 	if (!changed) ofNotifyEvent(textRenderedEvent, myEventArgs, this);
 }

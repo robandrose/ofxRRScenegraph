@@ -77,6 +77,9 @@ protected:
 	
 	bool		changed;
 	
+	float umlautoffset;
+	float umlautoffsetfactor;
+	
 	void updateFontDescription();
 	
 };
