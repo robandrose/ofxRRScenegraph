@@ -256,7 +256,15 @@ void BasicScreenObject::addChild(BasicScreenObject* _child){
 
 
 // TODO: implement BasicScreenObject::addChildAt
-void BasicScreenObject::addChildAt(BasicScreenObject* _child, int _index){ }
+void BasicScreenObject::addChildAt(BasicScreenObject* _child, int _index){ 
+
+	childit=childlist.begin();
+	childlist.insert(childit+_index, _child);
+	
+	_child->setParent(this);
+	_child->setRoot(getRoot());
+	
+}
 
 
 void BasicScreenObject::removeChild(BasicScreenObject* _child){
@@ -297,12 +305,20 @@ void BasicScreenObject::moveMeToTop(){
 	}
 }
 
-
 void BasicScreenObject::moveChildToTop(BasicScreenObject* _child){
 	removeChild(_child);
 	addChild(_child);
 }
 
+void BasicScreenObject::moveMeToBottom(){
+	if(parent_so != NULL){
+		parent_so->moveChildToBottom(this);
+	}
+}
+void BasicScreenObject::moveChildToBottom(BasicScreenObject* _child){
+	removeChild(_child);
+	addChildAt(_child, 0);
+}
 
 vector<BasicScreenObject*>* BasicScreenObject::getChildren(){ return &childlist; }
 

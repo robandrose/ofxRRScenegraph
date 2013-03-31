@@ -89,8 +89,13 @@ public:
 	virtual void removeChildAt(BasicScreenObject* _child, int _index);
 	virtual void removeChildren();
 	void		 clearParent();
+	
 	virtual void moveMeToTop();
 	virtual void moveChildToTop(BasicScreenObject* _child);
+	
+	virtual void moveMeToBottom();
+	virtual void moveChildToBottom(BasicScreenObject* _child);
+	
 	virtual vector<BasicScreenObject*>* getChildren();
 	virtual void killMeSoftly(float _time);
 	
@@ -395,6 +400,7 @@ protected:
     BasicScreenObject*			parent_so;
     BasicScreenObject*			maskobject;
 	vector <BasicScreenObject*>	childlist;
+	vector <BasicScreenObject*>::iterator childit; 
 	
 	// ofNode callbacks
 	virtual void onPositionChanged();
