@@ -17,7 +17,7 @@ TextField::TextField() {
 	setLetterSpacing(0);
 	setFontSize(15);
 	setFontName("Graphik");
-	setSize(200, 50);
+	setSize(20, 10);
 	setLineSpacing(1);
 	setTextAlign(ALIGN_LEFT);
 	setIndent(0.0);
