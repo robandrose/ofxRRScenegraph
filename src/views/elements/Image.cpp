@@ -217,6 +217,43 @@ void Image::cropFitScale(int _width, int _height) {
 	crop(cropX, cropY, _width, _height);
 }
 
+/**
+ * scales down the image to fit the max _width and _height dimensions and pads the borders with _color
+ * image will have _width and _height as its dimensions after calling this method
+ */
+void Image::scaleFitPad(int _width, int _height, ofColor _color, bool _vcenter, bool _hcenter) {
+	ofFbo		compose;
+	ofPixels	pixels;
+	
+	setMaxSize(_width, _height);
+	updateSize();
+	
+	compose.allocate(_width, _height, GL_RGBA);
+	pixels.allocate(_width, _height, OF_IMAGE_COLOR_ALPHA);
+	
+	//pixels.clear();
+	
+	compose.begin();
+	ofPushStyle();
+	//
+	ofSetColor(_color);
+	ofRect(0, 0, _width, _height);
+
+	ofSetColor(255,255,255);
+	int vpos = 0;
+	int hpos = 0;
+	if (_vcenter==true) vpos = (_width-img->getWidth())*.5;
+	if (_hcenter==true) hpos = (_height-img->getHeight())*.5;
+	img->draw(vpos, hpos);
+	ofPopStyle();
+	compose.end();
+	
+	compose.readToPixels(pixels);
+	img->setFromPixels(pixels.getPixels(), _width, _height, OF_IMAGE_COLOR_ALPHA, true );
+	img->update();
+	BasicScreenObject::setSize(_width, _height);
+}
+
 
 void Image::setRectMode(ofRectMode _mode) {
 	mode = _mode;

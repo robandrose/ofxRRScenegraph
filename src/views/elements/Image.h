@@ -38,6 +38,7 @@ public:
 	void updateSize();
 	void crop(int x, int y, int w, int h);
 	void cropFitScale(int _width, int _height);
+	void scaleFitPad(int _width, int _height, ofColor _color, bool _vcenter, bool _hcenter);
 	void clone(Image* _srcImage);
 	void clone(ofImage* _srcImage);
 	
