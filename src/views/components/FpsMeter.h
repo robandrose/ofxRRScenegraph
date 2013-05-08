@@ -1,6 +1,6 @@
 #pragma once
 #include "BasicScreenObject.h"
-#include "Shapes.h";
+#include "Shapes.h"
 
 class FpsMeter:public BasicScreenObject{
 
