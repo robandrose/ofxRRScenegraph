@@ -13,6 +13,7 @@ TextField::TextField() {
 	changed	= false;	
 	umlautoffsetfactor=0.2;
 	umlautoffset=0;
+    textContent = "";
 	
 	setLetterSpacing(0);
 	setFontSize(15);
