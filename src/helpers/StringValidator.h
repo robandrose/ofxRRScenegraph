@@ -3,5 +3,6 @@
 
 class StringValidator  {
 public:
-	static bool isEmailValid(string _emailAddress);
+	static bool isEmailValid(const string& emailAddress);
+    //static bool DotDashRules(const string& emailAddress);
 };
