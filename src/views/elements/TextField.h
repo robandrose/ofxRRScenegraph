@@ -11,7 +11,6 @@
 #include "ofxPango.h"
 
 
-
 class TextField : public BasicScreenObject{
 public:
 	TextField();

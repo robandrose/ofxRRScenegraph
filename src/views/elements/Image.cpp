@@ -80,7 +80,7 @@ void Image::loadAsyncFromDisk(string _filename, ofxThreadedImageLoader* loader) 
 		loadingPlaceholder->isVisible(true);
 	}
 	img->clear();
-	loader->loadFromDisk(img, _filename);
+	loader->loadFromDisk(*img, _filename);
 	tmpFilepath = _filename;
 }
 
@@ -92,7 +92,7 @@ void Image::loadAsyncFromURL(string _url, ofxThreadedImageLoader* loader) {
 		loadingPlaceholder->isVisible(true);
 	}
 	img->clear();
-	loader->loadFromURL(img, _url);
+	loader->loadFromURL(*img, _url);
 }
 
 

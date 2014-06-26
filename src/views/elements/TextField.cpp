@@ -17,7 +17,7 @@ TextField::TextField() {
 	
 	setLetterSpacing(0);
 	setFontSize(15);
-	setFontName("Graphik");
+	setFontName("Helvetica");
 	setSize(20, 10);
 	setLineSpacing(1);
 	setTextAlign(ALIGN_LEFT);
@@ -43,11 +43,13 @@ void TextField::update() {
 
 void TextField::_draw() {
 	// TODO: find a solution here... sometimes text-alpha is not properly blended
-	//ofSetColor(255, 255, 255, getCombinedAlpha());
-	
+	ofSetColor(getCombinedAlpha(), getCombinedAlpha(), getCombinedAlpha(), getCombinedAlpha());
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // To avoid ugly dark eges in alpha blending
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
 	//glBlendFunc(GL_SOURCE1_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // To avoid ugly dark eges in alpha blending
 	textImage.draw(0, -umlautoffset);
+    
 }
 
 
@@ -103,10 +105,7 @@ void TextField::setSize(float _width, float _height) {
 	layout = pango->createLayout(width, height+umlautoffset);
 	layout->context->setIdentityMatrix();
 	layout->context->translate(0, umlautoffset);
-
-	
 	changed=true;
-	
 }
 
 
@@ -196,21 +195,16 @@ void TextField::renderText() {
 		post="</span>";
 	}
 	
-	
 	layout->context->clear();
 	layout->setFontDescription(*fd, antialiasType);
 	layout->setTextColor(color.r/255.0f, color.g/255.0f, color.b/255.0f, 1);
 	layout->setSpacing(lineSpacing);
 	layout->setIndent(indent);
-	
 	layout->setMarkup(pre+textContent+post);
-	
 	layout->setTabs(tabs);
 	layout->setPangoAlign(textAlign);
 	layout->show();
-	
-	bounds=layout->getPixelSize();	
-	
+	bounds=layout->getPixelSize();
 	changed=false;
 	
 	if(bounds.y!=height){
