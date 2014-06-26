@@ -7,11 +7,13 @@
  *
  */
 
-#include "ofMain.h"
-#include "ofxTransitions.h"
+
 
 #ifndef _OFXTWEEN
 #define _OFXTWEEN
+
+#include "ofMain.h"
+#include "ofxTransitions.h"
 
 #define TWEENMODE_OVERRIDE 0x01
 #define TWEENMODE_SEQUENCE 0x02

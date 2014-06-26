@@ -7,10 +7,13 @@
  *
  */
 
-#include "ofMain.h";
+
 
 #ifndef _OFXTRANSITIONS
 #define _OFXTRANSITIONS
+
+
+#include "ofMain.h"
 
 class ofxTransitions{
 	public:
