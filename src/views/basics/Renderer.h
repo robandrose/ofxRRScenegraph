@@ -36,6 +36,8 @@ public:
 	void startTuio(int _port);
 	void setupColorPicker(float _width, float _height, float _sampling, float _increment);
 	
+    void resize();
+    
 	void draw();
 	void drawMap();	
 	void drawCursors();

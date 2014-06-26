@@ -35,9 +35,14 @@ Renderer::Renderer(){
 
 
 Renderer::~Renderer(){
-
+ 
 }
 
+void Renderer::resize(){
+    camera.setupPerspective();
+	BasicScreenObject::setSize(ofGetWidth(),ofGetHeight());
+	
+}
 
 void Renderer::setup(){
 	
