@@ -461,9 +461,7 @@ void BasicInteractiveObject::updateMtTransform(){
 			if(isRotateAuto() && isrotating){
 				mttransformmatrix.rotate(mtrotate);
 			}
-            
         }
-		
 		mttransformmatrix.translate(mttranslatestart + mtpivot);
 	}
 	
