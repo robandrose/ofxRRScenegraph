@@ -240,8 +240,9 @@ void Renderer::queueTouchAction(float _screenx, float _screeny, int _fingerid, i
 void Renderer::notifyObjects(TouchAction _touchAction) {
 	
 	mtRay ray;
-	ray.pos = camera.screenToWorld( ofVec3f( _touchAction.screenX, _touchAction.screenY,-1),	currentviewport);
-	ray.dir = camera.screenToWorld( ofVec3f( _touchAction.screenX, _touchAction.screenY, 1),	currentviewport) - ray.pos;
+    // y needs to be flipped from openframeworks 0.8.0 on because of the flipped camera (somehow)
+	ray.pos = camera.screenToWorld( ofVec3f( _touchAction.screenX, ofGetHeight()-_touchAction.screenY,-1),	currentviewport);
+	ray.dir = camera.screenToWorld( ofVec3f( _touchAction.screenX,ofGetHeight()-_touchAction.screenY, 1),	currentviewport) - ray.pos;
 	ray.screenpos.set(_touchAction.screenX, _touchAction.screenY);
 	
 	
