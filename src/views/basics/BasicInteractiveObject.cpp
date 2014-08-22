@@ -284,7 +284,8 @@ void BasicInteractiveObject::removeMultiTouch(mtRay ray, int touchId){
 		activeMultiTouches.erase(activeMultiTouches.find(touchId));
 		
 		if(getNumActiveTouches() == 0 && mtcounter > 0){
-			// End of Scope
+			
+            // End of Scope
 			mtscoperunning	= false;
 			mtscopeduration	= ofGetElapsedTimeMillis()-mtstarttime;
 			
@@ -410,7 +411,6 @@ void BasicInteractiveObject::updateMtTransform(){
 	bool matrixNeedsUpdate = false;
 	
 	mttransform = getCurrentMtTransform();
-	
 	mttransformmatrix.makeIdentityMatrix();
 	
 	if(getNumActiveTouches() > 1){
@@ -448,8 +448,8 @@ void BasicInteractiveObject::updateMtTransform(){
 			newrotate.makeRotate(mttransformstart, mttransform);
 			mtrotate.slerp(rotatedamp, mtrotate, newrotate);
 			mtrotatespeed	=  mtrotate*mtrotatespeed.inverse();
-			mtrotatedist	+= fabs(mtrotatespeed.getEuler().x);
-			
+			mtrotatedist	+= fabs(mtrotatespeed.getEuler().z);
+            
 			if (isrotating == false) {
 				if(mtrotatedist > rotatethreshold){
 					isrotating = true;
@@ -461,7 +461,8 @@ void BasicInteractiveObject::updateMtTransform(){
 			if(isRotateAuto() && isrotating){
 				mttransformmatrix.rotate(mtrotate);
 			}
-		}
+            
+        }
 		
 		mttransformmatrix.translate(mttranslatestart + mtpivot);
 	}
@@ -505,7 +506,7 @@ void BasicInteractiveObject::updateMtTransform(){
 		setTransformMatrix(currentmatrix);
 	}
 	
-	MultiTouchEvent params(this);
+    MultiTouchEvent params(this);
 	ofNotifyEvent(updateMultiTouchScopeEvent, params, this);
 	
 }
