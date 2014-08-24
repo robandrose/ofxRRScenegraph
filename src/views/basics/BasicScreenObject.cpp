@@ -563,6 +563,12 @@ ofRectangle BasicScreenObject::getScreenBoundingBox(){
 	screenpos[2] = r->getCamera()->worldToScreen(localToGlobal(width, height, 0));
 	screenpos[3] = r->getCamera()->worldToScreen(localToGlobal(0, height, 0));
 	
+    screenpos[0].y=ofGetHeight()-screenpos[0].y;
+    screenpos[1].y=ofGetHeight()-screenpos[1].y;
+    screenpos[2].y=ofGetHeight()-screenpos[2].y;
+    screenpos[3].y=ofGetHeight()-screenpos[3].y;
+    
+    
 	float smallestx	= FLT_MAX;
 	float smallesty	= FLT_MAX;
 	float biggestx	= -FLT_MAX;
