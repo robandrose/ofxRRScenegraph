@@ -15,6 +15,7 @@
 BasicInteractiveObject::BasicInteractiveObject(){
 	
 	dragtarget		= this;
+    mttarget        = this;
 	
 	mtscale = 1.0;
 	mtrotate.set(0, 0, 0, 1);
@@ -151,6 +152,14 @@ void BasicInteractiveObject::setRoot(BasicScreenObject* _root){
 	}
 }
 
+void BasicInteractiveObject::setDragTarget(BasicInteractiveObject *_dragtarget){
+    dragtarget=_dragtarget;
+    
+}
+void BasicInteractiveObject::setMtTarget(BasicInteractiveObject *_mttarget){
+    mttarget = _mttarget;
+}
+
 
 void BasicInteractiveObject::setDragThreshold(		float _dragthreshold)		{ dragthreshold		= _dragthreshold; }
 void BasicInteractiveObject::setScaleThreshold(		float _scalethreshold)		{ scalethreshold	= _scalethreshold; }
@@ -191,6 +200,7 @@ void BasicInteractiveObject::touchUpOutside(mtRay ray, int touchId){
 
 // Multitouch internal handling:
 // TODO: if internal, these should be private or protected!
+
 void BasicInteractiveObject::addMultiTouch(mtRay ray, int touchId){
 	MultiTouchPoint* mtp = new MultiTouchPoint();
 	
@@ -211,22 +221,27 @@ void BasicInteractiveObject::addMultiTouch(mtRay ray, int touchId){
 	
 	activeMultiTouches[touchId] = mtp;
 	mtcounter++;
-	
+    
+    
+    // Flipped order (was before)
+    
 	if(activeMultiTouches.size() == 1){
 		// Start of Scope
 		mtstarttime		= ofGetElapsedTimeMillis();
 		mtscoperunning	= true;
-
 		MultiTouchEvent params(this, mtp);
 		ofNotifyEvent(firstTouchDownEvent,params,this);
 	}
 	
-	if(activeMultiTouches.size()>=2){		
+    
+	if(activeMultiTouches.size()>=2){
 		MultiTouchEvent params(this);
 		ofNotifyEvent(startMultiTouchScopeEvent,params,this);
 	}
-	
-	mttranslatedist	= 0;
+    
+    // Flipped order (was after)
+    
+    mttranslatedist	= 0;
 	mtrotatedist	= 0;
 	mtscaledist		= 0;
 	
@@ -234,7 +249,7 @@ void BasicInteractiveObject::addMultiTouch(mtRay ray, int touchId){
 	mtrotatespeed.set(0,0,0,1);
 	mtscalespeed=0;
 	
-	resetMTStartValues();
+    resetMTStartValues();
 }
 
 void BasicInteractiveObject::updateMultiTouch(mtRay ray, int touchId){
@@ -286,7 +301,7 @@ void BasicInteractiveObject::removeMultiTouch(mtRay ray, int touchId){
 		if(getNumActiveTouches() == 0 && mtcounter > 0){
 			
             // End of Scope
-			mtscoperunning	= false;
+			mtscoperunning = false;
 			mtscopeduration	= ofGetElapsedTimeMillis()-mtstarttime;
 			
 			if(!isrotating && !isscaling){
@@ -388,11 +403,11 @@ void BasicInteractiveObject::resetMTStartValues(){
 	}
 	
 	mttransformstart		= getCurrentMtTransform();
-	mttransformmatrixstart	= getLocalTransformMatrix();
-	mtscalestart			= getScale().x;
-	mtrotatestart			= getOrientationQuat();
+	mttransformmatrixstart	= mttarget->getLocalTransformMatrix();
+	mtscalestart			= mttarget->getScale().x;
+	mtrotatestart			= mttarget->getOrientationQuat();
 	
-	mtpivot.set(getCurrentMtTranslate()-getPosition());
+	mtpivot.set(getCurrentMtTranslate()-mttarget->getPosition());
 	mtpivot	= mtpivot*mtrotatestart.inverse();
 	mtpivot/= mtscalestart;
 	
@@ -494,14 +509,14 @@ void BasicInteractiveObject::updateMtTransform(){
 		}
 	}
 	
-	// only affect current matrix if we're actuall 
+	// only affect current matrix if we're actual
 	if (matrixNeedsUpdate && (isDraggable() || isRotateable() || isScaleable())) {
 		ofMatrix4x4 currentmatrix;
 	
 		currentmatrix.set(mttransformmatrixstart);
 		currentmatrix.postMult(mttransformmatrix);
 	
-		setTransformMatrix(currentmatrix);
+		mttarget->setTransformMatrix(currentmatrix);
 	}
 	
     MultiTouchEvent params(this);

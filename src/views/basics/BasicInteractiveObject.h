@@ -85,7 +85,8 @@ public:
 	
 	// Settings:
 	void setDragTarget(BasicInteractiveObject* _dragtarget);
-	
+	void setMtTarget(BasicInteractiveObject* _mttarget);
+    
 	void setDragThreshold(float _dragthreshold);
 	void setScaleThreshold(float _scalethreshold);
 	void setRotationThreshold(float _rotationthreshold);
@@ -183,6 +184,12 @@ public:
 	
 	map<int, MultiTouchPoint*>* getActiveMultiTouches() { return &activeMultiTouches; };
 	
+    
+    ofMatrix4x4 mttransformmatrixstart; // Transformmatrix upon start of interactionScope
+	ofMatrix4x4 mttransformmatrix; // Additional Transformmatrix during scope (start->now)
+	
+    
+    
 protected:
 	
 	ofVec3f camerapoint;	
@@ -225,8 +232,6 @@ protected:
 	MultiTouchPoint* mttoucha;
 	MultiTouchPoint* mttouchb;
 	
-	ofMatrix4x4 mttransformmatrixstart; // Transformmatrix upon start of interactionScope
-	ofMatrix4x4 mttransformmatrix; // Additional Transformmatrix during scope (start->now)
 	
 	// Vector made of relevant Touchpoint to create Rotation and Scale Transformations
 	ofVec3f mttransform;
@@ -239,7 +244,8 @@ protected:
 	void	updateMtTransform();
 	
 	BasicInteractiveObject* dragtarget;
-	
+    BasicInteractiveObject* mttarget;
+    
 	int		getNumActiveTouches();
 	bool	isMultiTouchActive(int touchId);
 
