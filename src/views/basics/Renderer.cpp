@@ -132,16 +132,11 @@ void Renderer::forceUpdate() { update(); }
 
 
 void Renderer::draw(){
-	
-	//int startTime = ofGetElapsedTimeMillis();
-	
 	currentviewport = ofGetCurrentViewport();
 	camera.begin();
 	BasicScreenObject::draw();
 	camera.end();
-	if (drawcursors) drawCursors();
-	
-	//ofLog(OF_LOG_NOTICE, "draw: " + ofToString(ofGetElapsedTimeMillis()-startTime));
+    if (drawcursors) drawCursors();
 }
 
 
@@ -241,7 +236,8 @@ void Renderer::queueTouchAction(float _screenx, float _screeny, int _fingerid, i
 void Renderer::notifyObjects(TouchAction _touchAction) {
 	
 	mtRay ray;
-    // y needs to be flipped from openframeworks 0.8.0 on because of the flipped camera (somehow)
+    // y-Axis needs to be flipped from openframeworks 0.8.0 on because of the flipped camera (somehow)
+    
 	ray.pos = camera.screenToWorld( ofVec3f( _touchAction.screenX, ofGetHeight()-_touchAction.screenY,-1),	currentviewport);
 	ray.dir = camera.screenToWorld( ofVec3f( _touchAction.screenX,ofGetHeight()-_touchAction.screenY, 1),	currentviewport) - ray.pos;
 	ray.screenpos.set(_touchAction.screenX, _touchAction.screenY);
