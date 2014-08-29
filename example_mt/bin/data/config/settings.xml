@@ -1,0 +1,33 @@
+<settings>
+    <setting>
+        <key>STATION_NAME</key>
+     	<value>hundertseelenhaus</value>        
+    </setting>
+    <!-- villadurchzug-->
+ 	<!-- buergervilla-->
+    <!-- schuetzenhaus-->
+    <!-- hundertseelenhaus-->
+       
+    
+
+    <setting>
+        <key>ARDUINO_PORT</key>
+     	<!--<value>/dev/tty.usbserial-A6008gBm</value>-->
+     	<value>/dev/tty.usbmodem1d11</value>
+     	
+    </setting>
+    <setting>
+        <key>CONTENT_PATH</key>
+     	<value>content/xml.xml</value>        
+    </setting>	
+
+    <setting>
+        <key>VALUE_OFFSET</key>
+     	<value>13</value>        
+    </setting>	
+    <setting>
+        <key>VALUE_MAX</key>
+     	<value>249</value>        
+    </setting>	
+    
+</settings>
