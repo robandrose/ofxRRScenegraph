@@ -20,10 +20,12 @@ public:
 	virtual bool isFilled()						{ return _isFilled; };
 	virtual void setStrokeWidth(float _sWidth)	{ _strokeWidth = _sWidth; };
 	virtual float getStrokeWidth()				{ return _strokeWidth; };
+    virtual void setStrokeColor(ofColor _color){_strokeColor=_color;};
 	
 	ofPath path;
 
 protected:
 	bool _isFilled;
 	float _strokeWidth;
+    ofColor _strokeColor;
 };
