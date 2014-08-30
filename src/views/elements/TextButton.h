@@ -34,7 +34,7 @@ public:
 	bool isSelected()	{ return _isSelected; };
 	TextField	text;
 	ShapeRect	bg;
-	
+  	
 protected:
 	virtual void _draw();
 	virtual void layout();

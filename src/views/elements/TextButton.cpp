@@ -57,6 +57,7 @@ void TextButton::_draw(){
 	if (currentColor != NULL) {
 		bg.setColor(currentColor);
 	}
+    
 }
 
 
@@ -78,6 +79,7 @@ void TextButton::layout() {
 	text.setPosition((getWidth() - text.getTextBounds().x)/2.0,
 					 (getHeight()- text.getTextBounds().y)/2.0);
 }
+
 
 
 void TextButton::setColors(ofColor _normalColor, ofColor _selectedColor, ofColor _activeColor, ofColor _disabledColor) {

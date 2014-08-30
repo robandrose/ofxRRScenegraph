@@ -551,6 +551,7 @@ ofRectangle BasicScreenObject::getBoundingBox(BasicScreenObject* ref){
 ofVec3f BasicScreenObject::getScreenPosition(){
 	Renderer* r			= (Renderer*)getRoot();	
 	ofVec3f screenpos	= r->getCamera()->worldToScreen(getGlobalPosition());
+    screenpos.y=ofGetHeight()-screenpos.y;
 	return screenpos;
 }
 

@@ -24,7 +24,16 @@ void ShapeRect::_draw(){
 		ofNoFill();
 	}
 	ofSetRectMode(mode);
-	ofSetLineWidth(_strokeWidth);
-	ofRect(0, 0, width, height);
-	ofPopStyle();
+	ofFill();
+	
+    ofRect(0, 0, width, height);
+	
+    ofSetLineWidth(_strokeWidth);
+    ofNoFill();
+    ofSetColor(_strokeColor, getCombinedAlpha());
+    
+    ofRect(0, 0, width, height);
+	
+    
+    ofPopStyle();
 }

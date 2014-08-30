@@ -80,6 +80,8 @@ BasicInteractiveObject::BasicInteractiveObject(){
 
 BasicInteractiveObject::~BasicInteractiveObject(){
 	
+    // TODO: remove from Renderer List?
+    
 	ofRemoveListener(firstTouchDownEvent,	this, &BasicInteractiveObject::onFirstTouchDown);	
 	ofRemoveListener(lastTouchUpEvent,		this, &BasicInteractiveObject::onLastTouchUp);	
 	
@@ -156,7 +158,7 @@ void BasicInteractiveObject::setDragTarget(BasicInteractiveObject *_dragtarget){
     dragtarget=_dragtarget;
     
 }
-void BasicInteractiveObject::setMtTarget(BasicInteractiveObject *_mttarget){
+void BasicInteractiveObject::setMtTarget(BasicScreenObject *_mttarget){
     mttarget = _mttarget;
 }
 

@@ -85,7 +85,7 @@ public:
 	
 	// Settings:
 	void setDragTarget(BasicInteractiveObject* _dragtarget);
-	void setMtTarget(BasicInteractiveObject* _mttarget);
+	void setMtTarget(BasicScreenObject* _mttarget);
     
 	void setDragThreshold(float _dragthreshold);
 	void setScaleThreshold(float _scalethreshold);
@@ -244,7 +244,7 @@ protected:
 	void	updateMtTransform();
 	
 	BasicInteractiveObject* dragtarget;
-    BasicInteractiveObject* mttarget;
+    BasicScreenObject* mttarget;
     
 	int		getNumActiveTouches();
 	bool	isMultiTouchActive(int touchId);
