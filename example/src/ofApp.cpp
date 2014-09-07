@@ -15,18 +15,9 @@ void ofApp::setup(){
         buttons[i].setColor(255, 0, 0);
         buttons[i].enableDepthTest();
         buttons[i].setRandomColor();
-        ofAddListener(buttons[i].tapEvent, this, &ofApp::onButtonTap);
         cont.addChild(&buttons[i]);
     }
-    
     renderer.addChild(&cont);
-    
-}
-
-void ofApp::onButtonTap(MultiTouchEvent &e){
-    
-    e.target->moveTo(e.target->getX(), e.target->getY(), ofRandom(-500,500), 500);
-    e.target->rotateTo(ofRandom(-60,60), 0, 0, 300);
 }
 
 

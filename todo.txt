@@ -2,12 +2,13 @@ Todo:
 
 Create forks for
 - ofxPango
+o be done with the libs? 
 
-What is to be done with the libs? 
+Links to 
 – TUIO
 – ofxTuioWrapper
 
-To be integrated:
+integrated:
 – ofxTimer
 – ofxTweener
 
