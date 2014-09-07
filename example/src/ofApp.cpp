@@ -14,11 +14,9 @@ void ofApp::setup(){
         buttons[i].setPosition(ofRandomWidth(),ofRandomHeight());
         buttons[i].setColor(255, 0, 0);
         buttons[i].enableDepthTest();
-        ofAddListener(buttons[i].tapEvent, this, &ofApp::onButtonTap);
-        
         buttons[i].setRandomColor();
+        ofAddListener(buttons[i].tapEvent, this, &ofApp::onButtonTap);
         cont.addChild(&buttons[i]);
-        
     }
     
     renderer.addChild(&cont);
@@ -26,6 +24,7 @@ void ofApp::setup(){
 }
 
 void ofApp::onButtonTap(MultiTouchEvent &e){
+    
     e.target->moveTo(e.target->getX(), e.target->getY(), ofRandom(-500,500), 500);
     e.target->rotateTo(ofRandom(-60,60), 0, 0, 300);
 }
@@ -34,19 +33,26 @@ void ofApp::onButtonTap(MultiTouchEvent &e){
 //--------------------------------------------------------------
 void ofApp::update(){
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
-
+    
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofBackground(0,0,0);
     renderer.draw();
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     if(key=='f'){
         ofToggleFullscreen();
+    }
+    if(key=='c'){
+        ofCamera* camera=renderer.getCamera();
+        camera->rotate(30 , 0, 1, 0);
+        
     }
 }
 
