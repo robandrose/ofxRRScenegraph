@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "Renderer.h"
 #include "Container.h"
-#include "Schnipsel.h"
+#include "BasicButton.h"
 
 class ofApp : public ofBaseApp{
 	public:
@@ -23,7 +23,7 @@ class ofApp : public ofBaseApp{
     
     Renderer renderer;
     Container cont;
-    Schnipsel schnipsel[100];
+    BasicButton buttons[100];
     
     
 };

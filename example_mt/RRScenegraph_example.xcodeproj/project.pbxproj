@@ -43,19 +43,6 @@
 		D52A8E3E19A788D70025BBAF /* ShapeRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8E1919A788D70025BBAF /* ShapeRect.cpp */; };
 		D52A8E3F19A788D70025BBAF /* ShapeRoundedRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8E1B19A788D70025BBAF /* ShapeRoundedRect.cpp */; };
 		D52A8F8A19A788E80025BBAF /* gobjectnotifyqueue.c in Sources */ = {isa = PBXBuildFile; fileRef = D52A8F1E19A788E70025BBAF /* gobjectnotifyqueue.c */; };
-		D52A8F8B19A788E80025BBAF /* libcairo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52A8F5119A788E70025BBAF /* libcairo.a */; };
-		D52A8F8C19A788E80025BBAF /* libcharset.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52A8F5219A788E70025BBAF /* libcharset.a */; };
-		D52A8F8D19A788E80025BBAF /* libgettextpo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52A8F5319A788E70025BBAF /* libgettextpo.a */; };
-		D52A8F8E19A788E80025BBAF /* libgio-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52A8F5419A788E70025BBAF /* libgio-2.0.a */; };
-		D52A8F8F19A788E80025BBAF /* libglib-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52A8F5519A788E70025BBAF /* libglib-2.0.a */; };
-		D52A8F9019A788E80025BBAF /* libgmodule-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52A8F5619A788E70025BBAF /* libgmodule-2.0.a */; };
-		D52A8F9119A788E80025BBAF /* libgobject-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52A8F5719A788E70025BBAF /* libgobject-2.0.a */; };
-		D52A8F9219A788E80025BBAF /* libgthread-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52A8F5819A788E70025BBAF /* libgthread-2.0.a */; };
-		D52A8F9319A788E80025BBAF /* libiconv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52A8F5919A788E70025BBAF /* libiconv.a */; };
-		D52A8F9419A788E80025BBAF /* libintl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52A8F5A19A788E70025BBAF /* libintl.a */; };
-		D52A8F9519A788E80025BBAF /* libpango-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52A8F5B19A788E70025BBAF /* libpango-1.0.a */; };
-		D52A8F9619A788E80025BBAF /* libpangocairo-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52A8F5C19A788E70025BBAF /* libpangocairo-1.0.a */; };
-		D52A8F9719A788E80025BBAF /* libpixman-1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52A8F5D19A788E70025BBAF /* libpixman-1.a */; };
 		D52A8F9819A788E80025BBAF /* ofxPango.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8F6E19A788E70025BBAF /* ofxPango.cpp */; };
 		D52A8F9919A788E80025BBAF /* ofxPCContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8F7019A788E70025BBAF /* ofxPCContext.cpp */; };
 		D52A8F9A19A788E80025BBAF /* ofxPCPangoFontDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8F7219A788E70025BBAF /* ofxPCPangoFontDescription.cpp */; };
@@ -80,8 +67,19 @@
 		D52A8FE119A78AD80025BBAF /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FDB19A78AD80025BBAF /* tinyxmlerror.cpp */; };
 		D52A8FE219A78AD80025BBAF /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FDC19A78AD80025BBAF /* tinyxmlparser.cpp */; };
 		D52A8FE319A78AD80025BBAF /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FDE19A78AD80025BBAF /* ofxXmlSettings.cpp */; };
-		D52A8FEC19A7A9F30025BBAF /* Schnipsel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FEA19A7A9F30025BBAF /* Schnipsel.cpp */; };
-		D52A8FEF19A7AF2C0025BBAF /* SchnipselMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FED19A7AF2C0025BBAF /* SchnipselMenu.cpp */; };
+		D5CD284219BC93BF0089A397 /* libcairo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283519BC93BF0089A397 /* libcairo.a */; };
+		D5CD284319BC93BF0089A397 /* libcharset.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283619BC93BF0089A397 /* libcharset.a */; };
+		D5CD284419BC93BF0089A397 /* libgettextpo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283719BC93BF0089A397 /* libgettextpo.a */; };
+		D5CD284519BC93BF0089A397 /* libgio-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283819BC93BF0089A397 /* libgio-2.0.a */; };
+		D5CD284619BC93BF0089A397 /* libglib-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283919BC93BF0089A397 /* libglib-2.0.a */; };
+		D5CD284719BC93BF0089A397 /* libgmodule-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283A19BC93BF0089A397 /* libgmodule-2.0.a */; };
+		D5CD284819BC93BF0089A397 /* libgobject-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283B19BC93BF0089A397 /* libgobject-2.0.a */; };
+		D5CD284919BC93BF0089A397 /* libgthread-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283C19BC93BF0089A397 /* libgthread-2.0.a */; };
+		D5CD284A19BC93BF0089A397 /* libiconv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283D19BC93BF0089A397 /* libiconv.a */; };
+		D5CD284B19BC93BF0089A397 /* libintl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283E19BC93BF0089A397 /* libintl.a */; };
+		D5CD284C19BC93BF0089A397 /* libpango-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283F19BC93BF0089A397 /* libpango-1.0.a */; };
+		D5CD284D19BC93BF0089A397 /* libpangocairo-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD284019BC93BF0089A397 /* libpangocairo-1.0.a */; };
+		D5CD284E19BC93BF0089A397 /* libpixman-1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD284119BC93BF0089A397 /* libpixman-1.a */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
@@ -432,19 +430,6 @@
 		D52A8F4A19A788E70025BBAF /* pangox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pangox.h; sourceTree = "<group>"; };
 		D52A8F4C19A788E70025BBAF /* pixman-version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "pixman-version.h"; sourceTree = "<group>"; };
 		D52A8F4D19A788E70025BBAF /* pixman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pixman.h; sourceTree = "<group>"; };
-		D52A8F5119A788E70025BBAF /* libcairo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcairo.a; sourceTree = "<group>"; };
-		D52A8F5219A788E70025BBAF /* libcharset.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcharset.a; sourceTree = "<group>"; };
-		D52A8F5319A788E70025BBAF /* libgettextpo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgettextpo.a; sourceTree = "<group>"; };
-		D52A8F5419A788E70025BBAF /* libgio-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgio-2.0.a"; sourceTree = "<group>"; };
-		D52A8F5519A788E70025BBAF /* libglib-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libglib-2.0.a"; sourceTree = "<group>"; };
-		D52A8F5619A788E70025BBAF /* libgmodule-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgmodule-2.0.a"; sourceTree = "<group>"; };
-		D52A8F5719A788E70025BBAF /* libgobject-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgobject-2.0.a"; sourceTree = "<group>"; };
-		D52A8F5819A788E70025BBAF /* libgthread-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgthread-2.0.a"; sourceTree = "<group>"; };
-		D52A8F5919A788E70025BBAF /* libiconv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libiconv.a; sourceTree = "<group>"; };
-		D52A8F5A19A788E70025BBAF /* libintl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libintl.a; sourceTree = "<group>"; };
-		D52A8F5B19A788E70025BBAF /* libpango-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpango-1.0.a"; sourceTree = "<group>"; };
-		D52A8F5C19A788E70025BBAF /* libpangocairo-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpangocairo-1.0.a"; sourceTree = "<group>"; };
-		D52A8F5D19A788E70025BBAF /* libpixman-1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpixman-1.a"; sourceTree = "<group>"; };
 		D52A8F5F19A788E70025BBAF /* freetype6.dll */ = {isa = PBXFileReference; lastKnownFileType = file; path = freetype6.dll; sourceTree = "<group>"; };
 		D52A8F6019A788E70025BBAF /* libexpat-1.dll */ = {isa = PBXFileReference; lastKnownFileType = file; path = "libexpat-1.dll"; sourceTree = "<group>"; };
 		D52A8F6119A788E70025BBAF /* libfontconfig-1.dll */ = {isa = PBXFileReference; lastKnownFileType = file; path = "libfontconfig-1.dll"; sourceTree = "<group>"; };
@@ -511,10 +496,19 @@
 		D52A8FDC19A78AD80025BBAF /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
 		D52A8FDE19A78AD80025BBAF /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
 		D52A8FDF19A78AD80025BBAF /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
-		D52A8FEA19A7A9F30025BBAF /* Schnipsel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Schnipsel.cpp; sourceTree = "<group>"; };
-		D52A8FEB19A7A9F30025BBAF /* Schnipsel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schnipsel.h; sourceTree = "<group>"; };
-		D52A8FED19A7AF2C0025BBAF /* SchnipselMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SchnipselMenu.cpp; sourceTree = "<group>"; };
-		D52A8FEE19A7AF2C0025BBAF /* SchnipselMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchnipselMenu.h; sourceTree = "<group>"; };
+		D5CD283519BC93BF0089A397 /* libcairo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcairo.a; sourceTree = "<group>"; };
+		D5CD283619BC93BF0089A397 /* libcharset.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcharset.a; sourceTree = "<group>"; };
+		D5CD283719BC93BF0089A397 /* libgettextpo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgettextpo.a; sourceTree = "<group>"; };
+		D5CD283819BC93BF0089A397 /* libgio-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgio-2.0.a"; sourceTree = "<group>"; };
+		D5CD283919BC93BF0089A397 /* libglib-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libglib-2.0.a"; sourceTree = "<group>"; };
+		D5CD283A19BC93BF0089A397 /* libgmodule-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgmodule-2.0.a"; sourceTree = "<group>"; };
+		D5CD283B19BC93BF0089A397 /* libgobject-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgobject-2.0.a"; sourceTree = "<group>"; };
+		D5CD283C19BC93BF0089A397 /* libgthread-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgthread-2.0.a"; sourceTree = "<group>"; };
+		D5CD283D19BC93BF0089A397 /* libiconv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libiconv.a; sourceTree = "<group>"; };
+		D5CD283E19BC93BF0089A397 /* libintl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libintl.a; sourceTree = "<group>"; };
+		D5CD283F19BC93BF0089A397 /* libpango-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpango-1.0.a"; sourceTree = "<group>"; };
+		D5CD284019BC93BF0089A397 /* libpangocairo-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpangocairo-1.0.a"; sourceTree = "<group>"; };
+		D5CD284119BC93BF0089A397 /* libpixman-1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpixman-1.a"; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
@@ -544,34 +538,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D52A8F9219A788E80025BBAF /* libgthread-2.0.a in Frameworks */,
-				D52A8F8B19A788E80025BBAF /* libcairo.a in Frameworks */,
-				D52A8F9119A788E80025BBAF /* libgobject-2.0.a in Frameworks */,
 				E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */,
+				D5CD284619BC93BF0089A397 /* libglib-2.0.a in Frameworks */,
+				D5CD284919BC93BF0089A397 /* libgthread-2.0.a in Frameworks */,
 				E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */,
-				D52A8F8C19A788E80025BBAF /* libcharset.a in Frameworks */,
-				D52A8F9319A788E80025BBAF /* libiconv.a in Frameworks */,
-				D52A8F9519A788E80025BBAF /* libpango-1.0.a in Frameworks */,
 				E4EB6799138ADC1D00A09F29 /* GLUT.framework in Frameworks */,
 				E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */,
-				D52A8F9419A788E80025BBAF /* libintl.a in Frameworks */,
 				E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */,
-				D52A8F9019A788E80025BBAF /* libgmodule-2.0.a in Frameworks */,
+				D5CD284C19BC93BF0089A397 /* libpango-1.0.a in Frameworks */,
 				E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */,
-				D52A8F8F19A788E80025BBAF /* libglib-2.0.a in Frameworks */,
+				D5CD284519BC93BF0089A397 /* libgio-2.0.a in Frameworks */,
 				E45BE97D0E8CC7DD009D7055 /* AudioToolbox.framework in Frameworks */,
-				D52A8F9719A788E80025BBAF /* libpixman-1.a in Frameworks */,
 				E45BE97F0E8CC7DD009D7055 /* CoreAudio.framework in Frameworks */,
 				E45BE9800E8CC7DD009D7055 /* CoreFoundation.framework in Frameworks */,
+				D5CD284B19BC93BF0089A397 /* libintl.a in Frameworks */,
 				E45BE9810E8CC7DD009D7055 /* CoreServices.framework in Frameworks */,
+				D5CD284319BC93BF0089A397 /* libcharset.a in Frameworks */,
 				E45BE9830E8CC7DD009D7055 /* OpenGL.framework in Frameworks */,
+				D5CD284E19BC93BF0089A397 /* libpixman-1.a in Frameworks */,
+				D5CD284719BC93BF0089A397 /* libgmodule-2.0.a in Frameworks */,
+				D5CD284A19BC93BF0089A397 /* libiconv.a in Frameworks */,
+				D5CD284819BC93BF0089A397 /* libgobject-2.0.a in Frameworks */,
 				E45BE9840E8CC7DD009D7055 /* QuickTime.framework in Frameworks */,
-				D52A8F8D19A788E80025BBAF /* libgettextpo.a in Frameworks */,
 				E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */,
-				D52A8F9619A788E80025BBAF /* libpangocairo-1.0.a in Frameworks */,
 				E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */,
+				D5CD284419BC93BF0089A397 /* libgettextpo.a in Frameworks */,
+				D5CD284D19BC93BF0089A397 /* libpangocairo-1.0.a in Frameworks */,
 				E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */,
-				D52A8F8E19A788E80025BBAF /* libgio-2.0.a in Frameworks */,
+				D5CD284219BC93BF0089A397 /* libcairo.a in Frameworks */,
 				E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1189,19 +1183,19 @@
 		D52A8F5019A788E70025BBAF /* static */ = {
 			isa = PBXGroup;
 			children = (
-				D52A8F5119A788E70025BBAF /* libcairo.a */,
-				D52A8F5219A788E70025BBAF /* libcharset.a */,
-				D52A8F5319A788E70025BBAF /* libgettextpo.a */,
-				D52A8F5419A788E70025BBAF /* libgio-2.0.a */,
-				D52A8F5519A788E70025BBAF /* libglib-2.0.a */,
-				D52A8F5619A788E70025BBAF /* libgmodule-2.0.a */,
-				D52A8F5719A788E70025BBAF /* libgobject-2.0.a */,
-				D52A8F5819A788E70025BBAF /* libgthread-2.0.a */,
-				D52A8F5919A788E70025BBAF /* libiconv.a */,
-				D52A8F5A19A788E70025BBAF /* libintl.a */,
-				D52A8F5B19A788E70025BBAF /* libpango-1.0.a */,
-				D52A8F5C19A788E70025BBAF /* libpangocairo-1.0.a */,
-				D52A8F5D19A788E70025BBAF /* libpixman-1.a */,
+				D5CD283519BC93BF0089A397 /* libcairo.a */,
+				D5CD283619BC93BF0089A397 /* libcharset.a */,
+				D5CD283719BC93BF0089A397 /* libgettextpo.a */,
+				D5CD283819BC93BF0089A397 /* libgio-2.0.a */,
+				D5CD283919BC93BF0089A397 /* libglib-2.0.a */,
+				D5CD283A19BC93BF0089A397 /* libgmodule-2.0.a */,
+				D5CD283B19BC93BF0089A397 /* libgobject-2.0.a */,
+				D5CD283C19BC93BF0089A397 /* libgthread-2.0.a */,
+				D5CD283D19BC93BF0089A397 /* libiconv.a */,
+				D5CD283E19BC93BF0089A397 /* libintl.a */,
+				D5CD283F19BC93BF0089A397 /* libpango-1.0.a */,
+				D5CD284019BC93BF0089A397 /* libpangocairo-1.0.a */,
+				D5CD284119BC93BF0089A397 /* libpixman-1.a */,
 			);
 			path = static;
 			sourceTree = "<group>";
@@ -1389,17 +1383,6 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		D52A8FE919A7A9D30025BBAF /* Elements */ = {
-			isa = PBXGroup;
-			children = (
-				D52A8FEA19A7A9F30025BBAF /* Schnipsel.cpp */,
-				D52A8FEB19A7A9F30025BBAF /* Schnipsel.h */,
-				D52A8FED19A7AF2C0025BBAF /* SchnipselMenu.cpp */,
-				D52A8FEE19A7AF2C0025BBAF /* SchnipselMenu.h */,
-			);
-			name = Elements;
-			sourceTree = "<group>";
-		};
 		E4328144138ABC890047C5CB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1433,7 +1416,6 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				D52A8FE919A7A9D30025BBAF /* Elements */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
@@ -1548,7 +1530,6 @@
 				D52A8FE319A78AD80025BBAF /* ofxXmlSettings.cpp in Sources */,
 				D52A8F9A19A788E80025BBAF /* ofxPCPangoFontDescription.cpp in Sources */,
 				D52A8FCF19A78A6A0025BBAF /* OscPrintReceivedElements.cpp in Sources */,
-				D52A8FEC19A7A9F30025BBAF /* Schnipsel.cpp in Sources */,
 				D52A8FCB19A78A6A0025BBAF /* UdpSocket.cpp in Sources */,
 				D52A8E2B19A788D70025BBAF /* StringValidator.cpp in Sources */,
 				D52A8F9919A788E80025BBAF /* ofxPCContext.cpp in Sources */,
@@ -1597,7 +1578,6 @@
 				D52A8E2319A788D70025BBAF /* TuioServer.cpp in Sources */,
 				D52A8E3D19A788D70025BBAF /* ShapeEllipse.cpp in Sources */,
 				D52A8F9B19A788E80025BBAF /* ofxPCPangoLayout.cpp in Sources */,
-				D52A8FEF19A7AF2C0025BBAF /* SchnipselMenu.cpp in Sources */,
 				D52A8FC919A78A6A0025BBAF /* IpEndpointName.cpp in Sources */,
 				D52A8E2C19A788D70025BBAF /* TypographyHelper.cpp in Sources */,
 			);
@@ -1773,6 +1753,7 @@
 					"$(PROJECT_DIR)/ofxPango/src/libs/mac/static",
 					"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.6.sdk/usr/lib",
 					/Volumes/MacintoshHD/UserData/Development/Openframeworks/of_v0.8.3_osx_release/addons/ofxPango/src/libs/mac/static,
+					/Users/matthiasrohrbach/Development/openframeworks/of_v0.8.3_osx_release/addons/ofxPango/src/libs/mac/static,
 				);
 				PRODUCT_NAME = RRScenegraph_exampleDebug;
 				SDKROOT = macosx;
@@ -1869,6 +1850,7 @@
 					"$(PROJECT_DIR)/ofxPango/src/libs/mac/static",
 					"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.6.sdk/usr/lib",
 					/Volumes/MacintoshHD/UserData/Development/Openframeworks/of_v0.8.3_osx_release/addons/ofxPango/src/libs/mac/static,
+					/Users/matthiasrohrbach/Development/openframeworks/of_v0.8.3_osx_release/addons/ofxPango/src/libs/mac/static,
 				);
 				PRODUCT_NAME = RRScenegraph_example;
 				SDKROOT = macosx;

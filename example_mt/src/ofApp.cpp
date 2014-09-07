@@ -8,17 +8,18 @@ void ofApp::setup(){
     renderer.setupColorPicker(ofGetWidth(), ofGetHeight(), 2, 5);
     renderer.startTuio(3333);
     
+    
     for(int i=0;i<100;i++){
-        schnipsel[i].setSize(100, 100);
-        schnipsel[i].setPosition(ofRandomWidth(),ofRandomHeight());
-        schnipsel[i].setColor(255, 0, 0);
-        schnipsel[i].setRandomColor();
-        cont.addChild(&schnipsel[i]);
+        buttons[i].setSize(100, 100);
+        buttons[i].setPosition(ofRandomWidth(),ofRandomHeight());
+        buttons[i].setColor(255, 0, 0);
+        buttons[i].setRandomColor();
+        cont.addChild(&buttons[i]);
         
     }
     
     renderer.addChild(&cont);
-    ofHideCursor();
+    
 }
 
 //--------------------------------------------------------------
