@@ -25,5 +25,7 @@ class ofApp : public ofBaseApp{
     Container cont;
     BasicButton buttons[100];
     
+    void onButtonTap(MultiTouchEvent& e);
+    
     
 };

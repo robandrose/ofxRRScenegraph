@@ -32,7 +32,6 @@
 		D52A8E3319A788D70025BBAF /* ScaleRestrictor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8DFE19A788D70025BBAF /* ScaleRestrictor.cpp */; };
 		D52A8E3419A788D70025BBAF /* VerticalRestrictor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8E0019A788D70025BBAF /* VerticalRestrictor.cpp */; };
 		D52A8E3519A788D70025BBAF /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8E0219A788D70025BBAF /* Renderer.cpp */; };
-		D52A8E3619A788D70025BBAF /* FpsMeter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8E0519A788D70025BBAF /* FpsMeter.cpp */; };
 		D52A8E3719A788D70025BBAF /* BasicButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8E0819A788D70025BBAF /* BasicButton.cpp */; };
 		D52A8E3819A788D70025BBAF /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8E0C19A788D70025BBAF /* Image.cpp */; };
 		D52A8E3919A788D70025BBAF /* InteractiveContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8E0E19A788D70025BBAF /* InteractiveContainer.cpp */; };
@@ -192,8 +191,6 @@
 		D52A8E0119A788D70025BBAF /* VerticalRestrictor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerticalRestrictor.h; sourceTree = "<group>"; };
 		D52A8E0219A788D70025BBAF /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
 		D52A8E0319A788D70025BBAF /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
-		D52A8E0519A788D70025BBAF /* FpsMeter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FpsMeter.cpp; sourceTree = "<group>"; };
-		D52A8E0619A788D70025BBAF /* FpsMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FpsMeter.h; sourceTree = "<group>"; };
 		D52A8E0819A788D70025BBAF /* BasicButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicButton.cpp; sourceTree = "<group>"; };
 		D52A8E0919A788D70025BBAF /* BasicButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicButton.h; sourceTree = "<group>"; };
 		D52A8E0A19A788D70025BBAF /* Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Container.h; sourceTree = "<group>"; };
@@ -755,7 +752,6 @@
 			isa = PBXGroup;
 			children = (
 				D52A8DEE19A788D70025BBAF /* basics */,
-				D52A8E0419A788D70025BBAF /* components */,
 				D52A8E0719A788D70025BBAF /* elements */,
 				D52A8E1419A788D70025BBAF /* shapes */,
 			);
@@ -795,15 +791,6 @@
 				D52A8E0119A788D70025BBAF /* VerticalRestrictor.h */,
 			);
 			path = positioners;
-			sourceTree = "<group>";
-		};
-		D52A8E0419A788D70025BBAF /* components */ = {
-			isa = PBXGroup;
-			children = (
-				D52A8E0519A788D70025BBAF /* FpsMeter.cpp */,
-				D52A8E0619A788D70025BBAF /* FpsMeter.h */,
-			);
-			path = components;
 			sourceTree = "<group>";
 		};
 		D52A8E0719A788D70025BBAF /* elements */ = {
@@ -1568,7 +1555,6 @@
 				D52A8E3819A788D70025BBAF /* Image.cpp in Sources */,
 				D52A8FD319A78A6A0025BBAF /* ofxOscMessage.cpp in Sources */,
 				D52A8FCA19A78A6A0025BBAF /* NetworkingUtils.cpp in Sources */,
-				D52A8E3619A788D70025BBAF /* FpsMeter.cpp in Sources */,
 				D52A8FD419A78A6A0025BBAF /* ofxOscParameterSync.cpp in Sources */,
 				D52A8E3C19A788D70025BBAF /* BasicShape.cpp in Sources */,
 				D52A8FE019A78AD80025BBAF /* tinyxml.cpp in Sources */,

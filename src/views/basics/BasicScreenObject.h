@@ -86,7 +86,7 @@ public:
 	virtual void addChild(BasicScreenObject* _child);
 	virtual void addChildAt(BasicScreenObject* _child, int _index);
 	virtual void removeChild(BasicScreenObject* _child);
-	virtual void removeChildAt(BasicScreenObject* _child, int _index);
+	virtual void removeChildAt(int _index);
 	virtual void removeChildren();
 	void		 clearParent();
 	
