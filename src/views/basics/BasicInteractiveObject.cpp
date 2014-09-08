@@ -1,12 +1,3 @@
-/*
- *  BasicInteractiveObject.cpp
- *  BasicScreenObject_Test
- *
- *  Created by Matthias Rohrbach 2 on 12.06.12.
- *  Copyright 2012 rob & rose grafik. All rights reserved.
- *
- */
-
 #include "BasicInteractiveObject.h"
 #include "ofMain.h"
 #include "Renderer.h"

@@ -8,20 +8,20 @@
  */
 
 #include "ScrollableTextArea.h"
-#include "InteractionConst.h"
-#include "ColorConst.h"
 #include "ofxTransitions.h"
 
 
 ScrollableTextArea::ScrollableTextArea(){
 	
+    scrollBarDisappearTime=300;
+    
 	scrollContainer.isScaleable(false);
 	scrollContainer.isRotateable(false);
 	scrollContainer.setDragDamping(0.1);
 	scrollContainer.setDragThreshold(0.0);
 	addChild(&scrollContainer);
 	
-	scrollBar.setColor(ColorConst::MIDDLE_GREY);
+	scrollBar.setColor(ofColor::grey);
 	scrollBar.setSize(2, 10);
 	addChild(&scrollBar);
 	
@@ -38,6 +38,7 @@ ScrollableTextArea::ScrollableTextArea(){
 	
 	ofAddListener(scrollContainer.lastTouchUpEvent, this, &ScrollableTextArea::onScrollStop);
 	ofAddListener(scrollContainer.dragStartEvent,	this, &ScrollableTextArea::onScrollStart);
+    
 }
 
 
@@ -51,7 +52,7 @@ void ScrollableTextArea::update(){
 		if (!scrollContainer.isDragging()) {
 			if (scrollBar.getAlpha() != 0.0) { 
 				if (scrollContainer.getSpeed().length() <= .1) {
-					if ( !scrollBar.isFadeTweenActive()) scrollBar.fadeToInvisible(InteractionConst::SCROLLBAR_DISAPPEAR_TIME, &ofxTransitions::linear, InteractionConst::SCROLLBAR_DISAPPEAR_TIME);	
+					if ( !scrollBar.isFadeTweenActive()) scrollBar.fadeToInvisible(scrollBarDisappearTime, &ofxTransitions::linear, scrollBarDisappearTime);
 				}
 			}
 		}
@@ -99,7 +100,7 @@ void ScrollableTextArea::_updateScrollSize() {
 void ScrollableTextArea::onScrollStart(MultiTouchEvent& _event){
 	if ( needsScrolling ) {
 		scrollBar.isVisible(true);
-		scrollBar.fadeTo(255.0, InteractionConst::SCROLLBAR_APPEAR_TIME);
+		scrollBar.fadeTo(255.0, scrollBarDisappearTime);
 	}
 }
 

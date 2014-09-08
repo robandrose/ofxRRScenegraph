@@ -230,12 +230,9 @@ void Image::scaleFitPad(int _width, int _height, ofColor _color, bool _vcenter, 
 	
 	compose.allocate(_width, _height, GL_RGBA);
 	pixels.allocate(_width, _height, OF_IMAGE_COLOR_ALPHA);
-	
-	//pixels.clear();
-	
 	compose.begin();
-	ofPushStyle();
-	//
+	
+    ofPushStyle();
 	ofSetColor(_color);
 	ofRect(0, 0, _width, _height);
 

@@ -1,11 +1,9 @@
 #include "StringValidator.h"
 
-
 /**
  *  Validates an email-address roughly following RFC 822
  *  danggerscheen https://github.com/sjspring90/Email-Validation/blob/master/Validation.cpp
  */
-
 
 #define MAX_EMAIL_SIZE 255 // Just a constant, do not need equals or semicolon
 #define VALID_LOCALPART_CHARS "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890._-"

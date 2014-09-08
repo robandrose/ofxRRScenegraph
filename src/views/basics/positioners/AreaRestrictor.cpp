@@ -1,14 +1,4 @@
-/*
- *  AreaRestrictor.cpp
- *  UI_Components_Dev
- *
- *  Created by Matthias Rohrbach on 05.07.12.
- *  Copyright 2012 rob & rose grafik. All rights reserved.
- *
- */
-
 #include "AreaRestrictor.h"
-
 
 AreaRestrictor::AreaRestrictor(ofRectangle _restarea, ofRectangle _srcarea) {
 	restarea.set(_restarea);

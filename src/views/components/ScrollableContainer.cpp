@@ -1,16 +1,5 @@
-/*
- *  ScrollableContainer.cpp
- *
- *  Created by Patrick Meister on 15.08.2012.
- *  Copyright 2012 rob & rose grafik. All rights reserved.
- *
- */
-
 #include "ScrollableContainer.h"
 #include "ofxTransitions.h"
-#include "InteractionConst.h"
-#include "ColorConst.h"
-
 
 ScrollableContainer::ScrollableContainer(){
 	ePadding			= 0.0;
@@ -19,6 +8,11 @@ ScrollableContainer::ScrollableContainer(){
 	snapToElements		= false;
 	_swiped				= false;
 	elementChangedWhileDragging = false;
+    
+    scrollBarDisappearTime  = 300;
+    defaultDisappearTime    = 300;
+	defaultAppearTime       = 300;
+    snapToElementsTime      = 500;
 	
 	scrollContainer.isScaleable(false);
 	scrollContainer.isRotateable(false);
@@ -28,7 +22,7 @@ ScrollableContainer::ScrollableContainer(){
 	scrollContainer.isFilled(false);
 	addChild(&scrollContainer);
 	
-	scrollBar.setColor(ColorConst::MIDDLE_GREY);
+	scrollBar.setColor(ofColor::grey);
 	scrollBar.setSize(2, 10);
 	enableScrollBar = true;
 	addChild(&scrollBar);
@@ -80,9 +74,9 @@ void ScrollableContainer::update(){
 				if (scrollBar.getAlpha()!=0.0) { 
 					if (scrollContainer.getSpeed().length() <= .1) {
 						if ( !scrollBar.isFadeTweenActive()) {
-							scrollBar.fadeToInvisible(InteractionConst::SCROLLBAR_DISAPPEAR_TIME,
+							scrollBar.fadeToInvisible(scrollBarDisappearTime,
 													  &ofxTransitions::linear,
-													  InteractionConst::SCROLLBAR_DISAPPEAR_TIME*2);	
+													  scrollBarDisappearTime*2);
 						}
 					}
 				}
@@ -96,7 +90,7 @@ void ScrollableContainer::update(){
 void ScrollableContainer::flashScrollbar() {
 	if (_showScrollBar) {
 		scrollBar.isVisible(true);
-		scrollBar.fadeTo(255.0, InteractionConst::SCROLLBAR_APPEAR_TIME);	
+		scrollBar.fadeTo(255.0, scrollBarAppearTime);
 	}
 }
 
@@ -141,7 +135,7 @@ void ScrollableContainer::removeElement(BasicScreenObject* _element) {
 	for(int i=0; i < elements.size(); i++){
 		if(elements[i] == _element){
 			ofAddListener(_element->fadeToCompleteEvent, this, &ScrollableContainer::onElementRemoved);
-			_element->fadeTo(0.0, InteractionConst::DEFAULT_DISAPPEAR_TIME);
+			_element->fadeTo(0.0, defaultDisappearTime);
 			break;
 		}
 	}
@@ -187,7 +181,7 @@ void ScrollableContainer::_updateLayout(bool tweened) {
 			if (!tweened) {
 				el->setPosition(contentPos, 0);
 			} else {
-				el->moveTo(contentPos, 0, InteractionConst::DEFAULT_APPEAR_TIME);
+				el->moveTo(contentPos, 0, defaultAppearTime);
 			}
 			contentPos += el->getWidth();
 		
@@ -195,7 +189,7 @@ void ScrollableContainer::_updateLayout(bool tweened) {
 			if (!tweened) {
 				el->setPosition(0, contentPos);
 			} else {
-				el->moveTo(0, contentPos, InteractionConst::DEFAULT_APPEAR_TIME);	
+				el->moveTo(0, contentPos, defaultAppearTime);
 			}
 			contentPos += el->getHeight();
 		}
@@ -298,9 +292,9 @@ void ScrollableContainer::onManualScrollStop(MultiTouchEvent& _event){
 void ScrollableContainer::_handleRelease() {
 	if (snapToElements==true) {
 		if (_swiped) {
-			scrollToElement(_activeElementNr, InteractionConst::IMAGE_SLIDER_SNAP_SWIPE_TIME);
+			scrollToElement(_activeElementNr, snapToElementsTime);
 		} else {
-			scrollToElement(_activeElementNr, InteractionConst::IMAGE_SLIDER_SNAP_DRAG_TIME);
+			scrollToElement(_activeElementNr, snapToElementsTime);
 		}
 		
 	} else {

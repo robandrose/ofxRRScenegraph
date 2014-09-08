@@ -67,6 +67,8 @@
 		D52A8FE219A78AD80025BBAF /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FDC19A78AD80025BBAF /* tinyxmlparser.cpp */; };
 		D52A8FE319A78AD80025BBAF /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FDE19A78AD80025BBAF /* ofxXmlSettings.cpp */; };
 		D5BAC24C19BDDB62004F7CB9 /* InteractiveElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5BAC24A19BDDB62004F7CB9 /* InteractiveElement.cpp */; };
+		D5BAC25819BE06A1004F7CB9 /* ScrollableContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5BAC25419BE06A1004F7CB9 /* ScrollableContainer.cpp */; };
+		D5BAC25919BE06A1004F7CB9 /* ScrollableTextArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5BAC25619BE06A1004F7CB9 /* ScrollableTextArea.cpp */; };
 		D5CD284219BC93BF0089A397 /* libcairo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283519BC93BF0089A397 /* libcairo.a */; };
 		D5CD284319BC93BF0089A397 /* libcharset.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283619BC93BF0089A397 /* libcharset.a */; };
 		D5CD284419BC93BF0089A397 /* libgettextpo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283719BC93BF0089A397 /* libgettextpo.a */; };
@@ -152,7 +154,6 @@
 		D52A8DD119A788D70025BBAF /* TuioServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuioServer.h; sourceTree = "<group>"; };
 		D52A8DD219A788D70025BBAF /* TuioTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TuioTime.cpp; sourceTree = "<group>"; };
 		D52A8DD319A788D70025BBAF /* TuioTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuioTime.h; sourceTree = "<group>"; };
-		D52A8DD419A788D70025BBAF /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		D52A8DD819A788D70025BBAF /* BasicController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicController.cpp; sourceTree = "<group>"; };
 		D52A8DD919A788D70025BBAF /* BasicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicController.h; sourceTree = "<group>"; };
 		D52A8DDA19A788D70025BBAF /* SettingsManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SettingsManager.cpp; sourceTree = "<group>"; };
@@ -496,6 +497,10 @@
 		D52A8FDF19A78AD80025BBAF /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
 		D5BAC24A19BDDB62004F7CB9 /* InteractiveElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InteractiveElement.cpp; sourceTree = "<group>"; };
 		D5BAC24B19BDDB62004F7CB9 /* InteractiveElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractiveElement.h; sourceTree = "<group>"; };
+		D5BAC25419BE06A1004F7CB9 /* ScrollableContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScrollableContainer.cpp; sourceTree = "<group>"; };
+		D5BAC25519BE06A1004F7CB9 /* ScrollableContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollableContainer.h; sourceTree = "<group>"; };
+		D5BAC25619BE06A1004F7CB9 /* ScrollableTextArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScrollableTextArea.cpp; sourceTree = "<group>"; };
+		D5BAC25719BE06A1004F7CB9 /* ScrollableTextArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollableTextArea.h; sourceTree = "<group>"; };
 		D5CD283519BC93BF0089A397 /* libcairo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcairo.a; sourceTree = "<group>"; };
 		D5CD283619BC93BF0089A397 /* libcharset.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcharset.a; sourceTree = "<group>"; };
 		D5CD283719BC93BF0089A397 /* libgettextpo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgettextpo.a; sourceTree = "<group>"; };
@@ -619,7 +624,6 @@
 			children = (
 				D52A8DBA19A788D70025BBAF /* .gitignore */,
 				D52A8DBB19A788D70025BBAF /* libs */,
-				D52A8DD419A788D70025BBAF /* readme.txt */,
 				D52A8DD519A788D70025BBAF /* src */,
 			);
 			name = ofxRRSceneGraph;
@@ -757,6 +761,7 @@
 				D52A8DEE19A788D70025BBAF /* basics */,
 				D52A8E0719A788D70025BBAF /* elements */,
 				D52A8E1419A788D70025BBAF /* shapes */,
+				D5BAC25319BE06A1004F7CB9 /* components */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -1373,6 +1378,18 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		D5BAC25319BE06A1004F7CB9 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				D5BAC25419BE06A1004F7CB9 /* ScrollableContainer.cpp */,
+				D5BAC25519BE06A1004F7CB9 /* ScrollableContainer.h */,
+				D5BAC25619BE06A1004F7CB9 /* ScrollableTextArea.cpp */,
+				D5BAC25719BE06A1004F7CB9 /* ScrollableTextArea.h */,
+			);
+			name = components;
+			path = ../../../ofxRRScenegraph/src/views/components;
+			sourceTree = "<group>";
+		};
 		E4328144138ABC890047C5CB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1511,6 +1528,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5BAC25819BE06A1004F7CB9 /* ScrollableContainer.cpp in Sources */,
 				D52A8E3919A788D70025BBAF /* InteractiveContainer.cpp in Sources */,
 				D52A8FE119A78AD80025BBAF /* tinyxmlerror.cpp in Sources */,
 				D52A8FCD19A78A6A0025BBAF /* UdpSocketWin.cpp in Sources */,
@@ -1564,6 +1582,7 @@
 				D52A8E3C19A788D70025BBAF /* BasicShape.cpp in Sources */,
 				D52A8FE019A78AD80025BBAF /* tinyxml.cpp in Sources */,
 				D52A8E2F19A788D70025BBAF /* ArcRestrictor.cpp in Sources */,
+				D5BAC25919BE06A1004F7CB9 /* ScrollableTextArea.cpp in Sources */,
 				D52A8FD019A78A6A0025BBAF /* OscReceivedElements.cpp in Sources */,
 				D5BAC24C19BDDB62004F7CB9 /* InteractiveElement.cpp in Sources */,
 				D52A8FD519A78A6A0025BBAF /* ofxOscReceiver.cpp in Sources */,

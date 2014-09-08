@@ -4,7 +4,6 @@ const int TextField::ALIGN_LEFT		= PANGO_ALIGN_LEFT;
 const int TextField::ALIGN_RIGHT	= PANGO_ALIGN_RIGHT;
 const int TextField::ALIGN_CENTER	= PANGO_ALIGN_CENTER;
 
-
 TextField::TextField() {
 	pango	= new ofxPango();
 	context	= NULL;

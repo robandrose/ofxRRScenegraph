@@ -1,15 +1,4 @@
-/*
- *  BasicButton.cpp
- *  openFrameworks
- *
- *  Created by Matthias Rohrbach on 26.10.09.
- *  Copyright 2009 __MyCompanyName__. All rights reserved.
- *
- */
-
 #include "BasicButton.h"
-
-
 
 BasicButton::BasicButton() {
 	isEnabled		= true;

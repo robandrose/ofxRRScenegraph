@@ -1,12 +1,3 @@
-/*
- *  HorizontalRestrictor.cpp
- *  BasicScreenObject_Test
- *
- *  Created by Patrick Meister on 26.06.12.
- *  Copyright 2012 __MyCompanyName__. All rights reserved.
- *
- */
-
 #include "IPositioner.h"
 #include "VerticalRestrictor.h"
 

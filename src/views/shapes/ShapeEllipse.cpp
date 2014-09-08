@@ -1,7 +1,5 @@
 #include "ShapeEllipse.h"
 
-
-
 ShapeEllipse::ShapeEllipse() {
 	resolution = 50;
 	mode = OF_RECTMODE_CENTER;

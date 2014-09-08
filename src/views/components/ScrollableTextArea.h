@@ -1,18 +1,9 @@
-/*
- *  ScrollableTextArea.h
- *  UI_Components_Dev
- *
- *  Created by Matthias Rohrbach on 05.07.12.
- *  Copyright 2012 rob & rose grafik. All rights reserved.
- *
- */
-
 
 #pragma once
 
 #include "BasicScreenObject.h"
-#include "HegiTextField.h"
 #include "Shapes.h"
+#include "TextField.h"
 #include "AreaRestrictor.h"
 #include "MultiTouchEvent.h"
 #include "InteractiveContainer.h"
@@ -29,7 +20,7 @@ public:
 	void setText(string _text);
 	void scrollTo(float _y);
 	
-	HegiTextField tf;
+	TextField tf;
 	
 protected:
 	void onScrollStop(MultiTouchEvent &event);
@@ -45,6 +36,8 @@ protected:
 	bool	needsScrolling;
 	float	scrollHeight;
 	float	scrollBarHeight;
-	
+	float   scrollBarDisappearTime;
+    
 	void	_updateScrollSize();
 };
+

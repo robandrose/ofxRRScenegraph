@@ -1,15 +1,4 @@
-/*
- *  ShapeRect.cpp
- *  UI_Components_Dev
- *
- *  Created by Matthias Rohrbach on 04.07.12.
- *  Copyright 2012 rob & rose grafik. All rights reserved.
- *
- */
-
 #include "ShapeRect.h"
-
-
 
 ShapeRect::ShapeRect() {
 	mode = OF_RECTMODE_CORNER;

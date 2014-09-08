@@ -1,7 +1,5 @@
 #include "TextButton.h"
 
-
-
 TextButton::TextButton() {
 	isEnabled		= true;
 	_isSelected		= false;

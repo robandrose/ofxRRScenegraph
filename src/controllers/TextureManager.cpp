@@ -1,12 +1,3 @@
-/*
- *  TextureManager.cpp
- *  openFrameworks
- *
- *  Created by Matthias Rohrbach on 16.11.09.
- *  Copyright 2009 rob & rose grafik. All rights reserved.
- *
- */
-
 #include "TextureManager.h"
 
 TextureManager::TextureManager(){

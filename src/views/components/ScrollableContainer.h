@@ -1,9 +1,26 @@
 /*
- *  ScrollableContainer.h
- *
- *  Created by Patrick Meister on 15.08.2012.
- *  Copyright 2012 rob & rose grafik. All rights reserved.
- *
+ ScrollableContainer
+ 
+ Add BasicScreenObjects to the container and have them scrolled. Does not work with interactiveObjects
+ beacause selection and dragging is all handled from container.
+ 
+ 
+ Copyright (C) 2014 Rob&Rose
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ and associated documentation files (the "Software"), to deal in the Software without restriction,
+ including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all copies or substantial
+ portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ IN THE SOFTWARE.
  */
 
 
@@ -23,9 +40,9 @@ public:
 	virtual ~ScrollableContainer() {};
 
 	virtual void	update();
-	
 	virtual void	setSize(float _width, float _height);
 	
+    // Settings
 	virtual bool	isScrollBarEnabled()				{ return enableScrollBar; };
 	virtual void	isScrollBarEnabled(bool _visible)	{ enableScrollBar = _visible; };
 	
@@ -38,6 +55,12 @@ public:
 	virtual float	getElementPadding()					{ return ePadding; };
 	virtual void	setElementPadding(float _padding)	{ ePadding = _padding; _updateLayout(); };
 	
+    // Timings
+    virtual void    setDefaultTiming(float _atime, float _dtime){ defaultAppearTime=_atime;defaultDisappearTime=_dtime;};
+    virtual void    setDefaultScrollbarTiming(float _atime, float _dtime){scrollBarAppearTime=_atime;scrollBarDisappearTime=_dtime;}
+    virtual void    setSnapToElementsTiming(float _time){snapToElementsTime=_time;};
+
+    
 	virtual void	forceLayoutUpdate()					{ _updateLayout(); };
 	
 	virtual vector<BasicScreenObject*>* getElements()	{ return &elements; };
@@ -101,4 +124,12 @@ protected:
 	virtual void	_handleRelease();
 	
 	virtual BasicScreenObject*	_elementByPosition(ofPoint _position);
+    
+    float   scrollBarAppearTime;
+    float   scrollBarDisappearTime;
+    float   defaultAppearTime;
+    float   defaultDisappearTime;    
+    float   snapToElementsTime;
+
+
 };

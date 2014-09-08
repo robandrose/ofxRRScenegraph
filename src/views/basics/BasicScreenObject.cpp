@@ -1,11 +1,3 @@
-/*
- *  BasicScreenObject.cpp
- *
- *  Created by Matthias Rohrbach 2 on 10.06.12.
- *  Copyright 2012 rob & rose grafik. All rights reserved.
- *
- */
-
 #include "BasicScreenObject.h"
 #include "Renderer.h"
 
