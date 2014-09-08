@@ -96,11 +96,11 @@ void Renderer::update(){
 		
 		if(ofGetFrameNum() % captureincrement==0){
 			pickingmap.begin();
-			
 			ofClear(0);
 			ofScale( mapscale , mapscale , mapscale) ;		
-			BasicScreenObject::drawForPicking();	
-			
+			camera.begin();
+			BasicScreenObject::drawForPicking();
+			camera.end();
 			pickingmap.end();						
 		}
 		

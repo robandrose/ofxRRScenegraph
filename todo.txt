@@ -1,0 +1,15 @@
+Todo:
+
+Create forks for
+- ofxPango
+o be done with the libs? 
+
+Links to 
+– TUIO
+– ofxTuioWrapper
+
+integrated:
+– ofxTimer
+– ofxTweener
+
+

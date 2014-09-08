@@ -166,9 +166,10 @@ void BasicScreenObject::_setup(ofEventArgs &e){
 
 void BasicScreenObject::_update(ofEventArgs &e){
 	if(!isupdating) return;
-	
 	if(age == 1) firstUpdate();
 	
+    // TODO: use Animation elements equal to Positioners Animator.h
+    
 	// Update Animations based on Tweening
 	if (isMoveTweening)		setPosition(tweenx, tweeny, tweenz);
 	if (isScaleTweening)	setScale(tweenscalex, tweenscaley, tweenscalez);
@@ -255,15 +256,11 @@ void BasicScreenObject::addChild(BasicScreenObject* _child){
 }
 
 
-// TODO: implement BasicScreenObject::addChildAt
 void BasicScreenObject::addChildAt(BasicScreenObject* _child, int _index){ 
-
 	childit=childlist.begin();
 	childlist.insert(childit+_index, _child);
-	
 	_child->setParent(this);
 	_child->setRoot(getRoot());
-	
 }
 
 
@@ -277,13 +274,13 @@ void BasicScreenObject::removeChild(BasicScreenObject* _child){
 	}
 }
 
+void BasicScreenObject::removeChildren(){
+   childlist.resize(0);
+}
 
-void BasicScreenObject::removeChildren(){ childlist.resize(0); }
-
-
-// TODO: implement BasicScreenObject::removeChildAt
-void BasicScreenObject::removeChildAt(BasicScreenObject* _child, int _index){ }
-
+void BasicScreenObject::removeChildAt(int _index){
+    childlist.erase(childlist.begin()+_index);
+}
 
 void BasicScreenObject::clearParent() {
 	_isAddedToRenderer = false;
@@ -324,12 +321,14 @@ vector<BasicScreenObject*>* BasicScreenObject::getChildren(){ return &childlist;
 
 
 bool BasicScreenObject::isAddedToRenderer(){ return _isAddedToRenderer; }
-void BasicScreenObject::isAddedToRenderer(bool _added) { _isAddedToRenderer = _added; setChildrenParentTreeAddedToRenderer(); };
 
+void BasicScreenObject::isAddedToRenderer(bool _added) {
+    _isAddedToRenderer = _added;
+    setChildrenParentTreeAddedToRenderer();
+};
 
 void BasicScreenObject::isOrderChildrenByZ(bool _isorderbyz){ isorderbyz = _isorderbyz; }
 bool BasicScreenObject::isOrderChildrenByZ(){ return isorderbyz; }
-
 
 // TODO: Cameraabhängig machen
 void BasicScreenObject::doOrderChildrenByZ(){
@@ -373,7 +372,6 @@ void BasicScreenObject::draw(){
 		ofPushMatrix();
 		ofPushStyle();
 		ofSetColor(color.r,color.g,color.b,getCombinedAlpha());
-		
 		_draw();
 		ofPopStyle();
 		ofPopMatrix();
@@ -381,7 +379,6 @@ void BasicScreenObject::draw(){
 		ofPushMatrix();
 		drawChildren();
 		ofPopMatrix();
-		
 		ofPushMatrix();
 		_drawAfterChildren();
 		ofPopMatrix();
@@ -393,7 +390,7 @@ void BasicScreenObject::draw(){
 		// Depthtest out
 		if( depthtestenabled && !depthtestbefore)glDisable(GL_DEPTH_TEST);
 		if(!depthtestenabled &&  depthtestbefore)glEnable(GL_DEPTH_TEST);
-				
+        
 		if(hasmask) restoreMask();
 		
 		glPopMatrix();
@@ -504,8 +501,6 @@ ofVec3f BasicScreenObject::localToForeign(BasicScreenObject* _foreign, float _x,
 	return localToForeign(_foreign, ofVec3f(_x, _y, _z));
 }
 
-
-
 ofRectangle BasicScreenObject::getBoundingBox(BasicScreenObject* ref){
 	
 	ofVec2f screenpos[4];
@@ -545,7 +540,6 @@ ofRectangle BasicScreenObject::getBoundingBox(BasicScreenObject* ref){
 	boundingbox.height= biggesty-smallesty;
 	
 	return boundingbox;
-	
 }
 
 ofVec3f BasicScreenObject::getScreenPosition(){
@@ -619,10 +613,8 @@ void BasicScreenObject::isVisible( bool _visible ) {
 
 
 void BasicScreenObject::isParentTreeVisible( bool _visible) {
-
 	_isParentTreeVisible = _visible;
 	setChildrenParentTreeVisibility();
-	
 }
 
 
@@ -995,9 +987,6 @@ void BasicScreenObject::fadeTo(float _endalpha, float _fadetime, float (ofxTrans
 	isFadeTweening = true;
 	isFadeTweeningToInvisible = false;
 }
-
-
-
 void BasicScreenObject::fadeToInvisible(float _fadetime) {
 	fadeToInvisible(_fadetime, &ofxTransitions::easeInOutCubic, 0);
 }
@@ -1129,7 +1118,6 @@ void BasicScreenObject::setMoveAttractionPoint(float _endx, float _endy, float _
 void BasicScreenObject::stopMoveAttraction(){
 	moveattractionforce = 0;
 }
-
 
 void BasicScreenObject::doRotate(){
 	

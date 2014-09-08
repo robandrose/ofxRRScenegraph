@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "Renderer.h"
 #include "Container.h"
-#include "BasicButton.h"
+#include "InteractiveElement.h"
 
 class ofApp : public ofBaseApp{
 	public:
@@ -23,7 +23,8 @@ class ofApp : public ofBaseApp{
     
     Renderer renderer;
     Container cont;
-    BasicButton buttons[100];
+    InteractiveElement buttons[100];
+    
     
     
 };

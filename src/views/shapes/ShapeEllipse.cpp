@@ -9,7 +9,6 @@ ShapeEllipse::ShapeEllipse() {
 
 
 void ShapeEllipse::_draw(){
-	//path.setFillColor(ofColor(color.r,color.g,color.b,getCombinedAlpha()));
 	ofPushStyle();
 	if (_isFilled) {
 		ofFill();
