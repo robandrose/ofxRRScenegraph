@@ -66,6 +66,7 @@
 		D52A8FE119A78AD80025BBAF /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FDB19A78AD80025BBAF /* tinyxmlerror.cpp */; };
 		D52A8FE219A78AD80025BBAF /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FDC19A78AD80025BBAF /* tinyxmlparser.cpp */; };
 		D52A8FE319A78AD80025BBAF /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FDE19A78AD80025BBAF /* ofxXmlSettings.cpp */; };
+		D5BAC24C19BDDB62004F7CB9 /* InteractiveElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5BAC24A19BDDB62004F7CB9 /* InteractiveElement.cpp */; };
 		D5CD284219BC93BF0089A397 /* libcairo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283519BC93BF0089A397 /* libcairo.a */; };
 		D5CD284319BC93BF0089A397 /* libcharset.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283619BC93BF0089A397 /* libcharset.a */; };
 		D5CD284419BC93BF0089A397 /* libgettextpo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283719BC93BF0089A397 /* libgettextpo.a */; };
@@ -493,6 +494,8 @@
 		D52A8FDC19A78AD80025BBAF /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
 		D52A8FDE19A78AD80025BBAF /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
 		D52A8FDF19A78AD80025BBAF /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
+		D5BAC24A19BDDB62004F7CB9 /* InteractiveElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InteractiveElement.cpp; sourceTree = "<group>"; };
+		D5BAC24B19BDDB62004F7CB9 /* InteractiveElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractiveElement.h; sourceTree = "<group>"; };
 		D5CD283519BC93BF0089A397 /* libcairo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcairo.a; sourceTree = "<group>"; };
 		D5CD283619BC93BF0089A397 /* libcharset.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcharset.a; sourceTree = "<group>"; };
 		D5CD283719BC93BF0089A397 /* libgettextpo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgettextpo.a; sourceTree = "<group>"; };
@@ -1403,6 +1406,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				D5BAC24A19BDDB62004F7CB9 /* InteractiveElement.cpp */,
+				D5BAC24B19BDDB62004F7CB9 /* InteractiveElement.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
@@ -1560,6 +1565,7 @@
 				D52A8FE019A78AD80025BBAF /* tinyxml.cpp in Sources */,
 				D52A8E2F19A788D70025BBAF /* ArcRestrictor.cpp in Sources */,
 				D52A8FD019A78A6A0025BBAF /* OscReceivedElements.cpp in Sources */,
+				D5BAC24C19BDDB62004F7CB9 /* InteractiveElement.cpp in Sources */,
 				D52A8FD519A78A6A0025BBAF /* ofxOscReceiver.cpp in Sources */,
 				D52A8E2319A788D70025BBAF /* TuioServer.cpp in Sources */,
 				D52A8E3D19A788D70025BBAF /* ShapeEllipse.cpp in Sources */,
