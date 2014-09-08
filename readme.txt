@@ -1,4 +1,5 @@
-ofxRRScenegraph
+# ofxRRScenegraph
+
 
 This is a collection of classes to fill the need for a simple and versatile basis when creating multitouch applications, originally used with a pq-labs full-hd touchscreen. 
 
@@ -15,7 +16,7 @@ The most important Elements are:
 – Has functionality for tweened animations (position, size, scale, rotation, color, alpha), parameter restrictions, nested drawing, masking, etc. moveTo, scaleTo, fadeTo etc. 
 – Has lots of convenience functionality, like setRandomColor() or killMeSoftly(), moveMeToTop() etc. 
 
-#Basic Interactive Object:
+# Basic Interactive Object:
 – This Object receives all the multitouch events from the renderer and is drawn in the color picking loop.
 – The Multitouch-Actions may be applied directly to the Element itself or to another by setting the MTTarget, can be any BasicScreenObject
 – The Object can handle as many multitouchpoints as desired. 
