@@ -34,6 +34,8 @@ We used this Scenegraph for some Touchscreenapplications successfully. Although 
 Make sure you have all the needed Addons linked, the most important ones are included in the libs folder.
 And if using ofxPango, be sure to link to all the needed libraries in header search paths.
  
+The Pango version is a fork from roxlu with some added functionality like tabstops. It is hosted under http://www.github.com/robandrose/ofxPango
+
 
 
 
