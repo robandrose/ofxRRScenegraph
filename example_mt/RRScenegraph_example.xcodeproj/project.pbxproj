@@ -8,6 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
+		D50CA3E319BDD017009A8ADC /* libcairo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50CA3D619BDD017009A8ADC /* libcairo.a */; };
+		D50CA3E419BDD017009A8ADC /* libcharset.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50CA3D719BDD017009A8ADC /* libcharset.a */; };
+		D50CA3E519BDD017009A8ADC /* libgettextpo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50CA3D819BDD017009A8ADC /* libgettextpo.a */; };
+		D50CA3E619BDD017009A8ADC /* libgio-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50CA3D919BDD017009A8ADC /* libgio-2.0.a */; };
+		D50CA3E719BDD017009A8ADC /* libglib-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50CA3DA19BDD017009A8ADC /* libglib-2.0.a */; };
+		D50CA3E819BDD017009A8ADC /* libgmodule-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50CA3DB19BDD017009A8ADC /* libgmodule-2.0.a */; };
+		D50CA3E919BDD017009A8ADC /* libgobject-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50CA3DC19BDD017009A8ADC /* libgobject-2.0.a */; };
+		D50CA3EA19BDD017009A8ADC /* libgthread-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50CA3DD19BDD017009A8ADC /* libgthread-2.0.a */; };
+		D50CA3EB19BDD017009A8ADC /* libiconv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50CA3DE19BDD017009A8ADC /* libiconv.a */; };
+		D50CA3EC19BDD017009A8ADC /* libintl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50CA3DF19BDD017009A8ADC /* libintl.a */; };
+		D50CA3ED19BDD017009A8ADC /* libpango-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50CA3E019BDD017009A8ADC /* libpango-1.0.a */; };
+		D50CA3EE19BDD017009A8ADC /* libpangocairo-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50CA3E119BDD017009A8ADC /* libpangocairo-1.0.a */; };
+		D50CA3EF19BDD017009A8ADC /* libpixman-1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50CA3E219BDD017009A8ADC /* libpixman-1.a */; };
 		D52A8E1E19A788D70025BBAF /* ofxTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8DBD19A788D70025BBAF /* ofxTimer.cpp */; };
 		D52A8E1F19A788D70025BBAF /* ofxTuioClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8DC119A788D70025BBAF /* ofxTuioClient.cpp */; };
 		D52A8E2019A788D70025BBAF /* ofxTransitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8DC419A788D70025BBAF /* ofxTransitions.cpp */; };
@@ -32,7 +45,6 @@
 		D52A8E3319A788D70025BBAF /* ScaleRestrictor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8DFE19A788D70025BBAF /* ScaleRestrictor.cpp */; };
 		D52A8E3419A788D70025BBAF /* VerticalRestrictor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8E0019A788D70025BBAF /* VerticalRestrictor.cpp */; };
 		D52A8E3519A788D70025BBAF /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8E0219A788D70025BBAF /* Renderer.cpp */; };
-		D52A8E3619A788D70025BBAF /* FpsMeter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8E0519A788D70025BBAF /* FpsMeter.cpp */; };
 		D52A8E3719A788D70025BBAF /* BasicButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8E0819A788D70025BBAF /* BasicButton.cpp */; };
 		D52A8E3819A788D70025BBAF /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8E0C19A788D70025BBAF /* Image.cpp */; };
 		D52A8E3919A788D70025BBAF /* InteractiveContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8E0E19A788D70025BBAF /* InteractiveContainer.cpp */; };
@@ -67,19 +79,7 @@
 		D52A8FE119A78AD80025BBAF /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FDB19A78AD80025BBAF /* tinyxmlerror.cpp */; };
 		D52A8FE219A78AD80025BBAF /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FDC19A78AD80025BBAF /* tinyxmlparser.cpp */; };
 		D52A8FE319A78AD80025BBAF /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FDE19A78AD80025BBAF /* ofxXmlSettings.cpp */; };
-		D5CD284219BC93BF0089A397 /* libcairo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283519BC93BF0089A397 /* libcairo.a */; };
-		D5CD284319BC93BF0089A397 /* libcharset.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283619BC93BF0089A397 /* libcharset.a */; };
-		D5CD284419BC93BF0089A397 /* libgettextpo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283719BC93BF0089A397 /* libgettextpo.a */; };
-		D5CD284519BC93BF0089A397 /* libgio-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283819BC93BF0089A397 /* libgio-2.0.a */; };
-		D5CD284619BC93BF0089A397 /* libglib-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283919BC93BF0089A397 /* libglib-2.0.a */; };
-		D5CD284719BC93BF0089A397 /* libgmodule-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283A19BC93BF0089A397 /* libgmodule-2.0.a */; };
-		D5CD284819BC93BF0089A397 /* libgobject-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283B19BC93BF0089A397 /* libgobject-2.0.a */; };
-		D5CD284919BC93BF0089A397 /* libgthread-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283C19BC93BF0089A397 /* libgthread-2.0.a */; };
-		D5CD284A19BC93BF0089A397 /* libiconv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283D19BC93BF0089A397 /* libiconv.a */; };
-		D5CD284B19BC93BF0089A397 /* libintl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283E19BC93BF0089A397 /* libintl.a */; };
-		D5CD284C19BC93BF0089A397 /* libpango-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD283F19BC93BF0089A397 /* libpango-1.0.a */; };
-		D5CD284D19BC93BF0089A397 /* libpangocairo-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD284019BC93BF0089A397 /* libpangocairo-1.0.a */; };
-		D5CD284E19BC93BF0089A397 /* libpixman-1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD284119BC93BF0089A397 /* libpixman-1.a */; };
+		D5B8A4B519B60B98003A717E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5B8A4B419B60B98003A717E /* main.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
@@ -89,7 +89,6 @@
 		E45BE9810E8CC7DD009D7055 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9770E8CC7DD009D7055 /* CoreServices.framework */; };
 		E45BE9830E8CC7DD009D7055 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9790E8CC7DD009D7055 /* OpenGL.framework */; };
 		E45BE9840E8CC7DD009D7055 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */; };
-		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
 		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
 		E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424410CC5A17004149E2 /* AppKit.framework */; };
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
@@ -132,6 +131,19 @@
 
 /* Begin PBXFileReference section */
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
+		D50CA3D619BDD017009A8ADC /* libcairo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcairo.a; sourceTree = "<group>"; };
+		D50CA3D719BDD017009A8ADC /* libcharset.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcharset.a; sourceTree = "<group>"; };
+		D50CA3D819BDD017009A8ADC /* libgettextpo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgettextpo.a; sourceTree = "<group>"; };
+		D50CA3D919BDD017009A8ADC /* libgio-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgio-2.0.a"; sourceTree = "<group>"; };
+		D50CA3DA19BDD017009A8ADC /* libglib-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libglib-2.0.a"; sourceTree = "<group>"; };
+		D50CA3DB19BDD017009A8ADC /* libgmodule-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgmodule-2.0.a"; sourceTree = "<group>"; };
+		D50CA3DC19BDD017009A8ADC /* libgobject-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgobject-2.0.a"; sourceTree = "<group>"; };
+		D50CA3DD19BDD017009A8ADC /* libgthread-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgthread-2.0.a"; sourceTree = "<group>"; };
+		D50CA3DE19BDD017009A8ADC /* libiconv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libiconv.a; sourceTree = "<group>"; };
+		D50CA3DF19BDD017009A8ADC /* libintl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libintl.a; sourceTree = "<group>"; };
+		D50CA3E019BDD017009A8ADC /* libpango-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpango-1.0.a"; sourceTree = "<group>"; };
+		D50CA3E119BDD017009A8ADC /* libpangocairo-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpangocairo-1.0.a"; sourceTree = "<group>"; };
+		D50CA3E219BDD017009A8ADC /* libpixman-1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpixman-1.a"; sourceTree = "<group>"; };
 		D52A8DBA19A788D70025BBAF /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		D52A8DBD19A788D70025BBAF /* ofxTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTimer.cpp; sourceTree = "<group>"; };
 		D52A8DBE19A788D70025BBAF /* ofxTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTimer.h; sourceTree = "<group>"; };
@@ -192,8 +204,6 @@
 		D52A8E0119A788D70025BBAF /* VerticalRestrictor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerticalRestrictor.h; sourceTree = "<group>"; };
 		D52A8E0219A788D70025BBAF /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
 		D52A8E0319A788D70025BBAF /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
-		D52A8E0519A788D70025BBAF /* FpsMeter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FpsMeter.cpp; sourceTree = "<group>"; };
-		D52A8E0619A788D70025BBAF /* FpsMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FpsMeter.h; sourceTree = "<group>"; };
 		D52A8E0819A788D70025BBAF /* BasicButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicButton.cpp; sourceTree = "<group>"; };
 		D52A8E0919A788D70025BBAF /* BasicButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicButton.h; sourceTree = "<group>"; };
 		D52A8E0A19A788D70025BBAF /* Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Container.h; sourceTree = "<group>"; };
@@ -215,7 +225,6 @@
 		D52A8E1B19A788D70025BBAF /* ShapeRoundedRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShapeRoundedRect.cpp; sourceTree = "<group>"; };
 		D52A8E1C19A788D70025BBAF /* ShapeRoundedRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShapeRoundedRect.h; sourceTree = "<group>"; };
 		D52A8E1D19A788D70025BBAF /* Shapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shapes.h; sourceTree = "<group>"; };
-		D52A8E6C19A788E70025BBAF /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		D52A8E6E19A788E70025BBAF /* compile_cairo.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = compile_cairo.sh; sourceTree = "<group>"; };
 		D52A8E6F19A788E70025BBAF /* compile_pango.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = compile_pango.sh; sourceTree = "<group>"; };
 		D52A8E7019A788E70025BBAF /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
@@ -496,19 +505,7 @@
 		D52A8FDC19A78AD80025BBAF /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
 		D52A8FDE19A78AD80025BBAF /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
 		D52A8FDF19A78AD80025BBAF /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
-		D5CD283519BC93BF0089A397 /* libcairo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcairo.a; sourceTree = "<group>"; };
-		D5CD283619BC93BF0089A397 /* libcharset.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcharset.a; sourceTree = "<group>"; };
-		D5CD283719BC93BF0089A397 /* libgettextpo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgettextpo.a; sourceTree = "<group>"; };
-		D5CD283819BC93BF0089A397 /* libgio-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgio-2.0.a"; sourceTree = "<group>"; };
-		D5CD283919BC93BF0089A397 /* libglib-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libglib-2.0.a"; sourceTree = "<group>"; };
-		D5CD283A19BC93BF0089A397 /* libgmodule-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgmodule-2.0.a"; sourceTree = "<group>"; };
-		D5CD283B19BC93BF0089A397 /* libgobject-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgobject-2.0.a"; sourceTree = "<group>"; };
-		D5CD283C19BC93BF0089A397 /* libgthread-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgthread-2.0.a"; sourceTree = "<group>"; };
-		D5CD283D19BC93BF0089A397 /* libiconv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libiconv.a; sourceTree = "<group>"; };
-		D5CD283E19BC93BF0089A397 /* libintl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libintl.a; sourceTree = "<group>"; };
-		D5CD283F19BC93BF0089A397 /* libpango-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpango-1.0.a"; sourceTree = "<group>"; };
-		D5CD284019BC93BF0089A397 /* libpangocairo-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpangocairo-1.0.a"; sourceTree = "<group>"; };
-		D5CD284119BC93BF0089A397 /* libpixman-1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpixman-1.a"; sourceTree = "<group>"; };
+		D5B8A4B419B60B98003A717E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
@@ -518,8 +515,7 @@
 		E45BE9770E8CC7DD009D7055 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		E45BE9790E8CC7DD009D7055 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		E4B69B5B0A3A1756003C02F2 /* RRScenegraph_exampleDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RRScenegraph_exampleDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
+		E4B69B5B0A3A1756003C02F2 /* rrscenegraph_example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = rrscenegraph_example.app; path = /Users/matthiasrohrbach/Development/openframeworks/of_v0.8.3_osx_release/addons/ofxRRScenegraph/example_mt/bin/rrscenegraph_example.app; sourceTree = "<absolute>"; };
 		E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofApp.cpp; path = src/ofApp.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
@@ -539,33 +535,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */,
-				D5CD284619BC93BF0089A397 /* libglib-2.0.a in Frameworks */,
-				D5CD284919BC93BF0089A397 /* libgthread-2.0.a in Frameworks */,
+				D50CA3E719BDD017009A8ADC /* libglib-2.0.a in Frameworks */,
+				D50CA3EA19BDD017009A8ADC /* libgthread-2.0.a in Frameworks */,
 				E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */,
 				E4EB6799138ADC1D00A09F29 /* GLUT.framework in Frameworks */,
 				E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */,
 				E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */,
-				D5CD284C19BC93BF0089A397 /* libpango-1.0.a in Frameworks */,
+				D50CA3ED19BDD017009A8ADC /* libpango-1.0.a in Frameworks */,
 				E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */,
-				D5CD284519BC93BF0089A397 /* libgio-2.0.a in Frameworks */,
+				D50CA3E619BDD017009A8ADC /* libgio-2.0.a in Frameworks */,
 				E45BE97D0E8CC7DD009D7055 /* AudioToolbox.framework in Frameworks */,
 				E45BE97F0E8CC7DD009D7055 /* CoreAudio.framework in Frameworks */,
 				E45BE9800E8CC7DD009D7055 /* CoreFoundation.framework in Frameworks */,
-				D5CD284B19BC93BF0089A397 /* libintl.a in Frameworks */,
+				D50CA3EC19BDD017009A8ADC /* libintl.a in Frameworks */,
 				E45BE9810E8CC7DD009D7055 /* CoreServices.framework in Frameworks */,
-				D5CD284319BC93BF0089A397 /* libcharset.a in Frameworks */,
+				D50CA3E419BDD017009A8ADC /* libcharset.a in Frameworks */,
 				E45BE9830E8CC7DD009D7055 /* OpenGL.framework in Frameworks */,
-				D5CD284E19BC93BF0089A397 /* libpixman-1.a in Frameworks */,
-				D5CD284719BC93BF0089A397 /* libgmodule-2.0.a in Frameworks */,
-				D5CD284A19BC93BF0089A397 /* libiconv.a in Frameworks */,
-				D5CD284819BC93BF0089A397 /* libgobject-2.0.a in Frameworks */,
+				D50CA3EF19BDD017009A8ADC /* libpixman-1.a in Frameworks */,
+				D50CA3E819BDD017009A8ADC /* libgmodule-2.0.a in Frameworks */,
+				D50CA3EB19BDD017009A8ADC /* libiconv.a in Frameworks */,
+				D50CA3E919BDD017009A8ADC /* libgobject-2.0.a in Frameworks */,
 				E45BE9840E8CC7DD009D7055 /* QuickTime.framework in Frameworks */,
 				E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */,
 				E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */,
-				D5CD284419BC93BF0089A397 /* libgettextpo.a in Frameworks */,
-				D5CD284D19BC93BF0089A397 /* libpangocairo-1.0.a in Frameworks */,
+				D50CA3E519BDD017009A8ADC /* libgettextpo.a in Frameworks */,
+				D50CA3EE19BDD017009A8ADC /* libpangocairo-1.0.a in Frameworks */,
 				E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */,
-				D5CD284219BC93BF0089A397 /* libcairo.a in Frameworks */,
+				D50CA3E319BDD017009A8ADC /* libcairo.a in Frameworks */,
 				E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -800,8 +796,6 @@
 		D52A8E0419A788D70025BBAF /* components */ = {
 			isa = PBXGroup;
 			children = (
-				D52A8E0519A788D70025BBAF /* FpsMeter.cpp */,
-				D52A8E0619A788D70025BBAF /* FpsMeter.h */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -844,7 +838,6 @@
 		D52A8E6B19A788E70025BBAF /* ofxPango */ = {
 			isa = PBXGroup;
 			children = (
-				D52A8E6C19A788E70025BBAF /* .gitignore */,
 				D52A8E6D19A788E70025BBAF /* bin */,
 				D52A8E7119A788E70025BBAF /* install.xml */,
 				D52A8E7219A788E70025BBAF /* readme.txt */,
@@ -1183,19 +1176,19 @@
 		D52A8F5019A788E70025BBAF /* static */ = {
 			isa = PBXGroup;
 			children = (
-				D5CD283519BC93BF0089A397 /* libcairo.a */,
-				D5CD283619BC93BF0089A397 /* libcharset.a */,
-				D5CD283719BC93BF0089A397 /* libgettextpo.a */,
-				D5CD283819BC93BF0089A397 /* libgio-2.0.a */,
-				D5CD283919BC93BF0089A397 /* libglib-2.0.a */,
-				D5CD283A19BC93BF0089A397 /* libgmodule-2.0.a */,
-				D5CD283B19BC93BF0089A397 /* libgobject-2.0.a */,
-				D5CD283C19BC93BF0089A397 /* libgthread-2.0.a */,
-				D5CD283D19BC93BF0089A397 /* libiconv.a */,
-				D5CD283E19BC93BF0089A397 /* libintl.a */,
-				D5CD283F19BC93BF0089A397 /* libpango-1.0.a */,
-				D5CD284019BC93BF0089A397 /* libpangocairo-1.0.a */,
-				D5CD284119BC93BF0089A397 /* libpixman-1.a */,
+				D50CA3D619BDD017009A8ADC /* libcairo.a */,
+				D50CA3D719BDD017009A8ADC /* libcharset.a */,
+				D50CA3D819BDD017009A8ADC /* libgettextpo.a */,
+				D50CA3D919BDD017009A8ADC /* libgio-2.0.a */,
+				D50CA3DA19BDD017009A8ADC /* libglib-2.0.a */,
+				D50CA3DB19BDD017009A8ADC /* libgmodule-2.0.a */,
+				D50CA3DC19BDD017009A8ADC /* libgobject-2.0.a */,
+				D50CA3DD19BDD017009A8ADC /* libgthread-2.0.a */,
+				D50CA3DE19BDD017009A8ADC /* libiconv.a */,
+				D50CA3DF19BDD017009A8ADC /* libintl.a */,
+				D50CA3E019BDD017009A8ADC /* libpango-1.0.a */,
+				D50CA3E119BDD017009A8ADC /* libpangocairo-1.0.a */,
+				D50CA3E219BDD017009A8ADC /* libpixman-1.a */,
 			);
 			path = static;
 			sourceTree = "<group>";
@@ -1409,14 +1402,13 @@
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
-				E4B69B5B0A3A1756003C02F2 /* RRScenegraph_exampleDebug.app */,
 			);
 			sourceTree = "<group>";
 		};
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
+				D5B8A4B419B60B98003A717E /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 			);
@@ -1435,9 +1427,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E4B69B5A0A3A1756003C02F2 /* RRScenegraph_example */ = {
+		E4B69B5A0A3A1756003C02F2 /* rrscenegraph_example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "RRScenegraph_example" */;
+			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "rrscenegraph_example" */;
 			buildPhases = (
 				E4B69B580A3A1756003C02F2 /* Sources */,
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
@@ -1449,9 +1441,9 @@
 			dependencies = (
 				E4EEB9AC138B136A00A80321 /* PBXTargetDependency */,
 			);
-			name = RRScenegraph_example;
+			name = rrscenegraph_example;
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* RRScenegraph_exampleDebug.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* rrscenegraph_example.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1462,7 +1454,7 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 			};
-			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "RRScenegraph_example" */;
+			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "rrscenegraph_example" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1483,7 +1475,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				E4B69B5A0A3A1756003C02F2 /* RRScenegraph_example */,
+				E4B69B5A0A3A1756003C02F2 /* rrscenegraph_example */,
 			);
 		};
 /* End PBXProject section */
@@ -1533,7 +1525,6 @@
 				D52A8FCB19A78A6A0025BBAF /* UdpSocket.cpp in Sources */,
 				D52A8E2B19A788D70025BBAF /* StringValidator.cpp in Sources */,
 				D52A8F9919A788E80025BBAF /* ofxPCContext.cpp in Sources */,
-				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				D52A8FCC19A78A6A0025BBAF /* NetworkingUtilsWin.cpp in Sources */,
 				D52A8E2519A788D70025BBAF /* BasicController.cpp in Sources */,
 				D52A8E3B19A788D70025BBAF /* TextField.cpp in Sources */,
@@ -1568,7 +1559,7 @@
 				D52A8E3819A788D70025BBAF /* Image.cpp in Sources */,
 				D52A8FD319A78A6A0025BBAF /* ofxOscMessage.cpp in Sources */,
 				D52A8FCA19A78A6A0025BBAF /* NetworkingUtils.cpp in Sources */,
-				D52A8E3619A788D70025BBAF /* FpsMeter.cpp in Sources */,
+				D5B8A4B519B60B98003A717E /* main.cpp in Sources */,
 				D52A8FD419A78A6A0025BBAF /* ofxOscParameterSync.cpp in Sources */,
 				D52A8E3C19A788D70025BBAF /* BasicShape.cpp in Sources */,
 				D52A8FE019A78AD80025BBAF /* tinyxml.cpp in Sources */,
@@ -1753,9 +1744,10 @@
 					"$(PROJECT_DIR)/ofxPango/src/libs/mac/static",
 					"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.6.sdk/usr/lib",
 					/Volumes/MacintoshHD/UserData/Development/Openframeworks/of_v0.8.3_osx_release/addons/ofxPango/src/libs/mac/static,
+					/Users/matthiasrohrbach2/Development/openframeworks/of_v0.8.3_osx_release/addons/ofXPango/src/libs/mac/static,
 					/Users/matthiasrohrbach/Development/openframeworks/of_v0.8.3_osx_release/addons/ofxPango/src/libs/mac/static,
 				);
-				PRODUCT_NAME = RRScenegraph_exampleDebug;
+				PRODUCT_NAME = rrscenegraph_exampleDebug;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1850,9 +1842,10 @@
 					"$(PROJECT_DIR)/ofxPango/src/libs/mac/static",
 					"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.6.sdk/usr/lib",
 					/Volumes/MacintoshHD/UserData/Development/Openframeworks/of_v0.8.3_osx_release/addons/ofxPango/src/libs/mac/static,
+					/Users/matthiasrohrbach2/Development/openframeworks/of_v0.8.3_osx_release/addons/ofXPango/src/libs/mac/static,
 					/Users/matthiasrohrbach/Development/openframeworks/of_v0.8.3_osx_release/addons/ofxPango/src/libs/mac/static,
 				);
-				PRODUCT_NAME = RRScenegraph_example;
+				PRODUCT_NAME = rrscenegraph_example;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1861,7 +1854,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "RRScenegraph_example" */ = {
+		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "rrscenegraph_example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B4E0A3A1720003C02F2 /* Debug */,
@@ -1870,7 +1863,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "RRScenegraph_example" */ = {
+		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "rrscenegraph_example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B600A3A1757003C02F2 /* Debug */,
