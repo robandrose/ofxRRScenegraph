@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-               BuildableName = "rrscenegraph_example.app"
-               BlueprintName = "rrscenegraph_example"
-               ReferencedContainer = "container:rrscenegraph_example.xcodeproj">
+               BuildableName = "RRScenegraph_example.app"
+               BlueprintName = "RRScenegraph_example"
+               ReferencedContainer = "container:RRScenegraph_example.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "rrscenegraph_example.app"
-            BlueprintName = "rrscenegraph_example"
-            ReferencedContainer = "container:rrscenegraph_example.xcodeproj">
+            BuildableName = "RRScenegraph_example.app"
+            BlueprintName = "RRScenegraph_example"
+            ReferencedContainer = "container:RRScenegraph_example.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -52,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "rrscenegraph_example.app"
-            BlueprintName = "rrscenegraph_example"
-            ReferencedContainer = "container:rrscenegraph_example.xcodeproj">
+            BuildableName = "RRScenegraph_example.app"
+            BlueprintName = "RRScenegraph_example"
+            ReferencedContainer = "container:RRScenegraph_example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -70,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "rrscenegraph_example.app"
-            BlueprintName = "rrscenegraph_example"
-            ReferencedContainer = "container:rrscenegraph_example.xcodeproj">
+            BuildableName = "RRScenegraph_example.app"
+            BlueprintName = "RRScenegraph_example"
+            ReferencedContainer = "container:RRScenegraph_example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
