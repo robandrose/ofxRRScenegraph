@@ -39,16 +39,16 @@ The Pango version is a fork from roxlu with some added functionality like tabsto
 ## Dependencies
 
 ### included in this repository:
-ofxTimer by Todd Vanderlin
-ofxTweener by Sander ter Braak
-ofxTuioWrapper by Matthias Dörfelet
-TUIO by Matthias Kaltenbrunner
+- ofxTimer by Todd Vanderlin
+- ofxTweener by Sander ter Braak
+- ofxTuioWrapper by Matthias Dörfelet
+- TUIO by Matthias Kaltenbrunner
 
 ### additional addons:
-ofxPango by roxlu, but with modifications here:http://www.github.com/robandrose/ofxPango
-ofxThreadedImageLoader
-ofxXMLSettings
-ofxOSC
+- ofxPango by roxlu, but with modifications here:http://www.github.com/robandrose/ofxPango
+- ofxThreadedImageLoader
+- ofxXMLSettings
+- ofxOSC
 
 
 
