@@ -36,6 +36,21 @@ Make sure you have all the needed addons linked, the most important ones are inc
 The Pango version is a fork from roxlu with some added functionality like tabstops. It is hosted under http://www.github.com/robandrose/ofxPango
 
 
+## Dependencies
+
+### included in this repository:
+ofxTimer by Todd Vanderlin
+ofxTweener by Sander ter Braak
+ofxTuioWrapper by Matthias Dörfelet
+TUIO by Matthias Kaltenbrunner
+
+### additional addons:
+ofxPango by roxlu, but with modifications here:http://www.github.com/robandrose/ofxPango
+ofxThreadedImageLoader
+ofxXMLSettings
+ofxOSC
+
+
 
 
 
