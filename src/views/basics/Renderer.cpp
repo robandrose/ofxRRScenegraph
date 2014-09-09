@@ -32,12 +32,10 @@ Renderer::~Renderer(){
 void Renderer::resize(){
     BasicScreenObject::setSize(ofGetWidth(),ofGetHeight());
     camera.setupPerspective();
-	
-	
 }
 
 void Renderer::setup(){
-	
+    
 	camera.setupPerspective();
 	BasicScreenObject::setSize(ofGetWidth(),ofGetHeight());
 	
@@ -283,7 +281,7 @@ void Renderer::notifyObjects(TouchAction _touchAction) {
 
 
 void Renderer::drawMap() {
-	//ofSetColor(255, 255, 255);
+	ofSetColor(255, 255, 255);
 	pickingmap.draw(0, 0);
 }
 

@@ -21,4 +21,5 @@ protected:
     void onTap(MultiTouchEvent& e);
     
     ofBoxPrimitive mybox;
+    
 };

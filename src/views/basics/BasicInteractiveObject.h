@@ -138,9 +138,9 @@ public:
 	bool isScaleing(){return isscaling;};
 	
 	ofVec3f getDragSpeed(){return mttranslatespeed;};
-	
-	
-	
+    ofQuaternion getRotationSpeed(){return mtrotatespeed;};
+	float getScaleSpeed(){return mtscalespeed;};
+    
 	//events
 	
 	ofEvent<MultiTouchEvent> firstTouchDownEvent;
@@ -199,11 +199,9 @@ public:
 	GLint	colorToPickingName(ofColor& _color);
 	
 	map<int, MultiTouchPoint*>* getActiveMultiTouches() { return &activeMultiTouches; };
-	
     
     ofMatrix4x4 mttransformmatrixstart; // Transformmatrix upon start of interactionScope
 	ofMatrix4x4 mttransformmatrix; // Additional Transformmatrix during scope (start->now)
-	
     
     
 protected:

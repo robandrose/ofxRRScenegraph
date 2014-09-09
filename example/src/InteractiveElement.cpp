@@ -22,5 +22,5 @@ void InteractiveElement::_drawForPicking(){
 }
 
 void InteractiveElement::onTap(MultiTouchEvent& e){
-    mybox.rotate(30,0,1,0);
+    rotateTo(ofRandom(0,360), ofRandom(0,360), ofRandom(0,360), 500);
 }

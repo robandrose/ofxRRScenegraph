@@ -122,8 +122,6 @@ public:
 	bool	isOrderChildrenByZ();
 	void	doOrderChildrenByZ();
     
-	//ofVec3f getScreenPosition(ofVec3f _);
-	
 	ofVec3f		globalToLocalDir(ofVec3f _global);
 	
     ofVec3f		localToGlobal(ofVec3f _local);

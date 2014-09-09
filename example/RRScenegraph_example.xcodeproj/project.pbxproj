@@ -183,7 +183,6 @@
 		D52A8DF719A788D70025BBAF /* AreaRestrictor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaRestrictor.h; sourceTree = "<group>"; };
 		D52A8DF819A788D70025BBAF /* HorizontalRestrictor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HorizontalRestrictor.cpp; sourceTree = "<group>"; };
 		D52A8DF919A788D70025BBAF /* HorizontalRestrictor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HorizontalRestrictor.h; sourceTree = "<group>"; };
-		D52A8DFA19A788D70025BBAF /* IPositioner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPositioner.h; sourceTree = "<group>"; };
 		D52A8DFB19A788D70025BBAF /* Positioners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Positioners.h; sourceTree = "<group>"; };
 		D52A8DFC19A788D70025BBAF /* RotationRestrictor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RotationRestrictor.cpp; sourceTree = "<group>"; };
 		D52A8DFD19A788D70025BBAF /* RotationRestrictor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationRestrictor.h; sourceTree = "<group>"; };
@@ -495,6 +494,7 @@
 		D52A8FDC19A78AD80025BBAF /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
 		D52A8FDE19A78AD80025BBAF /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
 		D52A8FDF19A78AD80025BBAF /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
+		D560267D19BF9D3100C3B33B /* IPositioner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IPositioner.h; path = ../../../../../ofxRRScenegraph/src/views/basics/positioners/IPositioner.h; sourceTree = "<group>"; };
 		D5BAC24A19BDDB62004F7CB9 /* InteractiveElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InteractiveElement.cpp; sourceTree = "<group>"; };
 		D5BAC24B19BDDB62004F7CB9 /* InteractiveElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractiveElement.h; sourceTree = "<group>"; };
 		D5BAC25419BE06A1004F7CB9 /* ScrollableContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScrollableContainer.cpp; sourceTree = "<group>"; };
@@ -783,13 +783,13 @@
 		D52A8DF319A788D70025BBAF /* positioners */ = {
 			isa = PBXGroup;
 			children = (
+				D560267D19BF9D3100C3B33B /* IPositioner.h */,
 				D52A8DF419A788D70025BBAF /* ArcRestrictor.cpp */,
 				D52A8DF519A788D70025BBAF /* ArcRestrictor.h */,
 				D52A8DF619A788D70025BBAF /* AreaRestrictor.cpp */,
 				D52A8DF719A788D70025BBAF /* AreaRestrictor.h */,
 				D52A8DF819A788D70025BBAF /* HorizontalRestrictor.cpp */,
 				D52A8DF919A788D70025BBAF /* HorizontalRestrictor.h */,
-				D52A8DFA19A788D70025BBAF /* IPositioner.h */,
 				D52A8DFB19A788D70025BBAF /* Positioners.h */,
 				D52A8DFC19A788D70025BBAF /* RotationRestrictor.cpp */,
 				D52A8DFD19A788D70025BBAF /* RotationRestrictor.h */,
