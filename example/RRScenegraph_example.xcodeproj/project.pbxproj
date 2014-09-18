@@ -67,6 +67,7 @@
 		D52A8FE219A78AD80025BBAF /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FDC19A78AD80025BBAF /* tinyxmlparser.cpp */; };
 		D52A8FE319A78AD80025BBAF /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52A8FDE19A78AD80025BBAF /* ofxXmlSettings.cpp */; };
 		D55B025219CB2B3E00D41BBD /* ofxFastFboReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D55B025019CB2B3E00D41BBD /* ofxFastFboReader.cpp */; };
+		D55B027719CB500E00D41BBD /* StateController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D55B027419CB500E00D41BBD /* StateController.cpp */; };
 		D5BAC24C19BDDB62004F7CB9 /* InteractiveElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5BAC24A19BDDB62004F7CB9 /* InteractiveElement.cpp */; };
 		D5BAC25819BE06A1004F7CB9 /* ScrollableContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5BAC25419BE06A1004F7CB9 /* ScrollableContainer.cpp */; };
 		D5BAC25919BE06A1004F7CB9 /* ScrollableTextArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5BAC25619BE06A1004F7CB9 /* ScrollableTextArea.cpp */; };
@@ -497,6 +498,9 @@
 		D52A8FDF19A78AD80025BBAF /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
 		D55B025019CB2B3E00D41BBD /* ofxFastFboReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFastFboReader.cpp; sourceTree = "<group>"; };
 		D55B025119CB2B3E00D41BBD /* ofxFastFboReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFastFboReader.h; sourceTree = "<group>"; };
+		D55B027319CB500E00D41BBD /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
+		D55B027419CB500E00D41BBD /* StateController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateController.cpp; sourceTree = "<group>"; };
+		D55B027519CB500E00D41BBD /* StateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateController.h; sourceTree = "<group>"; };
 		D560267D19BF9D3100C3B33B /* IPositioner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IPositioner.h; path = ../../../../../ofxRRScenegraph/src/views/basics/positioners/IPositioner.h; sourceTree = "<group>"; };
 		D5BAC24A19BDDB62004F7CB9 /* InteractiveElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InteractiveElement.cpp; sourceTree = "<group>"; };
 		D5BAC24B19BDDB62004F7CB9 /* InteractiveElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractiveElement.h; sourceTree = "<group>"; };
@@ -714,6 +718,7 @@
 		D52A8DD619A788D70025BBAF /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D55B027119CB500E00D41BBD /* statemachine */,
 				D52A8DD719A788D70025BBAF /* basics */,
 				D52A8DDA19A788D70025BBAF /* SettingsManager.cpp */,
 				D52A8DDB19A788D70025BBAF /* SettingsManager.h */,
@@ -1400,6 +1405,17 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		D55B027119CB500E00D41BBD /* statemachine */ = {
+			isa = PBXGroup;
+			children = (
+				D55B027319CB500E00D41BBD /* State.h */,
+				D55B027419CB500E00D41BBD /* StateController.cpp */,
+				D55B027519CB500E00D41BBD /* StateController.h */,
+			);
+			name = statemachine;
+			path = ../../../ofxRRScenegraph/src/controllers/statemachine;
+			sourceTree = "<group>";
+		};
 		D5BAC25319BE06A1004F7CB9 /* components */ = {
 			isa = PBXGroup;
 			children = (
@@ -1561,6 +1577,7 @@
 				D52A8FD619A78A6A0025BBAF /* ofxOscSender.cpp in Sources */,
 				D52A8FE319A78AD80025BBAF /* ofxXmlSettings.cpp in Sources */,
 				D55B025219CB2B3E00D41BBD /* ofxFastFboReader.cpp in Sources */,
+				D55B027719CB500E00D41BBD /* StateController.cpp in Sources */,
 				D52A8F9A19A788E80025BBAF /* ofxPCPangoFontDescription.cpp in Sources */,
 				D52A8FCF19A78A6A0025BBAF /* OscPrintReceivedElements.cpp in Sources */,
 				D52A8FCB19A78A6A0025BBAF /* UdpSocket.cpp in Sources */,
