@@ -22,6 +22,10 @@ Renderer::Renderer(){
 	
 	idleEventFired		= false;
 	idleTimeout			= 30000;	// 30 seconds
+    
+    
+    fboReader.setAsync(true);
+    
 }
 
 
@@ -32,6 +36,8 @@ Renderer::~Renderer(){
 void Renderer::resize(){
     BasicScreenObject::setSize(ofGetWidth(),ofGetHeight());
     camera.setupPerspective();
+    
+    
 }
 
 void Renderer::setup(){
@@ -68,16 +74,13 @@ void Renderer::setupColorPicker(float _width, float _height, float _sampling, fl
 	
     camera.setupPerspective();
 	bColorPickerSetup=true;
-    
 }
 
 
 void Renderer::update(){
-
 	Tweener.update();
-
-	if(bColorPickerSetup){
-		
+    
+    if(bColorPickerSetup){
 		bool waslighting = glIsEnabled(GL_LIGHTING);
 		if(waslighting){
 			glDisable(GL_LIGHTING);
@@ -98,8 +101,8 @@ void Renderer::update(){
 		}
 		
 		if (!touchActions.empty()) {
-			//pickingmap.readToPixels(mapPixels);	// < takes 20ms for rgb fbo. 1ms for GL_LUMINANCE
-            fboReader.readToPixels(pickingmap, mapPixels);
+			pickingmap.readToPixels(mapPixels);	// < takes 20ms for rgb fbo. 1ms for GL_LUMINANCE
+            //fboReader.readToPixels(pickingmap, mapPixels);
 		}
 		
 		while (!touchActions.empty() ) {
