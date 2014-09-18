@@ -5,11 +5,9 @@ void ofApp::setup(){
     ofSetRectMode(OF_RECTMODE_CORNER);
     
     renderer.setSize(ofGetWidth(), ofGetHeight());
-    renderer.setupColorPicker(ofGetWidth(), ofGetHeight(), 3, 3);
-    
-    
+    renderer.setupColorPicker(ofGetWidth(), ofGetHeight(), 2, 3);
     renderer.startTuio(3333);
-    
+
     cont.enableDepthTest();
     for(int i=0;i<40;i++){
         buttons[i].setSize(100, 100);
@@ -20,7 +18,9 @@ void ofApp::setup(){
         cont.addChild(&buttons[i]);
     }
     renderer.addChild(&cont);
- }
+ 
+//    ofSetVerticalSync(false);
+}
 
 
 //--------------------------------------------------------------
@@ -76,7 +76,7 @@ void ofApp::mouseReleased(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
     renderer.resize();
-    renderer.setupColorPicker(ofGetWidth(), ofGetHeight(), 3, 3);
+    renderer.setupColorPicker(ofGetWidth(), ofGetHeight(), 2, 3);
 }
 
 //--------------------------------------------------------------

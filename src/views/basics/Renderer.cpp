@@ -35,9 +35,9 @@ void Renderer::resize(){
 }
 
 void Renderer::setup(){
+    BasicScreenObject::setSize(ofGetWidth(),ofGetHeight());
     
-	camera.setupPerspective();
-	BasicScreenObject::setSize(ofGetWidth(),ofGetHeight());
+    camera.setupPerspective();
 	
 	ofAddListener(ofEvents().mousePressed, this, &Renderer::mousePressed);
 	ofAddListener(ofEvents().mouseDragged, this, &Renderer::mouseDragged);
@@ -58,17 +58,17 @@ void Renderer::setupColorPicker(float _width, float _height, float _sampling, fl
 	
 	ofFbo::Settings s;
 	
-	s.width				= getWidth()  / mapsampling;
-	s.height			= getHeight() / mapsampling;
+	s.width				= (float)getWidth()  / mapsampling;
+	s.height			= (float)getHeight() / mapsampling;
 	s.internalformat	= GL_RGB; // would be much faster using GL_LUMINANCE or GL_LUMINANCE32F_ARB (32bit resolution should be enough);
 	s.useDepth			= true;
+	pickingmap.allocate(s);
 	
-	pickingmap.allocate(s );
-
-	maxbounds = ofRectangle ( 0 , 0 , pickingmap.getWidth()-1 , pickingmap.getHeight()-1 ) ;
-	camera.setupPerspective();
+    maxbounds = ofRectangle ( 0 , 0 , pickingmap.getWidth()-1 , pickingmap.getHeight()-1 ) ;
 	
+    camera.setupPerspective();
 	bColorPickerSetup=true;
+    
 }
 
 
@@ -82,15 +82,15 @@ void Renderer::update(){
 		if(waslighting){
 			glDisable(GL_LIGHTING);
 		}
-		
+        
 		if(ofGetFrameNum() % captureincrement==0){
 			pickingmap.begin();
 			ofClear(0);
-			ofScale( mapscale , mapscale , mapscale) ;		
-			camera.begin();
-			BasicScreenObject::drawForPicking();
+			ofScale( mapscale , mapscale , mapscale);
+            camera.begin();
+            BasicScreenObject::drawForPicking();
 			camera.end();
-			pickingmap.end();						
+            pickingmap.end();
 		}
 		
 		if(waslighting){
@@ -98,7 +98,8 @@ void Renderer::update(){
 		}
 		
 		if (!touchActions.empty()) {
-			pickingmap.readToPixels(mapPixels);	// < takes 20ms for rgb fbo. 1ms for GL_LUMINANCE
+			//pickingmap.readToPixels(mapPixels);	// < takes 20ms for rgb fbo. 1ms for GL_LUMINANCE
+            fboReader.readToPixels(pickingmap, mapPixels);
 		}
 		
 		while (!touchActions.empty() ) {
@@ -282,7 +283,10 @@ void Renderer::notifyObjects(TouchAction _touchAction) {
 
 void Renderer::drawMap() {
 	ofSetColor(255, 255, 255);
+    ofPushMatrix();
+    ofScale(1/mapscale,1/mapscale);
 	pickingmap.draw(0, 0);
+    ofPopMatrix();
 }
 
 

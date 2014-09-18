@@ -31,7 +31,7 @@
 #include "BasicInteractiveObject.h"
 #include "ofxTuioClient.h"
 #include "ofxTweener.h"
-
+#include "ofxFastFboReader.h"
 
 #define MT_ADD 0
 #define MT_UPDATE 1
@@ -144,7 +144,7 @@ protected:
 	
 	// Pixel picking:
 	ofFbo				pickingmap;
-	//ofxFastFboReader	fboReader;
+	ofxFastFboReader	fboReader;
 	ofPixels			mapPixels ;
 	
 	int			captureincrement ;
