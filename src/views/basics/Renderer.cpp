@@ -294,7 +294,6 @@ void Renderer::drawMap() {
 
 
 void Renderer::drawCursors(){
-
 	ofEnableAlphaBlending();
 	glBlendFunc(GL_ONE, GL_ONE);
 	
