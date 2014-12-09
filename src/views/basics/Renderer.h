@@ -50,11 +50,9 @@ public:
 	virtual ~Renderer();
 	
 	void startTuio(int _port);
-	void setupColorPicker(float _width, float _height, float _sampling, float _increment);
-	
-    void resize();
-    
-	void draw();
+	void setupColorPicker(float _width, float _height, float _sampling=4, float _increment=4);
+	void resize();
+    void draw();
 	void drawMap();	
 	void drawCursors();
 	

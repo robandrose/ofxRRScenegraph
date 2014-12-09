@@ -36,15 +36,12 @@ Renderer::~Renderer(){
 void Renderer::resize(){
     BasicScreenObject::setSize(ofGetWidth(),ofGetHeight());
     camera.setupPerspective();
-    
-    
 }
 
 void Renderer::setup(){
     BasicScreenObject::setSize(ofGetWidth(),ofGetHeight());
-    
     camera.setupPerspective();
-	
+    
 	ofAddListener(ofEvents().mousePressed, this, &Renderer::mousePressed);
 	ofAddListener(ofEvents().mouseDragged, this, &Renderer::mouseDragged);
 	ofAddListener(ofEvents().mouseReleased, this, &Renderer::mouseReleased);
@@ -72,7 +69,7 @@ void Renderer::setupColorPicker(float _width, float _height, float _sampling, fl
 	
     maxbounds = ofRectangle ( 0 , 0 , pickingmap.getWidth()-1 , pickingmap.getHeight()-1 ) ;
 	
-    camera.setupPerspective();
+   // camera.setupPerspective();
 	bColorPickerSetup=true;
 }
 
@@ -146,15 +143,15 @@ void Renderer::tuioAdded(ofTouchEventArgs & _cursor) {
 		mousetouchid = _cursor.id;
 
 		static ofMouseEventArgs mouseEventArgs;
-		mouseEventArgs.x = _cursor.x*ofGetWidth();
-		mouseEventArgs.y = _cursor.y*ofGetHeight();
+		mouseEventArgs.x = _cursor.x*getWidth();
+		mouseEventArgs.y = _cursor.y*getHeight();
 		mouseEventArgs.button = 1;
 		lastfakemouseevent = &mouseEventArgs;
 		ofNotifyEvent( ofEvents().mousePressed, mouseEventArgs );
 		
 	}
 	
-	queueTouchAction(_cursor.x*ofGetWidth(), _cursor.y*ofGetHeight(), _cursor.id, MT_ADD);
+	queueTouchAction(_cursor.x*getWidth(), _cursor.y*getHeight(), _cursor.id, MT_ADD);
 }
 
 
@@ -164,14 +161,14 @@ void Renderer::tuioRemoved(ofTouchEventArgs & _cursor){
 		mousetouchid = -1;
 		
 		static ofMouseEventArgs mouseEventArgs;
-		mouseEventArgs.x = _cursor.x*ofGetWidth();
-		mouseEventArgs.y = _cursor.y*ofGetHeight();
+		mouseEventArgs.x = _cursor.x*getWidth();
+		mouseEventArgs.y = _cursor.y*getHeight();
 		mouseEventArgs.button = 1;
 		lastfakemouseevent = &mouseEventArgs;
 		ofNotifyEvent( ofEvents().mouseReleased , mouseEventArgs );
 	}
 	
-	queueTouchAction(_cursor.x*ofGetWidth(), _cursor.y*ofGetHeight(), _cursor.id, MT_REMOVE);
+	queueTouchAction(_cursor.x*getWidth(), _cursor.y*getHeight(), _cursor.id, MT_REMOVE);
 }
 
 
@@ -179,14 +176,14 @@ void Renderer::tuioUpdated(ofTouchEventArgs & _cursor){
 	
 	if (touchtomouse && mousetouchid==_cursor.id) {
 		static ofMouseEventArgs mouseEventArgs;
-		mouseEventArgs.x = _cursor.x*ofGetWidth();
-		mouseEventArgs.y = _cursor.y*ofGetHeight();
+		mouseEventArgs.x = _cursor.x*getWidth();
+		mouseEventArgs.y = _cursor.y*getHeight();
 		mouseEventArgs.button = 1;
 		lastfakemouseevent = &mouseEventArgs;
 		ofNotifyEvent( ofEvents().mouseDragged, mouseEventArgs );
 	}
 	
-	queueTouchAction(_cursor.x*ofGetWidth(), _cursor.y*ofGetHeight(), _cursor.id, MT_UPDATE);
+	queueTouchAction(_cursor.x*getWidth(), _cursor.y*getHeight(), _cursor.id, MT_UPDATE);
 }
 
 
@@ -231,8 +228,8 @@ void Renderer::notifyObjects(TouchAction _touchAction) {
 	mtRay ray;
     // y-Axis needs to be flipped from openframeworks 0.8.0 on because of the flipped camera (somehow)
     
-	ray.pos = camera.screenToWorld( ofVec3f( _touchAction.screenX, ofGetHeight()-_touchAction.screenY,-1),	currentviewport);
-	ray.dir = camera.screenToWorld( ofVec3f( _touchAction.screenX,ofGetHeight()-_touchAction.screenY, 1),	currentviewport) - ray.pos;
+	ray.pos = camera.screenToWorld( ofVec3f( _touchAction.screenX, getHeight()-_touchAction.screenY,-1),	currentviewport);
+	ray.dir = camera.screenToWorld( ofVec3f( _touchAction.screenX,getHeight()-_touchAction.screenY, 1),	currentviewport) - ray.pos;
 	ray.screenpos.set(_touchAction.screenX, _touchAction.screenY);
 	
 	
@@ -287,7 +284,7 @@ void Renderer::notifyObjects(TouchAction _touchAction) {
 void Renderer::drawMap() {
 	ofSetColor(255, 255, 255);
     ofPushMatrix();
-    ofScale(1/mapscale,1/mapscale);
+   // ofScale(1.0/mapscale,1.0/mapscale);
 	pickingmap.draw(0, 0);
     ofPopMatrix();
 }
@@ -306,8 +303,8 @@ void Renderer::drawCursors(){
 			TuioCursor * cur = (*tit);
 			glColor3f(0.1,0.1, 0.1);
 			for(int i = 0; i < 5; i++){
-				ofEllipse(cur->getX()*ofGetWidth(),
-						  cur->getY()*ofGetHeight(),
+				ofEllipse(cur->getX()*getWidth(),
+						  cur->getY()*getHeight(),
 						  20.0+i*i,
 						  20.0+i*i);
 			}
