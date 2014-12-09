@@ -63,6 +63,7 @@ public:
 	GLuint getNextPickingName(BasicInteractiveObject* _object);
 	
 	ofCamera* getCamera(){return &camera;};
+    ofEasyCam* getEasyCam(){return &camera;};
 	
 	long getLastInteractionMillis();
 	void setIdleTimeout(int _millis) { idleTimeout = _millis; };
@@ -152,7 +153,8 @@ protected:
 	ofRectangle maxbounds;
 	
 	// Camera
-	ofCamera camera;
+	//ofCamera camera;
+    ofEasyCam camera;
 	
 	// Save currentviewport, to enable raygeneration in update loop
 	ofRectangle currentviewport;
