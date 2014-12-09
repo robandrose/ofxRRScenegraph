@@ -61,8 +61,8 @@ void Renderer::setupColorPicker(float _width, float _height, float _sampling, fl
 	
 	ofFbo::Settings s;
 	
-	s.width				= (float)getWidth()  / mapsampling;
-	s.height			= (float)getHeight() / mapsampling;
+	s.width				= (float)getWidth()  /(float) mapsampling;
+	s.height			= (float)getHeight() /(float) mapsampling;
 	s.internalformat	= GL_RGB; // would be much faster using GL_LUMINANCE or GL_LUMINANCE32F_ARB (32bit resolution should be enough);
 	s.useDepth			= true;
 	pickingmap.allocate(s);
@@ -71,11 +71,13 @@ void Renderer::setupColorPicker(float _width, float _height, float _sampling, fl
 	
    // camera.setupPerspective();
 	bColorPickerSetup=true;
+    
 }
 
 
 void Renderer::update(){
 	Tweener.update();
+    
     
     if(bColorPickerSetup){
 		bool waslighting = glIsEnabled(GL_LIGHTING);
@@ -88,6 +90,12 @@ void Renderer::update(){
 			ofClear(0);
 			ofScale( mapscale , mapscale , mapscale);
             camera.begin();
+            
+            // TODO solve this weird offset!!
+            // Maybe coming from the window border?!
+            
+            ofTranslate(0,0,-25);
+            
             BasicScreenObject::drawForPicking();
 			camera.end();
             pickingmap.end();
@@ -284,7 +292,7 @@ void Renderer::notifyObjects(TouchAction _touchAction) {
 void Renderer::drawMap() {
 	ofSetColor(255, 255, 255);
     ofPushMatrix();
-   // ofScale(1.0/mapscale,1.0/mapscale);
+    ofScale(1.0/mapscale,1.0/mapscale);
 	pickingmap.draw(0, 0);
     ofPopMatrix();
 }
